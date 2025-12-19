@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="New Year Magic 2026 - Create and share personalized New Year wishes, promises, and celebrations. Spreading joy, one wish at a time!">
+    <meta name="keywords" content="New Year 2026, Happy New Year, Wishes, Greetings, Celebration, Resolution, Promise">
+    <meta name="author" content="Abhishek Kumar">
+    <meta name="theme-color" content="#1a0a2e">
+    
+    <!-- Open Graph / Social Media Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://newyearmagic2026.vercel.app">
+    <meta property="og:title" content="✨ Someone Special Sent You New Year Wishes! 🎆">
+    <meta property="og:description" content="Open to reveal your personalized New Year 2026 surprise! 🎊">
+    <meta property="og:image" content="assets/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="✨ Someone Special Sent You New Year Wishes! 🎆">
+    <meta name="twitter:description" content="Open to reveal your personalized New Year 2026 surprise! 🎊">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/large.jpeg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/small.jpeg">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <title>✨ New Year Magic 2026 - Spreading Joy, One Wish at a Time</title>
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- PRELOADER -->
+    <!-- ============================================ -->
+    <div id="preloader" class="preloader">
+        <div class="loader-content">
+            <div class="loader-firework"></div>
+            <div class="loader-firework"></div>
+            <div class="loader-firework"></div>
+            <h2 class="loader-text">✨ Preparing Your Magic ✨</h2>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+            <p class="loader-subtext">Loading celebration...</p>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- CANVAS FOR ANIMATIONS -->
+    <!-- ============================================ -->
+    <canvas id="fireworksCanvas"></canvas>
+    <canvas id="particlesCanvas"></canvas>
+
+    <!-- ============================================ -->
+    <!-- AUDIO ELEMENTS -->
+    <!-- ============================================ -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assets/bg.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="fireworkSound" preload="auto">
+        <source src="assets/firework.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="revealSound" preload="auto">
+        <source src="assets/wo.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="successSound" preload="auto">
+        <source src="assets/audio/success.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ============================================ -->
+    <!-- FLOATING CONTROLS -->
+    <!-- ============================================ -->
+    <div class="floating-controls">
+        <!-- Language Toggle -->
+        <button id="langToggle" class="control-btn" aria-label="Toggle Language" title="Switch Language">
+            <span class="lang-text">EN</span>
+        </button>
+        
+        <!-- Sound Toggle -->
+        <button id="soundToggle" class="control-btn" aria-label="Toggle Sound" title="Toggle Sound">
+            <span class="sound-icon">🔇</span>
+        </button>
+        
+        <!-- Theme Quick Switch -->
+        <button id="themeQuickToggle" class="control-btn" aria-label="Change Theme" title="Change Theme">
+            <span>🎨</span>
+        </button>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- NAVIGATION -->
+    <!-- ============================================ -->
+    <nav class="main-nav" id="mainNav">
+        <div class="nav-brand">
+            <span class="nav-logo">✨</span>
+            <span class="nav-title" data-lang-en="NY Magic 2026" data-lang-hi="नव वर्ष जादू 2026">NY Magic 2026</span>
+        </div>
+        <button class="nav-menu-btn" id="navMenuBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#landing" class="nav-link active" data-page="landing" data-lang-en="Home" data-lang-hi="होम">Home</a></li>
+            <li><a href="#wishes" class="nav-link" data-page="wishes" data-lang-en="Wishes" data-lang-hi="शुभकामनाएं">Wishes</a></li>
+            <li><a href="#promise" class="nav-link" data-page="promise" data-lang-en="Promise" data-lang-hi="संकल्प">Promise</a></li>
+            <li><a href="#gratitude" class="nav-link" data-page="gratitude" data-lang-en="Gratitude" data-lang-hi="आभार">Gratitude</a></li>
+            <li><a href="#create" class="nav-link" data-page="create" data-lang-en="Create" data-lang-hi="बनाएं">Create</a></li>
+        </ul>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTAINER -->
+    <!-- ============================================ -->
+    <main class="main-container">
+        
+        <!-- ======================================== -->
+        <!-- PAGE 1: LANDING / ENTRY PAGE -->
+        <!-- ======================================== -->
+        <section id="landing" class="page landing-page active">
+            <div class="page-content">
+                <!-- Animated Background Elements -->
+                <div class="floating-elements">
+                    <div class="floating-star" style="--delay: 0s; --x: 10%; --y: 20%;"></div>
+                    <div class="floating-star" style="--delay: 0.5s; --x: 85%; --y: 15%;"></div>
+                    <div class="floating-star" style="--delay: 1s; --x: 20%; --y: 80%;"></div>
+                    <div class="floating-star" style="--delay: 1.5s; --x: 75%; --y: 70%;"></div>
+                    <div class="floating-star" style="--delay: 2s; --x: 50%; --y: 10%;"></div>
+                    <div class="floating-balloon" style="--delay: 0s; --x: 5%;"></div>
+                    <div class="floating-balloon" style="--delay: 1s; --x: 95%;"></div>
+                    <div class="floating-balloon" style="--delay: 2s; --x: 15%;"></div>
+                    <div class="floating-balloon" style="--delay: 3s; --x: 85%;"></div>
+                </div>
+
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <div class="hero-badge glass-card">
+                        <span class="badge-icon">🎆</span>
+                        <span class="badge-text" data-lang-en="New Year 2026" data-lang-hi="नव वर्ष 2026">New Year 2026</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="title-line" data-lang-en="A New Year" data-lang-hi="नव वर्ष का">A New Year</span>
+                        <span class="title-line gradient-text" data-lang-en="Surprise Awaits" data-lang-hi="आश्चर्य इंतज़ार कर रहा है">Surprise Awaits</span>
+                        <span class="title-line" data-lang-en="You..." data-lang-hi="आपका...">You...</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle" data-lang-en="Someone special has created magical wishes just for you ✨" data-lang-hi="किसी खास ने आपके लिए जादुई शुभकामनाएं बनाई हैं ✨">
+                        Someone special has created magical wishes just for you ✨
+                    </p>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="countdown-container glass-card" id="countdownContainer">
+                        <h3 class="countdown-title" data-lang-en="Countdown to 2026" data-lang-hi="2026 की उलटी गिनती">Countdown to 2026</h3>
+                        <div class="countdown-timer" id="countdown">
+                            <div class="countdown-item">
+                                <span class="countdown-value" id="days">00</span>
+                                <span class="countdown-label" data-lang-en="Days" data-lang-hi="दिन">Days</span>
+                            </div>
+                            <div class="countdown-separator">:</div>
+                            <div class="countdown-item">
+                                <span class="countdown-value" id="hours">00</span>
+                                <span class="countdown-label" data-lang-en="Hours" data-lang-hi="घंटे">Hours</span>
+                            </div>
+                            <div class="countdown-separator">:</div>
+                            <div class="countdown-item">
+                                <span class="countdown-value" id="minutes">00</span>
+                                <span class="countdown-label" data-lang-en="Mins" data-lang-hi="मिनट">Mins</span>
+                            </div>
+                            <div class="countdown-separator">:</div>
+                            <div class="countdown-item">
+                                <span class="countdown-value" id="seconds">00</span>
+                                <span class="countdown-label" data-lang-en="Secs" data-lang-hi="सेकंड">Secs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary btn-glow" id="revealBtn" data-page-target="wishes">
+                            <span class="btn-icon">🎁</span>
+                            <span class="btn-text" data-lang-en="Reveal the Surprise" data-lang-hi="आश्चर्य देखें">Reveal the Surprise</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                        <button class="btn btn-secondary" id="createBtn" data-page-target="create">
+                            <span class="btn-icon">✨</span>
+                            <span class="btn-text" data-lang-en="Create Your Own Wish" data-lang-hi="अपनी शुभकामना बनाएं">Create Your Own Wish</span>
+                        </button>
+                    </div>
+
+                    <!-- Stats Section -->
+                    <div class="stats-section">
+                        <div class="stat-item glass-card">
+                            <span class="stat-value" id="wishesCreated">50,000+</span>
+                            <span class="stat-label" data-lang-en="Wishes Created" data-lang-hi="शुभकामनाएं बनाई गईं">Wishes Created</span>
+                        </div>
+                        <div class="stat-item glass-card">
+                            <span class="stat-value" id="wishesShared">100,000+</span>
+                            <span class="stat-label" data-lang-en="Wishes Shared" data-lang-hi="शुभकामनाएं साझा की गईं">Wishes Shared</span>
+                        </div>
+                        <div class="stat-item glass-card">
+                            <span class="stat-value" id="happyFaces">🥰</span>
+                            <span class="stat-label" data-lang-en="Happy Faces" data-lang-hi="खुश चेहरे">Happy Faces</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sponsored Banner (After first scroll) -->
+                <div class="sponsored-section" id="sponsoredLanding">
+                    <div class="sponsored-card glass-card">
+                        <span class="sponsored-label" data-lang-en="Recommended for You" data-lang-hi="आपके लिए अनुशंसित">Recommended for You</span>
+                        <div class="app-promo">
+                            <div class="app-icon">🕉️</div>
+                            <div class="app-info">
+                                <h4 class="app-name">Radha Naam Jaap Counter</h4>
+                                <p class="app-desc" data-lang-en="Find inner peace with daily chanting" data-lang-hi="दैनिक जप के साथ आंतरिक शांति पाएं">Find inner peace with daily chanting</p>
+                                <div class="app-rating">⭐⭐⭐⭐⭐ <span>4.9</span></div>
+                            </div>
+                            <a href="https://erabhishek12.github.io/radha-radha-naam-jaap-promo/" target="_blank" class="btn btn-app" rel="noopener">
+                                <span data-lang-en="Get App" data-lang-hi="ऐप पाएं">Get App</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- PAGE 2: PERSONALIZED WISH PAGE -->
+        <!-- ======================================== -->
+        <section id="wishes" class="page wishes-page">
+            <div class="page-content">
+                <!-- Sender Info (if available) -->
+                <div class="sender-info glass-card" id="senderInfo" style="display: none;">
+                    <span class="sender-icon">💌</span>
+                    <span class="sender-text" data-lang-en="Sent with love by" data-lang-hi="प्यार से भेजा">Sent with love by</span>
+                    <span class="sender-name" id="senderName"></span>
+                </div>
+
+                <!-- Main Wish Card -->
+                <div class="wish-card-container">
+                    <div class="wish-card glass-card" id="wishCard">
+                        <!-- Decorative Elements -->
+                        <div class="wish-decorations">
+                            <div class="wish-corner top-left">✨</div>
+                            <div class="wish-corner top-right">🎆</div>
+                            <div class="wish-corner bottom-left">🎊</div>
+                            <div class="wish-corner bottom-right">✨</div>
+                        </div>
+
+                        <!-- Year Badge -->
+                        <div class="year-badge">
+                            <span class="year-text">2026</span>
+                        </div>
+
+                        <!-- Recipient Name -->
+                        <h2 class="recipient-name" id="recipientName">
+                            <span class="name-prefix" data-lang-en="Dear" data-lang-hi="प्रिय">Dear</span>
+                            <span class="name-highlight" id="displayName">Friend</span>
+                        </h2>
+
+                        <!-- Wish Message -->
+                        <div class="wish-message" id="wishMessage">
+                            <p class="message-line" data-lang-en="Wishing You a" data-lang-hi="आपको शुभकामनाएं">Wishing You a</p>
+                            <h1 class="message-main">
+                                <span class="typing-text" id="typingText"></span>
+                                <span class="cursor">|</span>
+                            </h1>
+                            <p class="message-year">2026!</p>
+                        </div>
+
+                        <!-- Custom Message (if any) -->
+                        <div class="custom-message" id="customMessageContainer" style="display: none;">
+                            <p class="custom-text" id="customMessage"></p>
+                        </div>
+
+                        <!-- Wish Footer -->
+                        <div class="wish-footer">
+                            <p class="wish-tagline" data-lang-en="May this year bring you happiness, success, and endless blessings! 🌟" data-lang-hi="यह वर्ष आपके लिए खुशियां, सफलता और अनंत आशीर्वाद लाए! 🌟">
+                                May this year bring you happiness, success, and endless blessings! 🌟
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Balloons Animation -->
+                <div class="balloons-container" id="balloonsContainer">
+                    <!-- Balloons will be added dynamically -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="wish-actions">
+                    <button class="btn btn-primary btn-glow" id="createOwnWishBtn" data-page-target="create">
+                        <span class="btn-icon">✨</span>
+                        <span class="btn-text" data-lang-en="Create Your Own Wish" data-lang-hi="अपनी शुभकामना बनाएं">Create Your Own Wish</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                    
+                    <button class="btn btn-whatsapp" id="shareWhatsappBtn">
+                        <span class="btn-icon">📱</span>
+                        <span class="btn-text" data-lang-en="Share on WhatsApp" data-lang-hi="व्हाट्सएप पर साझा करें">Share on WhatsApp</span>
+                    </button>
+                    
+                    <button class="btn btn-secondary" id="sendLoveBackBtn">
+                        <span class="btn-icon">💕</span>
+                        <span class="btn-text" data-lang-en="Send Love Back" data-lang-hi="प्यार वापस भेजें">Send Love Back</span>
+                    </button>
+                </div>
+
+                <!-- Extra Wishes Gallery -->
+                <div class="extra-wishes-section">
+                    <h3 class="section-title" data-lang-en="More Blessings for You" data-lang-hi="आपके लिए और आशीर्वाद">More Blessings for You</h3>
+                    <div class="wishes-carousel" id="wishesCarousel">
+                        <div class="wish-slide glass-card">
+                            <span class="wish-emoji">🎯</span>
+                            <p data-lang-en="May all your goals be achieved!" data-lang-hi="आपके सभी लक्ष्य पूरे हों!">May all your goals be achieved!</p>
+                        </div>
+                        <div class="wish-slide glass-card">
+                            <span class="wish-emoji">💰</span>
+                            <p data-lang-en="Prosperity and wealth come your way!" data-lang-hi="समृद्धि और धन आपके पास आए!">Prosperity and wealth come your way!</p>
+                        </div>
+                        <div class="wish-slide glass-card">
+                            <span class="wish-emoji">❤️</span>
+                            <p data-lang-en="Love fills your heart and home!" data-lang-hi="प्यार आपके दिल और घर को भर दे!">Love fills your heart and home!</p>
+                        </div>
+                        <div class="wish-slide glass-card">
+                            <span class="wish-emoji">🌟</span>
+                            <p data-lang-en="Success follows you everywhere!" data-lang-hi="सफलता हर जगह आपका साथ दे!">Success follows you everywhere!</p>
+                        </div>
+                        <div class="wish-slide glass-card">
+                            <span class="wish-emoji">🧘</span>
+                            <p data-lang-en="Peace and harmony be with you!" data-lang-hi="शांति और सद्भाव आपके साथ रहे!">Peace and harmony be with you!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- PAGE 3: NEW YEAR PROMISE / RESOLUTION -->
+        <!-- ======================================== -->
+        <section id="promise" class="page promise-page">
+            <div class="page-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <span class="page-icon">🎯</span>
+                    <h2 class="page-title" data-lang-en="New Year Promise 2026" data-lang-hi="नव वर्ष संकल्प 2026">New Year Promise 2026</h2>
+                    <p class="page-subtitle" data-lang-en="Make a commitment to yourself for the new year" data-lang-hi="नए साल के लिए खुद से एक वादा करें">
+                        Make a commitment to yourself for the new year
+                    </p>
+                </div>
+
+                <!-- Promise Form -->
+                <div class="promise-form glass-card" id="promiseForm">
+                    <!-- Step 1: Name -->
+                    <div class="form-step active" data-step="1">
+                        <label class="form-label" data-lang-en="Your Name" data-lang-hi="आपका नाम">Your Name</label>
+                        <input type="text" class="form-input" id="promiseName" placeholder="Enter your name" data-placeholder-en="Enter your name" data-placeholder-hi="अपना नाम लिखें" maxlength="30" required>
+                    </div>
+
+                    <!-- Step 2: Focus Area -->
+                    <div class="form-step" data-step="2">
+                        <label class="form-label" data-lang-en="What's Your Focus Area?" data-lang-hi="आपका फोकस क्षेत्र क्या है?">What's Your Focus Area?</label>
+                        <div class="focus-options" id="focusOptions">
+                            <button class="focus-btn" data-focus="health" data-lang-en="Health & Fitness" data-lang-hi="स्वास्थ्य और फिटनेस">
+                                <span class="focus-icon">💪</span>
+                                <span class="focus-text">Health & Fitness</span>
+                            </button>
+                            <button class="focus-btn" data-focus="wealth" data-lang-en="Wealth & Money" data-lang-hi="धन और पैसा">
+                                <span class="focus-icon">💰</span>
+                                <span class="focus-text">Wealth & Money</span>
+                            </button>
+                            <button class="focus-btn" data-focus="study" data-lang-en="Study & Learning" data-lang-hi="पढ़ाई और सीखना">
+                                <span class="focus-icon">📚</span>
+                                <span class="focus-text">Study & Learning</span>
+                            </button>
+                            <button class="focus-btn" data-focus="career" data-lang-en="Career & Work" data-lang-hi="करियर और काम">
+                                <span class="focus-icon">💼</span>
+                                <span class="focus-text">Career & Work</span>
+                            </button>
+                            <button class="focus-btn" data-focus="family" data-lang-en="Family & Relations" data-lang-hi="परिवार और रिश्ते">
+                                <span class="focus-icon">👨‍👩‍👧‍👦</span>
+                                <span class="focus-text">Family & Relations</span>
+                            </button>
+                            <button class="focus-btn" data-focus="spiritual" data-lang-en="Spiritual Growth" data-lang-hi="आध्यात्मिक विकास">
+                                <span class="focus-icon">🧘</span>
+                                <span class="focus-text">Spiritual Growth</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Promise Text -->
+                    <div class="form-step" data-step="3">
+                        <label class="form-label" data-lang-en="Write Your Promise" data-lang-hi="अपना वादा लिखें">Write Your Promise</label>
+                        <textarea class="form-textarea" id="promiseText" placeholder="I promise to..." data-placeholder-en="I promise to..." data-placeholder-hi="मैं वादा करता/करती हूं..." maxlength="200" rows="4"></textarea>
+                        <span class="char-count"><span id="promiseCharCount">0</span>/200</span>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="form-navigation">
+                        <button class="btn btn-outline" id="promisePrevBtn" style="display: none;">
+                            <span data-lang-en="← Back" data-lang-hi="← वापस">← Back</span>
+                        </button>
+                        <button class="btn btn-primary" id="promiseNextBtn">
+                            <span data-lang-en="Next →" data-lang-hi="आगे →">Next →</span>
+                        </button>
+                        <button class="btn btn-primary btn-glow" id="generatePromiseBtn" style="display: none;">
+                            <span class="btn-icon">✨</span>
+                            <span data-lang-en="Generate Promise Card" data-lang-hi="वादा कार्ड बनाएं">Generate Promise Card</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Promise Result -->
+                <div class="promise-result" id="promiseResult" style="display: none;">
+                    <div class="promise-card glass-card" id="promiseCard">
+                        <div class="promise-card-header">
+                            <span class="promise-year">2026</span>
+                            <h3 class="promise-card-title" data-lang-en="My New Year Promise" data-lang-hi="मेरा नव वर्ष संकल्प">My New Year Promise</h3>
+                        </div>
+                        <div class="promise-card-body">
+                            <div class="promise-focus-badge" id="promiseFocusBadge">
+                                <span class="focus-icon">💪</span>
+                                <span class="focus-name">Health</span>
+                            </div>
+                            <p class="promise-user-name" id="promiseUserName"></p>
+                            <p class="promise-content" id="promiseContent"></p>
+                        </div>
+                        <div class="promise-card-footer">
+                            <p class="promise-date" id="promiseDate"></p>
+                            <p class="promise-signature">✨ New Year Magic 2026 ✨</p>
+                        </div>
+                    </div>
+
+                    <div class="promise-actions">
+                        <button class="btn btn-primary" id="downloadPromiseBtn">
+                            <span class="btn-icon">📥</span>
+                            <span data-lang-en="Download Card" data-lang-hi="कार्ड डाउनलोड करें">Download Card</span>
+                        </button>
+                        <button class="btn btn-whatsapp" id="sharePromiseBtn">
+                            <span class="btn-icon">📱</span>
+                            <span data-lang-en="Share Promise" data-lang-hi="वादा साझा करें">Share Promise</span>
+                        </button>
+                        <button class="btn btn-outline" id="newPromiseBtn">
+                            <span class="btn-icon">🔄</span>
+                            <span data-lang-en="Make New Promise" data-lang-hi="नया वादा करें">Make New Promise</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sponsored Banner -->
+                <div class="sponsored-section" id="sponsoredPromise">
+                    <div class="sponsored-card glass-card">
+                        <span class="sponsored-label" data-lang-en="Keep Your Promise Strong" data-lang-hi="अपना वादा मजबूत रखें">Keep Your Promise Strong</span>
+                        <div class="app-promo">
+                            <div class="app-icon">🕉️</div>
+                            <div class="app-info">
+                                <h4 class="app-name">Radha Naam Jaap Counter</h4>
+                                <p class="app-desc" data-lang-en="Build spiritual discipline daily" data-lang-hi="रोज़ाना आध्यात्मिक अनुशासन बनाएं">Build spiritual discipline daily</p>
+                                <div class="app-rating">⭐⭐⭐⭐⭐ <span>4.9</span></div>
+                            </div>
+                            <a href="https://erabhishek12.github.io/radha-radha-naam-jaap-promo/" target="_blank" class="btn btn-app" rel="noopener">
+                                <span data-lang-en="Try Free" data-lang-hi="मुफ्त आज़माएं">Try Free</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- PAGE 4: REFLECTION & GRATITUDE -->
+        <!-- ======================================== -->
+        <section id="gratitude" class="page gratitude-page">
+            <div class="page-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <span class="page-icon">🙏</span>
+                    <h2 class="page-title" data-lang-en="Reflect & Gratitude" data-lang-hi="आत्मचिंतन और आभार">Reflect & Gratitude</h2>
+                    <p class="page-subtitle" data-lang-en="Take a moment to appreciate 2025 and welcome 2026" data-lang-hi="2025 की सराहना करने और 2026 का स्वागत करने के लिए एक पल लें">
+                        Take a moment to appreciate 2025 and welcome 2026
+                    </p>
+                </div>
+
+                <!-- Gratitude Timeline -->
+                <div class="gratitude-timeline" id="gratitudeTimeline">
+                    <!-- Memory of 2025 -->
+                    <div class="timeline-item glass-card">
+                        <div class="timeline-icon">🌟</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title" data-lang-en="Best Memory of 2025" data-lang-hi="2025 की सबसे अच्छी याद">Best Memory of 2025</h3>
+                            <p class="timeline-desc" data-lang-en="What was your most cherished moment?" data-lang-hi="आपका सबसे प्यारा पल क्या था?">What was your most cherished moment?</p>
+                            <textarea class="form-textarea" id="bestMemory" placeholder="That time when..." data-placeholder-en="That time when..." data-placeholder-hi="वो समय जब..." maxlength="300" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Sponsored Banner Between Sections -->
+                    <div class="sponsored-inline glass-card">
+                        <span class="sponsored-label-small" data-lang-en="Moment of Peace" data-lang-hi="शांति का पल">Moment of Peace</span>
+                        <div class="inline-promo">
+                            <span class="promo-icon">🕉️</span>
+                            <span class="promo-text" data-lang-en="Try Radha Naam Jaap for daily peace" data-lang-hi="दैनिक शांति के लिए राधा नाम जाप आज़माएं">Try Radha Naam Jaap for daily peace</span>
+                            <a href="https://erabhishek12.github.io/radha-radha-naam-jaap-promo/" target="_blank" class="btn btn-small" rel="noopener">🙏</a>
+                        </div>
+                    </div>
+
+                    <!-- Grateful For -->
+                    <div class="timeline-item glass-card">
+                        <div class="timeline-icon">❤️</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title" data-lang-en="I'm Grateful For..." data-lang-hi="मैं आभारी हूं...">I'm Grateful For...</h3>
+                            <p class="timeline-desc" data-lang-en="What made 2025 special?" data-lang-hi="2025 को खास क्या बनाया?">What made 2025 special?</p>
+                            <textarea class="form-textarea" id="gratefulFor" placeholder="I'm thankful for..." data-placeholder-en="I'm thankful for..." data-placeholder-hi="मैं धन्यवाद देता/देती हूं..." maxlength="300" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Thing to Improve -->
+                    <div class="timeline-item glass-card">
+                        <div class="timeline-icon">🚀</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title" data-lang-en="One Thing to Improve" data-lang-hi="सुधारने के लिए एक बात">One Thing to Improve</h3>
+                            <p class="timeline-desc" data-lang-en="What would you like to do better in 2026?" data-lang-hi="2026 में आप क्या बेहतर करना चाहेंगे?">What would you like to do better in 2026?</p>
+                            <textarea class="form-textarea" id="toImprove" placeholder="I want to..." data-placeholder-en="I want to..." data-placeholder-hi="मैं चाहता/चाहती हूं..." maxlength="300" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Word for 2026 -->
+                    <div class="timeline-item glass-card">
+                        <div class="timeline-icon">✨</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title" data-lang-en="My Word for 2026" data-lang-hi="2026 के लिए मेरा शब्द">My Word for 2026</h3>
+                            <p class="timeline-desc" data-lang-en="Choose one word that defines your 2026" data-lang-hi="एक शब्द चुनें जो आपके 2026 को परिभाषित करे">Choose one word that defines your 2026</p>
+                            <div class="word-options" id="wordOptions">
+                                <button class="word-btn" data-word="Success">✨ Success</button>
+                                <button class="word-btn" data-word="Peace">🧘 Peace</button>
+                                <button class="word-btn" data-word="Love">❤️ Love</button>
+                                <button class="word-btn" data-word="Growth">🌱 Growth</button>
+                                <button class="word-btn" data-word="Joy">😊 Joy</button>
+                                <button class="word-btn" data-word="Health">💪 Health</button>
+                                <button class="word-btn" data-word="Wealth">💰 Wealth</button>
+                                <button class="word-btn" data-word="Adventure">🌍 Adventure</button>
+                            </div>
+                            <input type="text" class="form-input" id="customWord" placeholder="Or type your own word..." data-placeholder-en="Or type your own word..." data-placeholder-hi="या अपना शब्द लिखें..." maxlength="20">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Reflections Button -->
+                <div class="gratitude-actions">
+                    <button class="btn btn-primary btn-glow" id="saveReflectionsBtn">
+                        <span class="btn-icon">💾</span>
+                        <span data-lang-en="Save My Reflections" data-lang-hi="मेरे विचार सहेजें">Save My Reflections</span>
+                    </button>
+                    <button class="btn btn-secondary" id="shareReflectionsBtn">
+                        <span class="btn-icon">📤</span>
+                        <span data-lang-en="Share My Journey" data-lang-hi="मेरी यात्रा साझा करें">Share My Journey</span>
+                    </button>
+                </div>
+
+                <!-- Affirmation Card -->
+                <div class="affirmation-card glass-card" id="affirmationCard">
+                    <h3 class="affirmation-title" data-lang-en="Daily Affirmation" data-lang-hi="दैनिक पुष्टि">Daily Affirmation</h3>
+                    <p class="affirmation-text" id="affirmationText">"2026 is going to be my year of transformation and success!"</p>
+                    <button class="btn btn-outline" id="newAffirmationBtn">
+                        <span data-lang-en="New Affirmation" data-lang-hi="नई पुष्टि">New Affirmation</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- PAGE 5: CREATE YOUR OWN MAGIC -->
+        <!-- ======================================== -->
+        <section id="create" class="page create-page">
+            <div class="page-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <span class="page-icon">🪄</span>
+                    <h2 class="page-title" data-lang-en="Create Your Magic" data-lang-hi="अपना जादू बनाएं">Create Your Magic</h2>
+                    <p class="page-subtitle" data-lang-en="Design personalized wishes and share the joy" data-lang-hi="व्यक्तिगत शुभकामनाएं डिज़ाइन करें और खुशी साझा करें">
+                        Design personalized wishes and share the joy
+                    </p>
+                </div>
+
+                <!-- Creation Form -->
+                <div class="create-form glass-card" id="createForm">
+                    <!-- Your Name -->
+                    <div class="form-group">
+                        <label class="form-label" data-lang-en="Your Name (Sender)" data-lang-hi="आपका नाम (भेजने वाला)">Your Name (Sender)</label>
+                        <input type="text" class="form-input" id="senderNameInput" placeholder="Your name" data-placeholder-en="Your name" data-placeholder-hi="आपका नाम" maxlength="30" required>
+                    </div>
+
+                    <!-- Recipient Name -->
+                    <div class="form-group">
+                        <label class="form-label" data-lang-en="Recipient's Name" data-lang-hi="प्राप्तकर्ता का नाम">Recipient's Name</label>
+                        <input type="text" class="form-input" id="recipientNameInput" placeholder="Friend's name" data-placeholder-en="Friend's name" data-placeholder-hi="मित्र का नाम" maxlength="30" required>
+                    </div>
+
+                    <!-- Theme Selection -->
+                    <div class="form-group">
+                        <label class="form-label" data-lang-en="Choose Theme" data-lang-hi="थीम चुनें">Choose Theme</label>
+                        <div class="theme-options" id="themeOptions">
+                            <button class="theme-btn active" data-theme="fireworks">
+                                <span class="theme-icon">🎆</span>
+                                <span class="theme-name" data-lang-en="Fireworks" data-lang-hi="आतिशबाजी">Fireworks</span>
+                            </button>
+                            <button class="theme-btn" data-theme="galaxy">
+                                <span class="theme-icon">🌌</span>
+                                <span class="theme-name" data-lang-en="Galaxy" data-lang-hi="आकाशगंगा">Galaxy</span>
+                            </button>
+                            <button class="theme-btn" data-theme="golden">
+                                <span class="theme-icon">🏆</span>
+                                <span class="theme-name" data-lang-en="Golden Success" data-lang-hi="स्वर्णिम सफलता">Golden Success</span>
+                            </button>
+                            <button class="theme-btn" data-theme="nature">
+                                <span class="theme-icon">🌿</span>
+                                <span class="theme-name" data-lang-en="Nature Peace" data-lang-hi="प्रकृति शांति">Nature Peace</span>
+                            </button>
+                            <button class="theme-btn" data-theme="romantic">
+                                <span class="theme-icon">💕</span>
+                                <span class="theme-name" data-lang-en="Romantic" data-lang-hi="रोमांटिक">Romantic</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Message Tone -->
+                    <div class="form-group">
+                        <label class="form-label" data-lang-en="Message Tone" data-lang-hi="संदेश का स्वर">Message Tone</label>
+                        <div class="tone-options" id="toneOptions">
+                            <button class="tone-btn active" data-tone="fun">
+                                <span>😄</span>
+                                <span data-lang-en="Fun" data-lang-hi="मज़ेदार">Fun</span>
+                            </button>
+                            <button class="tone-btn" data-tone="emotional">
+                                <span>🥺</span>
+                                <span data-lang-en="Emotional" data-lang-hi="भावनात्मक">Emotional</span>
+                            </button>
+                            <button class="tone-btn" data-tone="spiritual">
+                                <span>🙏</span>
+                                <span data-lang-en="Spiritual" data-lang-hi="आध्यात्मिक">Spiritual</span>
+                            </button>
+                            <button class="tone-btn" data-tone="motivational">
+                                <span>🔥</span>
+                                <span data-lang-en="Motivational" data-lang-hi="प्रेरणादायक">Motivational</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Message -->
+                    <div class="form-group">
+                        <label class="form-label" data-lang-en="Custom Message (Optional)" data-lang-hi="कस्टम संदेश (वैकल्पिक)">Custom Message (Optional)</label>
+                        <textarea class="form-textarea" id="customMessageInput" placeholder="Add a personal touch..." data-placeholder-en="Add a personal touch..." data-placeholder-hi="एक व्यक्तिगत स्पर्श जोड़ें..." maxlength="150" rows="3"></textarea>
+                        <span class="char-count"><span id="customMsgCharCount">0</span>/150</span>
+                    </div>
+
+                    <!-- Language Selection -->
+                    <div class="form-group">
+                        <label class="form-label" data-lang-en="Wish Language" data-lang-hi="शुभकामना भाषा">Wish Language</label>
+                        <div class="language-options" id="wishLanguageOptions">
+                            <button class="lang-btn active" data-lang="en">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </button>
+                            <button class="lang-btn" data-lang="hi">
+                                <span>🇮🇳</span>
+                                <span>हिंदी</span>
+                            </button>
+                            <button class="lang-btn" data-lang="both">
+                                <span>🌐</span>
+                                <span data-lang-en="Both" data-lang-hi="दोनों">Both</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="preview-section" id="previewSection">
+                    <h3 class="preview-title" data-lang-en="Preview Your Magic" data-lang-hi="अपना जादू देखें">Preview Your Magic</h3>
+                    <div class="preview-card glass-card" id="previewCard">
+                        <div class="preview-theme-indicator" id="previewThemeIndicator">🎆 Fireworks</div>
+                        <div class="preview-content">
+                            <p class="preview-sender" id="previewSender">From: You</p>
+                            <h4 class="preview-recipient" id="previewRecipient">Dear Friend</h4>
+                            <p class="preview-message" id="previewMessage">Happy New Year 2026!</p>
+                            <p class="preview-custom" id="previewCustom"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <div class="create-actions">
+                    <button class="btn btn-primary btn-glow btn-large" id="generateMagicBtn">
+                        <span class="btn-icon">✨</span>
+                        <span data-lang-en="Generate Magic Link" data-lang-hi="जादू लिंक बनाएं">Generate Magic Link</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+
+                <!-- Generated Link Section -->
+                <div class="generated-link-section glass-card" id="generatedLinkSection" style="display: none;">
+                    <h3 class="link-title" data-lang-en="🎉 Your Magic Link is Ready!" data-lang-hi="🎉 आपका जादू लिंक तैयार है!">🎉 Your Magic Link is Ready!</h3>
+                    <div class="link-box">
+                        <input type="text" class="link-input" id="generatedLink" readonly>
+                        <button class="btn btn-copy" id="copyLinkBtn">
+                            <span id="copyIcon">📋</span>
+                        </button>
+                    </div>
+                    <div class="share-buttons">
+                        <button class="btn btn-whatsapp btn-share" id="shareWhatsappLink">
+                            <span>📱 WhatsApp</span>
+                        </button>
+                        <button class="btn btn-telegram btn-share" id="shareTelegramLink">
+                            <span>✈️ Telegram</span>
+                        </button>
+                        <button class="btn btn-twitter btn-share" id="shareTwitterLink">
+                            <span>🐦 Twitter</span>
+                        </button>
+                        <button class="btn btn-facebook btn-share" id="shareFacebookLink">
+                            <span>📘 Facebook</span>
+                        </button>
+                    </div>
+                    <p class="link-info" data-lang-en="Share this link with your loved ones! 💕" data-lang-hi="इस लिंक को अपने प्रियजनों के साथ साझा करें! 💕">
+                        Share this link with your loved ones! 💕
+                    </p>
+                </div>
+
+                <!-- Sponsored Banner After Link -->
+                <div class="sponsored-section" id="sponsoredCreate" style="display: none;">
+                    <div class="sponsored-card glass-card">
+                        <span class="sponsored-label" data-lang-en="Spread More Joy" data-lang-hi="और खुशी फैलाएं">Spread More Joy</span>
+                        <div class="app-promo">
+                            <div class="app-icon">🕉️</div>
+                            <div class="app-info">
+                                <h4 class="app-name">Radha Naam Jaap Counter</h4>
+                                <p class="app-desc" data-lang-en="Share peace with everyone" data-lang-hi="सबके साथ शांति साझा करें">Share peace with everyone</p>
+                                <div class="app-rating">⭐⭐⭐⭐⭐ <span>4.9</span></div>
+                            </div>
+                            <a href="https://erabhishek12.github.io/radha-radha-naam-jaap-promo/" target="_blank" class="btn btn-app" rel="noopener">
+                                <span data-lang-en="Share App" data-lang-hi="ऐप साझा करें">Share App</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- SUPPORT DEVELOPER SECTION (FOOTER) -->
+    <!-- ============================================ -->
+    <footer class="support-footer" id="supportFooter">
+        <div class="support-container">
+            <div class="support-card glass-card">
+                <div class="support-header">
+                    <span class="support-icon pulse">☕</span>
+                    <h3 class="support-title" data-lang-en="Support This Project" data-lang-hi="इस प्रोजेक्ट का समर्थन करें">Support This Project</h3>
+                </div>
+                <p class="support-desc" data-lang-en="Help keep this project free and ad-light ❤️" data-lang-hi="इस प्रोजेक्ट को मुफ्त और विज्ञापन-मुक्त रखने में मदद करें ❤️">
+                    Help keep this project free and ad-light ❤️
+                </p>
+                <div class="upi-section">
+                    <p class="upi-label">UPI: <span class="upi-id">9546983729@fam</span></p>
+                    <p class="upi-name">Abhishek Kumar</p>
+                </div>
+                <div class="support-buttons">
+                    <button class="support-btn" data-amount="49">₹49</button>
+                    <button class="support-btn" data-amount="99">₹99</button>
+                    <button class="support-btn popular" data-amount="199">₹199 ⭐</button>
+                    <button class="support-btn" data-amount="499">₹499</button>
+                </div>
+                <div class="support-qr" id="supportQR" style="display: none;">
+                    <img src="" alt="UPI QR Code" id="qrImage">
+                    <p class="qr-instruction" data-lang-en="Scan with any UPI app" data-lang-hi="किसी भी UPI ऐप से स्कैन करें">Scan with any UPI app</p>
+                </div>
+            </div>
+
+            <!-- Developer Info -->
+            <div class="developer-info glass-card">
+                <p class="dev-text" data-lang-en="Made with ❤️ by" data-lang-hi="❤️ के साथ बनाया">Made with ❤️ by</p>
+                <a href="https://i-m-er-abhi.vercel.app" target="_blank" class="dev-name" rel="noopener">Abhishek Kumar</a>
+                <div class="social-links">
+                    <a href="https://github.com/erabhishek12" target="_blank" class="social-link" aria-label="GitHub" rel="noopener">
+                        <span>👨‍💻</span>
+                    </a>
+                    <a href="https://instagram.com/naturelensbyabhi" target="_blank" class="social-link" aria-label="Instagram" rel="noopener">
+                        <span>📸</span>
+                    </a>
+                    <a href="mailto:abhishekyadav954698@gmail.com" class="social-link" aria-label="Email">
+                        <span>📧</span>
+                    </a>
+                </div>
+                <p class="copyright">© 2026 New Year Magic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- TOAST NOTIFICATIONS -->
+    <!-- ============================================ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ============================================ -->
+    <!-- CONFETTI CANVAS -->
+    <!-- ============================================ -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- ============================================ -->
+    <!-- MODALS -->
+    <!-- ============================================ -->
+    
+    <!-- Share Modal -->
+    <div class="modal" id="shareModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-card">
+            <button class="modal-close" id="closeShareModal">&times;</button>
+            <h3 class="modal-title" data-lang-en="Share the Joy! 🎉" data-lang-hi="खुशी साझा करें! 🎉">Share the Joy! 🎉</h3>
+            <div class="modal-body">
+                <div class="share-options">
+                    <button class="share-option" data-share="whatsapp">
+                        <span class="share-icon">📱</span>
+                        <span>WhatsApp</span>
+                    </button>
+                    <button class="share-option" data-share="telegram">
+                        <span class="share-icon">✈️</span>
+                        <span>Telegram</span>
+                    </button>
+                    <button class="share-option" data-share="twitter">
+                        <span class="share-icon">🐦</span>
+                        <span>Twitter</span>
+                    </button>
+                    <button class="share-option" data-share="facebook">
+                        <span class="share-icon">📘</span>
+                        <span>Facebook</span>
+                    </button>
+                    <button class="share-option" data-share="copy">
+                        <span class="share-icon">📋</span>
+                        <span data-lang-en="Copy Link" data-lang-hi="लिंक कॉपी करें">Copy Link</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPI Modal -->
+    <div class="modal" id="upiModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-card">
+            <button class="modal-close" id="closeUpiModal">&times;</button>
+            <h3 class="modal-title" data-lang-en="Support with UPI ☕" data-lang-hi="UPI से समर्थन करें ☕">Support with UPI ☕</h3>
+            <div class="modal-body">
+                <div class="upi-amount-display">
+                    <span data-lang-en="Amount:" data-lang-hi="राशि:">Amount:</span>
+                    <span class="amount-value" id="upiAmount">₹99</span>
+                </div>
+                <div class="upi-qr-display">
+                    <div class="qr-placeholder" id="upiQRPlaceholder">
+                        <p data-lang-en="Scan QR Code" data-lang-hi="QR कोड स्कैन करें">Scan QR Code</p>
+                    </div>
+                </div>
+                <div class="upi-id-display">
+                    <p>UPI ID: <strong>9546983729@fam</strong></p>
+                    <button class="btn btn-outline btn-small" id="copyUpiBtn">
+                        <span data-lang-en="Copy UPI ID" data-lang-hi="UPI ID कॉपी करें">Copy UPI ID</span>
+                    </button>
+                </div>
+                <a href="" id="upiDeepLink" class="btn btn-primary">
+                    <span data-lang-en="Open UPI App" data-lang-hi="UPI ऐप खोलें">Open UPI App</span>
+                </a>
+                <p class="upi-thanks" data-lang-en="Thank you for your support! 🙏" data-lang-hi="आपके समर्थन के लिए धन्यवाद! 🙏">Thank you for your support! 🙏</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-card success-modal">
+            <div class="success-icon">✅</div>
+            <h3 class="modal-title" id="successTitle">Success!</h3>
+            <p class="modal-message" id="successMessage"></p>
+            <button class="btn btn-primary" id="closeSuccessModal">
+                <span data-lang-en="Awesome!" data-lang-hi="शानदार!">Awesome!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SCROLL TO TOP BUTTON -->
+    <!-- ============================================ -->
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+        <span>↑</span>
+    </button>
+
+    <!-- ============================================ -->
+    <!-- INSTALL PWA PROMPT -->
+    <!-- ============================================ -->
+    <div class="pwa-prompt glass-card" id="pwaPrompt" style="display: none;">
+        <div class="pwa-content">
+            <span class="pwa-icon">📱</span>
+            <div class="pwa-text">
+                <p class="pwa-title" data-lang-en="Install App" data-lang-hi="ऐप इंस्टॉल करें">Install App</p>
+                <p class="pwa-desc" data-lang-en="Add to home screen for quick access" data-lang-hi="त्वरित पहुंच के लिए होम स्क्रीन पर जोड़ें">Add to home screen for quick access</p>
+            </div>
+        </div>
+        <div class="pwa-buttons">
+            <button class="btn btn-outline btn-small" id="pwaLater">
+                <span data-lang-en="Later" data-lang-hi="बाद में">Later</span>
+            </button>
+            <button class="btn btn-primary btn-small" id="pwaInstall">
+                <span data-lang-en="Install" data-lang-hi="इंस्टॉल करें">Install</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================ -->
+    <script src="script.js"></script>
+</body>
+</html>
