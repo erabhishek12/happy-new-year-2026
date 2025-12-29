@@ -1,1626 +1,1726 @@
-// ====================================== 
-// 🎯 GLOBAL VARIABLES & CONFIGURATION
-// ====================================== 
+/* ============================================
+   HAPPY NEW YEAR 2025 - ULTIMATE JAVASCRIPT
+   Premium Viral Greeting Card Platform
+   Complete Interactive Functionality
+   ============================================ */
+
+'use strict';
+
+/* ============================================
+   GLOBAL VARIABLES & CONFIGURATION
+   ============================================ */
 
 const CONFIG = {
-    currentLang: 'en',
-    currentTheme: 'galaxy',
-    musicEnabled: false,
-    soundEnabled: true,
-    currentPage: 'landingPage',
-    userName: '',
-    friendName: '',
-    selectedTheme: 'fireworks',
-    selectedTone: 'fun',
-    shareCount: 0,
-    achievements: []
+    newYearDate: new Date('January 1, 2025 00:00:00').getTime(),
+    siteUrl: window.location.origin + window.location.pathname,
+    socialShareText: 'Check out my personalized New Year 2025 wish! 🎊',
+    maxPhotoSize: 5 * 1024 * 1024, // 5MB
+    animationSpeed: 1000,
+    toastDuration: 3000,
+    autoHideDelay: 5000
 };
 
-// Fortune messages in both languages
-const FORTUNES = {
-    en: {
-        general: [
-            "2026 will be your breakthrough year! ✨",
-            "An unexpected opportunity will change everything.",
-            "Your biggest dreams are closer than you think.",
-            "This year, the universe conspires in your favor.",
-            "A significant milestone awaits you in 2026!",
-            "Your positive energy will attract amazing people.",
-            "2026 brings the success you've been working for.",
-            "Trust the journey, magic is coming your way!"
-        ],
-        love: [
-            "True love will find you when you least expect it. 💕",
-            "Your relationship will reach new heights in 2026.",
-            "A special someone is thinking about you right now.",
-            "2026 will strengthen the bonds that matter most.",
-            "Romance and passion will bloom this year!",
-            "Your heart will know true happiness in 2026."
-        ],
-        career: [
-            "A promotion or new opportunity is on the horizon. 🚀",
-            "Your hard work will finally be recognized in 2026.",
-            "A career-changing decision awaits you this year.",
-            "Success in your professional life is guaranteed!",
-            "2026 will open doors you never imagined.",
-            "Your talents will shine brighter than ever!"
-        ],
-        wealth: [
-            "Financial abundance is flowing your way! 💰",
-            "An unexpected windfall will surprise you in 2026.",
-            "Your investments will yield great returns.",
-            "Prosperity and wealth are yours to claim this year.",
-            "Money troubles will become a thing of the past.",
-            "2026 brings financial freedom and security!"
-        ],
-        health: [
-            "Your health and vitality will improve dramatically. 💪",
-            "2026 is the year you achieve your fitness goals!",
-            "Energy and wellness will be your companions.",
-            "A healthy transformation awaits you this year.",
-            "Your body and mind will find perfect balance.",
-            "Vibrant health is your birthright in 2026!"
-        ],
-        spiritual: [
-            "Spiritual awakening and enlightenment await you. 🙏",
-            "2026 will deepen your connection to the divine.",
-            "Inner peace and clarity will guide your path.",
-            "Your spiritual journey takes a beautiful turn.",
-            "Divine blessings will shower upon you this year.",
-            "You'll discover your true purpose in 2026!"
-        ]
-    },
-    hi: {
-        general: [
-            "2026 आपके जीवन का सबसे शानदार साल होगा! ✨",
-            "एक अप्रत्याशित अवसर सब कुछ बदल देगा।",
-            "आपके सबसे बड़े सपने पहुंच में हैं।",
-            "इस साल ब्रह्मांड आपके पक्ष में है।",
-            "2026 में एक महत्वपूर्ण उपलब्धि का इंतजार है!",
-            "आपकी सकारात्मक ऊर्जा अद्भुत लोगों को आकर्षित करेगी।",
-            "2026 आपकी मेहनत का फल लेकर आएगा।",
-            "यात्रा पर विश्वास करें, जादू आ रहा है!"
-        ],
-        love: [
-            "सच्चा प्यार तब मिलेगा जब आप उम्मीद नहीं करेंगे। 💕",
-            "आपका रिश्ता 2026 में नई ऊंचाइयों को छुएगा।",
-            "कोई खास अभी आपके बारे में सोच रहा है।",
-            "2026 में महत्वपूर्ण रिश्ते और मजबूत होंगे।",
-            "इस साल रोमांस और प्यार खिलेगा!",
-            "आपका दिल 2026 में सच्ची खुशी जानेगा।"
-        ],
-        career: [
-            "पदोन्नति या नया अवसर क्षितिज पर है। 🚀",
-            "आपकी मेहनत को 2026 में मान्यता मिलेगी।",
-            "एक करियर बदलने वाला फैसला इंतजार कर रहा है।",
-            "पेशेवर जीवन में सफलता की गारंटी!",
-            "2026 अकल्पनीय दरवाजे खोलेगा।",
-            "आपकी प्रतिभा पहले से ज्यादा चमकेगी!"
-        ],
-        wealth: [
-            "आर्थिक समृद्धि आपकी ओर आ रही है! 💰",
-            "2026 में अप्रत्याशित धन आपको चौंकाएगा।",
-            "आपके निवेश बड़ा रिटर्न देंगे।",
-            "समृद्धि और धन इस साल आपका है।",
-            "पैसों की समस्याएं अतीत की बात होंगी।",
-            "2026 आर्थिक स्वतंत्रता लाएगा!"
-        ],
-        health: [
-            "आपका स्वास्थ्य नाटकीय रूप से सुधरेगा। 💪",
-            "2026 फिटनेस लक्ष्य हासिल करने का साल है!",
-            "ऊर्जा और तंदुरुस्ती आपके साथी होंगे।",
-            "एक स्वस्थ परिवर्तन इंतजार कर रहा है।",
-            "शरीर और मन को संपूर्ण संतुलन मिलेगा।",
-            "2026 में जीवंत स्वास्थ्य आपका है!"
-        ],
-        spiritual: [
-            "आध्यात्मिक जागृति आपका इंतजार कर रही है। 🙏",
-            "2026 आपके दिव्य संबंध को गहरा करेगा।",
-            "आंतरिक शांति और स्पष्टता मार्गदर्शन करेगी।",
-            "आपकी आध्यात्मिक यात्रा खूबसूरत मोड़ लेगी।",
-            "इस साल दिव्य आशीर्वाद बरसेंगे।",
-            "2026 में आप अपना असली उद्देश्य खोजेंगे!"
-        ]
-    }
+let currentStep = 1;
+let selectedTemplate = null;
+let uploadedPhoto = null;
+let selectedFont = 'Poppins';
+let selectedColor = '#ffffff';
+let selectedAnimation = 'fireworks';
+let selectedMusic = 'celebration';
+let selectedStickers = [];
+let wishData = {
+    recipientName: '',
+    senderName: '',
+    customMessage: '',
+    template: 'fireworks',
+    photo: null,
+    font: 'Poppins',
+    color: '#ffffff',
+    animation: 'fireworks',
+    music: 'celebration',
+    stickers: []
 };
 
-// Wish messages templates
-const WISH_TEMPLATES = {
-    fun: {
-        en: "May this year bring you endless joy, success, and magical moments! Let's make 2026 the best year yet! 🎉",
-        hi: "यह साल आपके लिए अनंत खुशी, सफलता और जादुई पल लाए! चलो 2026 को सबसे अच्छा साल बनाएं! 🎉"
-    },
-    emotional: {
-        en: "From the bottom of my heart, I wish you a year filled with love, peace, and beautiful memories. You deserve all the happiness in the world! 💝",
-        hi: "दिल से, मैं आपको प्यार, शांति और खूबसूरत यादों से भरे साल की कामना करता हूं। आप दुनिया की सारी खुशियों के हकदार हैं! 💝"
-    },
-    spiritual: {
-        en: "May divine blessings guide your path in 2026. May you find inner peace, wisdom, and spiritual growth. Om Shanti! 🙏",
-        hi: "2026 में दिव्य आशीर्वाद आपके मार्ग का मार्गदर्शन करें। आंतरिक शांति, ज्ञान और आध्यात्मिक विकास मिले। ॐ शांति! 🙏"
-    },
-    motivational: {
-        en: "2026 is YOUR year! Chase your dreams fearlessly, break barriers, and achieve the impossible. You've got this! 🚀",
-        hi: "2026 आपका साल है! निडरता से अपने सपनों का पीछा करें, बाधाओं को तोड़ें, और असंभव को हासिल करें! 🚀"
-    }
-};
+/* ============================================
+   DOM ELEMENTS CACHE
+   ============================================ */
 
-// Translation dictionary
-const TRANSLATIONS = {
-    en: {
-        revealBtn: "Reveal My Surprise",
-        createOwnBtn: "Create Your Own Wish",
-        shareWhatsApp: "Share on WhatsApp",
-        downloadImage: "Download Image",
-        sendLoveBack: "Send Love Back"
-    },
-    hi: {
-        revealBtn: "मेरा सरप्राइज़ खोलें",
-        createOwnBtn: "अपनी शुभकामना बनाएं",
-        shareWhatsApp: "व्हाट्सएप पर शेयर करें",
-        downloadImage: "इमेज डाउनलोड करें",
-        sendLoveBack: "प्यार वापस भेजें"
-    }
-};
-
-
-// ====================================== 
-// 🎵 AUDIO MANAGEMENT
-// ====================================== 
-
-const bgMusic = document.getElementById('bgMusic');
-const clickSound = document.getElementById('clickSound');
-const successSound = document.getElementById('successSound');
-
-function toggleMusic() {
-    const musicBtn = document.getElementById('musicToggle');
-    CONFIG.musicEnabled = !CONFIG.musicEnabled;
+const DOM = {
+    // Preloader
+    preloader: document.getElementById('preloader'),
+    loadingProgress: document.getElementById('loadingProgress'),
+    loadingPercentage: document.getElementById('loadingPercentage'),
     
-    if (CONFIG.musicEnabled) {
-        bgMusic.play();
-        musicBtn.classList.add('active');
-    } else {
-        bgMusic.pause();
-        musicBtn.classList.remove('active');
-    }
+    // Navigation
+    mainNav: document.getElementById('mainNav'),
+    navMenu: document.getElementById('navMenu'),
+    navToggle: document.getElementById('navToggle'),
+    navLinks: document.querySelectorAll('.nav-link'),
     
-    playSound('click');
+    // Canvas
+    fireworksCanvas: document.getElementById('fireworksCanvas'),
+    particlesCanvas: document.getElementById('particlesCanvas'),
+    snowCanvas: document.getElementById('snowCanvas'),
+    
+    // Audio
+    bgMusic: document.getElementById('bgMusic'),
+    clickSound: document.getElementById('clickSound'),
+    successSound: document.getElementById('successSound'),
+    
+    // Controls
+    musicControl: document.getElementById('musicControl'),
+    themeSwitcher: document.getElementById('themeSwitcher'),
+    themeOptions: document.querySelectorAll('.theme-option'),
+    
+    // Hero Section
+    statNumbers: document.querySelectorAll('.stat-number'),
+    
+    // Create Section
+    stepItems: document.querySelectorAll('.step-item'),
+    stepContents: document.querySelectorAll('.step-content'),
+    
+    // Step 1 - Template Selection
+    templateCards: document.querySelectorAll('.template-card'),
+    
+    // Step 2 - Personalization
+    recipientName: document.getElementById('recipientName'),
+    senderName: document.getElementById('senderName'),
+    customMessage: document.getElementById('customMessage'),
+    photoUpload: document.getElementById('photoUpload'),
+    photoUploadArea: document.getElementById('photoUploadArea'),
+    photoPreview: document.getElementById('photoPreview'),
+    
+    // Step 3 - Customization
+    fontOptions: document.querySelectorAll('.font-option'),
+    colorOptions: document.querySelectorAll('.color-option'),
+    animationOptions: document.querySelectorAll('.animation-option'),
+    musicOptions: document.querySelectorAll('.music-option'),
+    stickerOptions: document.querySelectorAll('.sticker-option'),
+    
+    // Step 4 - Preview & Share
+    previewCard: document.getElementById('previewCard'),
+    cardRecipient: document.getElementById('cardRecipient'),
+    cardMessage: document.getElementById('cardMessage'),
+    cardSender: document.getElementById('cardSender'),
+    cardPhoto: document.getElementById('cardPhoto'),
+    cardStickers: document.getElementById('cardStickers'),
+    generatedLink: document.getElementById('generatedLink'),
+    
+    // Countdown
+    daysElement: document.getElementById('days'),
+    hoursElement: document.getElementById('hours'),
+    minutesElement: document.getElementById('minutes'),
+    secondsElement: document.getElementById('seconds'),
+    countdownMessage: document.getElementById('countdownMessage'),
+    
+    // Resolutions
+    resolutionInput: document.getElementById('resolutionInput'),
+    resolutionsList: document.getElementById('resolutionsList'),
+    
+    // Template Filters
+    filterButtons: document.querySelectorAll('.filter-btn'),
+    showcaseCards: document.querySelectorAll('.showcase-card'),
+    
+    // FAQ
+    faqItems: document.querySelectorAll('.faq-item'),
+    
+    // Modals
+    viewWishModal: document.getElementById('viewWishModal'),
+    photoEditorModal: document.getElementById('photoEditorModal'),
+    
+    // Toast Container
+    toastContainer: document.getElementById('toastContainer'),
+    
+    // Back to Top
+    backToTop: document.getElementById('backToTop')
+};
+
+/* ============================================
+   PRELOADER FUNCTIONALITY
+   ============================================ */
+
+function initPreloader() {
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            setTimeout(hidePreloader, 500);
+        }
+        updateProgress(progress);
+    }, 200);
 }
 
-function toggleSound() {
-    const soundBtn = document.getElementById('soundToggle');
-    CONFIG.soundEnabled = !CONFIG.soundEnabled;
-    
-    if (CONFIG.soundEnabled) {
-        soundBtn.classList.add('active');
-    } else {
-        soundBtn.classList.remove('active');
-    }
-    
-    playSound('click');
+function updateProgress(value) {
+    const percentage = Math.min(Math.round(value), 100);
+    DOM.loadingProgress.style.width = percentage + '%';
+    DOM.loadingPercentage.textContent = percentage + '%';
 }
 
-function playSound(type) {
-    if (!CONFIG.soundEnabled) return;
-    
-    switch(type) {
-        case 'click':
-            clickSound.currentTime = 0;
-            clickSound.play().catch(e => console.log('Sound play failed'));
-            break;
-        case 'success':
-            successSound.currentTime = 0;
-            successSound.play().catch(e => console.log('Sound play failed'));
-            break;
-    }
+function hidePreloader() {
+    DOM.preloader.classList.add('hidden');
+    setTimeout(() => {
+        DOM.preloader.style.display = 'none';
+        initAnimations();
+    }, 500);
 }
 
+/* ============================================
+   NAVIGATION FUNCTIONALITY
+   ============================================ */
 
-// ====================================== 
-// 🎨 THEME MANAGEMENT
-// ====================================== 
-
-function switchTheme(theme) {
-    CONFIG.currentTheme = theme;
-    document.body.setAttribute('data-theme', theme);
-    
-    // Update active theme button
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.remove('active');
+function initNavigation() {
+    // Mobile Menu Toggle
+    DOM.navToggle.addEventListener('click', () => {
+        DOM.navMenu.classList.toggle('active');
+        DOM.navToggle.classList.toggle('active');
+        playClickSound();
     });
-    document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
     
-    playSound('click');
-    triggerFireworks();
-}
-
-
-// ====================================== 
-// 🌐 LANGUAGE MANAGEMENT
-// ====================================== 
-
-function switchLanguage(lang) {
-    CONFIG.currentLang = lang;
-    
-    // Update active language button
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
+    // Navigation Links
+    DOM.navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            scrollToSection(targetId.substring(1));
+            
+            // Update active link
+            DOM.navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            // Close mobile menu
+            DOM.navMenu.classList.remove('active');
+            DOM.navToggle.classList.remove('active');
+            
+            playClickSound();
+        });
     });
-    event.target.classList.add('active');
     
-    // Update all translatable elements
-    document.querySelectorAll('[data-en]').forEach(el => {
-        if (lang === 'en') {
-            el.textContent = el.getAttribute('data-en');
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            DOM.mainNav.classList.add('scrolled');
+            DOM.backToTop.classList.add('show');
         } else {
-            el.textContent = el.getAttribute('data-hi');
+            DOM.mainNav.classList.remove('scrolled');
+            DOM.backToTop.classList.remove('show');
         }
     });
-    
-    playSound('click');
 }
 
+/* ============================================
+   SMOOTH SCROLLING
+   ============================================ */
 
-// ====================================== 
-// 📄 PAGE NAVIGATION
-// ====================================== 
-
-function showPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    // Show selected page
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.classList.add('active');
-        CONFIG.currentPage = pageId;
-        
-        // Trigger page-specific animations
-        if (pageId === 'wishRevealPage') {
-            setTimeout(() => animateGiftBox(), 500);
-        }
-        
-        playSound('click');
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offsetTop = section.offsetTop - 80;
+        window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+        });
     }
 }
 
+/* ============================================
+   FIREWORKS CANVAS ANIMATION
+   ============================================ */
 
-// ====================================== 
-// 🎆 FIREWORKS ANIMATION
-// ====================================== 
-
-const canvas = document.getElementById('fireworksCanvas');
-const ctx = canvas.getContext('2d');
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
+function initFireworks() {
+    const canvas = DOM.fireworksCanvas;
+    const ctx = canvas.getContext('2d');
+    
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-});
-
-class Particle {
-    constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.velocity = {
-            x: (Math.random() - 0.5) * 8,
-            y: (Math.random() - 0.5) * 8
-        };
-        this.alpha = 1;
-        this.decay = Math.random() * 0.015 + 0.015;
-    }
     
-    update() {
-        this.velocity.x *= 0.98;
-        this.velocity.y *= 0.98;
-        this.velocity.y += 0.2;
+    const fireworks = [];
+    const particles = [];
+    
+    class Firework {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height;
+            this.targetY = Math.random() * canvas.height * 0.5;
+            this.speed = 3;
+            this.angle = Math.PI / 2;
+            this.velocity = this.speed;
+            this.hue = Math.random() * 360;
+        }
         
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
-        this.alpha -= this.decay;
+        update() {
+            this.y -= this.velocity;
+            this.velocity *= 0.98;
+            
+            if (this.velocity <= 0.5) {
+                return true; // Explode
+            }
+            return false;
+        }
+        
+        draw() {
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+            ctx.fillStyle = `hsl(${this.hue}, 100%, 50%)`;
+            ctx.fill();
+            ctx.restore();
+        }
     }
     
-    draw() {
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
+    class Particle {
+        constructor(x, y, hue) {
+            this.x = x;
+            this.y = y;
+            this.hue = hue;
+            this.angle = Math.random() * Math.PI * 2;
+            this.speed = Math.random() * 5 + 2;
+            this.vx = Math.cos(this.angle) * this.speed;
+            this.vy = Math.sin(this.angle) * this.speed;
+            this.life = 100;
+            this.opacity = 1;
+        }
+        
+        update() {
+            this.vx *= 0.98;
+            this.vy *= 0.98;
+            this.vy += 0.1; // Gravity
+            this.x += this.vx;
+            this.y += this.vy;
+            this.life--;
+            this.opacity = this.life / 100;
+        }
+        
+        draw() {
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.globalAlpha = this.opacity;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = `hsl(${this.hue}, 100%, 50%)`;
+            ctx.fill();
+            ctx.restore();
+        }
     }
+    
+    function createFirework() {
+        if (Math.random() < 0.05) {
+            fireworks.push(new Firework());
+        }
+    }
+    
+    function explode(firework) {
+        const particleCount = 50;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle(firework.x, firework.y, firework.hue));
+        }
+    }
+    
+    function animate() {
+        ctx.fillStyle = 'rgba(15, 15, 30, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        createFirework();
+        
+        // Update and draw fireworks
+        for (let i = fireworks.length - 1; i >= 0; i--) {
+            fireworks[i].draw();
+            if (fireworks[i].update()) {
+                explode(fireworks[i]);
+                fireworks.splice(i, 1);
+            }
+        }
+        
+        // Update and draw particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+            particles[i].draw();
+            particles[i].update();
+            if (particles[i].life <= 0) {
+                particles.splice(i, 1);
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    // Resize handler
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
 }
 
-let particles = [];
-let fireworksInterval;
+/* ============================================
+   PARTICLES CANVAS ANIMATION
+   ============================================ */
 
-function createFirework(x, y) {
-    const colors = ['#ff6b9d', '#ffd700', '#00f5ff', '#b24bf3', '#38ef7d'];
-    const particleCount = 50;
+function initParticles() {
+    const canvas = DOM.particlesCanvas;
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const particles = [];
+    const particleCount = 100;
+    
+    class ConfettiParticle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height - canvas.height;
+            this.size = Math.random() * 8 + 3;
+            this.speedY = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 2 - 1;
+            this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            this.rotation = Math.random() * 360;
+            this.rotationSpeed = Math.random() * 4 - 2;
+        }
+        
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            this.rotation += this.rotationSpeed;
+            
+            if (this.y > canvas.height) {
+                this.y = -10;
+                this.x = Math.random() * canvas.width;
+            }
+            
+            if (this.x > canvas.width || this.x < 0) {
+                this.speedX *= -1;
+            }
+        }
+        
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation * Math.PI / 180);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+            ctx.restore();
+        }
+    }
     
     for (let i = 0; i < particleCount; i++) {
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        particles.push(new Particle(x, y, color));
+        particles.push(new ConfettiParticle());
     }
     
-    playSound('success');
-}
-
-function animateFireworks() {
-    ctx.fillStyle = 'rgba(10, 14, 39, 0.1)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    particles = particles.filter(particle => particle.alpha > 0);
-    
-    particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-    });
-    
-    requestAnimationFrame(animateFireworks);
-}
-
-function triggerFireworks() {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height * 0.5;
-    createFirework(x, y);
-}
-
-// Start fireworks animation
-animateFireworks();
-
-// Random fireworks
-setInterval(() => {
-    if (Math.random() > 0.7) {
-        triggerFireworks();
-    }
-}, 2000);
-
-
-// ====================================== 
-// ✨ CONFETTI ANIMATION
-// ====================================== 
-
-function createConfetti() {
-    const confettiContainer = document.getElementById('confettiContainer');
-    const colors = ['#ff6b9d', '#ffd700', '#00f5ff', '#b24bf3', '#38ef7d', '#ff8c00'];
-    
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            confetti.style.animationDelay = Math.random() * 0.5 + 's';
-            
-            confettiContainer.appendChild(confetti);
-            
-            setTimeout(() => {
-                confetti.remove();
-            }, 4000);
-        }, i * 30);
-    }
-}
-
-
-// ====================================== 
-// 🎁 GIFT BOX ANIMATION
-// ====================================== 
-
-function animateGiftBox() {
-    const giftBox = document.getElementById('giftBox');
-    const wishCard = document.getElementById('wishCard');
-    
-    if (!giftBox || !wishCard) return;
-    
-    giftBox.addEventListener('click', function() {
-        this.classList.add('opened');
-        playSound('success');
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        setTimeout(() => {
-            giftBox.style.display = 'none';
-            wishCard.classList.remove('hidden');
-            createConfetti();
-            triggerFireworks();
-            
-            // Show achievement
-            unlockAchievement('First Wish Revealed! 🎉');
-        }, 1000);
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     });
 }
 
+/* ============================================
+   SNOW CANVAS ANIMATION
+   ============================================ */
 
-// ====================================== 
-// 💝 WISH REVEAL PAGE
-// ====================================== 
+function initSnow() {
+    const canvas = DOM.snowCanvas;
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const snowflakes = [];
+    const snowflakeCount = 150;
+    
+    class Snowflake {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height - canvas.height;
+            this.size = Math.random() * 3 + 2;
+            this.speedY = Math.random() * 1 + 0.5;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.opacity = Math.random() * 0.5 + 0.3;
+        }
+        
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            
+            if (this.y > canvas.height) {
+                this.y = -10;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        
+        draw() {
+            ctx.save();
+            ctx.globalAlpha = this.opacity;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+    
+    for (let i = 0; i < snowflakeCount; i++) {
+        snowflakes.push(new Snowflake());
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        snowflakes.forEach(snowflake => {
+            snowflake.update();
+            snowflake.draw();
+        });
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+}
 
-function loadWishFromURL() {
+/* ============================================
+   MUSIC CONTROLS
+   ============================================ */
+
+function initMusicControl() {
+    let isPlaying = false;
+    
+    DOM.musicControl.addEventListener('click', () => {
+        if (isPlaying) {
+            DOM.bgMusic.pause();
+            DOM.musicControl.classList.remove('playing');
+            DOM.musicControl.querySelector('.music-status').textContent = 'Click to Play';
+        } else {
+            DOM.bgMusic.play().catch(err => {
+                console.log('Audio play failed:', err);
+                showToast('Please interact with the page to enable music', 'info');
+            });
+            DOM.musicControl.classList.add('playing');
+            DOM.musicControl.querySelector('.music-status').textContent = 'Now Playing';
+        }
+        isPlaying = !isPlaying;
+        playClickSound();
+    });
+}
+
+/* ============================================
+   THEME SWITCHER
+   ============================================ */
+
+function initThemeSwitcher() {
+    DOM.themeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const theme = option.dataset.theme;
+            applyTheme(theme);
+            playClickSound();
+            showToast(`Theme changed to ${theme}!`, 'success');
+        });
+    });
+}
+
+function applyTheme(theme) {
+    const root = document.documentElement;
+    
+    const themes = {
+        classic: {
+            primary: '#667eea',
+            secondary: '#764ba2',
+            gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        },
+        golden: {
+            primary: '#f6d365',
+            secondary: '#fda085',
+            gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)'
+        },
+        romantic: {
+            primary: '#ff6e7f',
+            secondary: '#bfe9ff',
+            gradient: 'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)'
+        },
+        neon: {
+            primary: '#13f1fc',
+            secondary: '#0470dc',
+            gradient: 'linear-gradient(135deg, #13f1fc 0%, #0470dc 100%)'
+        },
+        sunset: {
+            primary: '#fa709a',
+            secondary: '#fee140',
+            gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+        },
+        ocean: {
+            primary: '#48c6ef',
+            secondary: '#6f86d6',
+            gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)'
+        },
+        forest: {
+            primary: '#56ab2f',
+            secondary: '#a8e063',
+            gradient: 'linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)'
+        },
+        midnight: {
+            primary: '#2c3e50',
+            secondary: '#000000',
+            gradient: 'linear-gradient(135deg, #2c3e50 0%, #000000 100%)'
+        },
+        candy: {
+            primary: '#ff9a9e',
+            secondary: '#fecfef',
+            gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
+        },
+        royal: {
+            primary: '#141e30',
+            secondary: '#243b55',
+            gradient: 'linear-gradient(135deg, #141e30 0%, #243b55 100%)'
+        }
+    };
+    
+    const selectedTheme = themes[theme];
+    if (selectedTheme) {
+        root.style.setProperty('--primary-color', selectedTheme.primary);
+        root.style.setProperty('--secondary-color', selectedTheme.secondary);
+        root.style.setProperty('--gradient-primary', selectedTheme.gradient);
+    }
+}
+
+/* ============================================
+   STATISTICS COUNTER ANIMATION
+   ============================================ */
+
+function initStatsCounter() {
+    const observerOptions = {
+        threshold: 0.5
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    DOM.statNumbers.forEach(stat => observer.observe(stat));
+}
+
+function animateCounter(element) {
+    const target = parseInt(element.dataset.count);
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = Math.floor(current).toLocaleString();
+    }, 16);
+}
+
+/* ============================================
+   STEP NAVIGATION
+   ============================================ */
+
+function nextStep() {
+    if (validateCurrentStep()) {
+        if (currentStep < 4) {
+            currentStep++;
+            updateSteps();
+            playSuccessSound();
+            scrollToSection('create');
+        }
+    }
+}
+
+function previousStep() {
+    if (currentStep > 1) {
+        currentStep--;
+        updateSteps();
+        playClickSound();
+        scrollToSection('create');
+    }
+}
+
+function updateSteps() {
+    // Update step indicators
+    DOM.stepItems.forEach((item, index) => {
+        if (index + 1 === currentStep) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+    
+    // Update step content
+    DOM.stepContents.forEach((content, index) => {
+        if (index + 1 === currentStep) {
+            content.classList.add('active');
+        } else {
+            content.classList.remove('active');
+        }
+    });
+    
+    // Update preview on step 4
+    if (currentStep === 4) {
+        updatePreview();
+        generateLink();
+    }
+}
+
+function validateCurrentStep() {
+    switch (currentStep) {
+        case 1:
+            if (!selectedTemplate) {
+                showToast('Please select a template!', 'warning');
+                return false;
+            }
+            return true;
+            
+        case 2:
+            if (!DOM.recipientName.value.trim()) {
+                showToast('Please enter recipient name!', 'warning');
+                DOM.recipientName.focus();
+                return false;
+            }
+            if (!DOM.senderName.value.trim()) {
+                showToast('Please enter your name!', 'warning');
+                DOM.senderName.focus();
+                return false;
+            }
+            // Save data
+            wishData.recipientName = DOM.recipientName.value.trim();
+            wishData.senderName = DOM.senderName.value.trim();
+            wishData.customMessage = DOM.customMessage.value.trim();
+            return true;
+            
+        case 3:
+            wishData.font = selectedFont;
+            wishData.color = selectedColor;
+            wishData.animation = selectedAnimation;
+            wishData.music = selectedMusic;
+            wishData.stickers = [...selectedStickers];
+            return true;
+            
+        default:
+            return true;
+    }
+}
+
+/* ============================================
+   TEMPLATE SELECTION
+   ============================================ */
+
+function initTemplateSelection() {
+    DOM.templateCards.forEach(card => {
+        card.addEventListener('click', () => {
+            selectedTemplate = card.dataset.template;
+            wishData.template = selectedTemplate;
+            
+            // Update UI
+            DOM.templateCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            
+            playClickSound();
+        });
+        
+        // Add select button listener
+        const selectBtn = card.querySelector('.btn-select-template');
+        if (selectBtn) {
+            selectBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedTemplate = card.dataset.template;
+                wishData.template = selectedTemplate;
+                DOM.templateCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                nextStep();
+            });
+        }
+    });
+    
+    // Template showcase buttons
+    document.querySelectorAll('.btn-use-template').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const template = btn.dataset.template;
+            selectedTemplate = template;
+            wishData.template = template;
+            scrollToSection('create');
+            showToast('Template selected! Create your wish now.', 'success');
+        });
+    });
+}
+
+/* ============================================
+   PHOTO UPLOAD
+   ============================================ */
+
+function initPhotoUpload() {
+    DOM.photoUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        
+        if (!file) return;
+        
+        // Validate file type
+        if (!file.type.match('image.*')) {
+            showToast('Please select an image file!', 'error');
+            return;
+        }
+        
+        // Validate file size
+        if (file.size > CONFIG.maxPhotoSize) {
+            showToast('Image size should be less than 5MB!', 'error');
+            return;
+        }
+        
+        // Read and display image
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            uploadedPhoto = event.target.result;
+            wishData.photo = uploadedPhoto;
+            displayPhotoPreview(uploadedPhoto);
+            playSuccessSound();
+            showToast('Photo uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+    
+    // Drag and drop
+    DOM.photoUploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        DOM.photoUploadArea.style.borderColor = 'var(--primary-color)';
+    });
+    
+    DOM.photoUploadArea.addEventListener('dragleave', () => {
+        DOM.photoUploadArea.style.borderColor = '';
+    });
+    
+    DOM.photoUploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        DOM.photoUploadArea.style.borderColor = '';
+        
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.match('image.*')) {
+            DOM.photoUpload.files = e.dataTransfer.files;
+            const event = new Event('change');
+            DOM.photoUpload.dispatchEvent(event);
+        }
+    });
+}
+
+function displayPhotoPreview(imageData) {
+    DOM.photoPreview.innerHTML = `
+        <img src="${imageData}" alt="Preview">
+        <button class="btn btn-secondary" onclick="removePhoto()" style="margin-top: 1rem;">
+            <i class="fas fa-trash"></i> Remove Photo
+        </button>
+    `;
+    DOM.photoPreview.classList.add('active');
+    document.querySelector('.upload-placeholder').style.display = 'none';
+}
+
+function removePhoto() {
+    uploadedPhoto = null;
+    wishData.photo = null;
+    DOM.photoPreview.innerHTML = '';
+    DOM.photoPreview.classList.remove('active');
+    document.querySelector('.upload-placeholder').style.display = 'block';
+    DOM.photoUpload.value = '';
+    playClickSound();
+}
+
+/* ============================================
+   CUSTOMIZATION OPTIONS
+   ============================================ */
+
+function initCustomization() {
+    // Font Selection
+    DOM.fontOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            selectedFont = option.dataset.font;
+            DOM.fontOptions.forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            playClickSound();
+        });
+    });
+    
+    // Color Selection
+    DOM.colorOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            selectedColor = option.dataset.color;
+            DOM.colorOptions.forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            playClickSound();
+        });
+    });
+    
+    // Animation Selection
+    DOM.animationOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            selectedAnimation = option.dataset.animation;
+            DOM.animationOptions.forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            playClickSound();
+        });
+    });
+    
+    // Music Selection
+    DOM.musicOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            selectedMusic = option.dataset.music;
+            DOM.musicOptions.forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            playClickSound();
+        });
+    });
+    
+    // Sticker Selection
+    DOM.stickerOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const sticker = option.dataset.sticker;
+            
+            if (option.classList.contains('active')) {
+                option.classList.remove('active');
+                const index = selectedStickers.indexOf(sticker);
+                if (index > -1) {
+                    selectedStickers.splice(index, 1);
+                }
+            } else {
+                if (selectedStickers.length < 5) {
+                    option.classList.add('active');
+                    selectedStickers.push(sticker);
+                } else {
+                    showToast('Maximum 5 stickers allowed!', 'warning');
+                }
+            }
+            playClickSound();
+        });
+    });
+}
+
+/* ============================================
+   PREVIEW GENERATION
+   ============================================ */
+
+function updatePreview() {
+    // Update recipient name
+    if (DOM.cardRecipient) {
+        DOM.cardRecipient.textContent = `Dear ${wishData.recipientName}`;
+        DOM.cardRecipient.style.fontFamily = wishData.font;
+        DOM.cardRecipient.style.color = wishData.color;
+    }
+    
+    // Update message
+    if (DOM.cardMessage) {
+        const defaultMessage = 'May this new year bring you joy, success, and endless happiness!';
+        DOM.cardMessage.textContent = wishData.customMessage || defaultMessage;
+        DOM.cardMessage.style.fontFamily = wishData.font;
+        DOM.cardMessage.style.color = wishData.color;
+    }
+    
+    // Update sender
+    if (DOM.cardSender) {
+        DOM.cardSender.textContent = `From: ${wishData.senderName}`;
+        DOM.cardSender.style.fontFamily = wishData.font;
+        DOM.cardSender.style.color = wishData.color;
+    }
+    
+    // Update photo
+    if (DOM.cardPhoto && wishData.photo) {
+        DOM.cardPhoto.innerHTML = `<img src="${wishData.photo}" alt="Photo">`;
+        DOM.cardPhoto.classList.add('active');
+    }
+    
+    // Update stickers
+    if (DOM.cardStickers) {
+        DOM.cardStickers.innerHTML = '';
+        wishData.stickers.forEach((sticker, index) => {
+            const stickerElement = document.createElement('span');
+            stickerElement.textContent = sticker;
+            stickerElement.style.cssText = `
+                top: ${Math.random() * 80 + 10}%;
+                left: ${Math.random() * 80 + 10}%;
+                animation-delay: ${index * 0.2}s;
+            `;
+            DOM.cardStickers.appendChild(stickerElement);
+        });
+    }
+    
+    // Apply theme to preview card
+    applyPreviewTheme();
+}
+
+function applyPreviewTheme() {
+    const themes = {
+        fireworks: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        golden: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+        romantic: 'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)',
+        party: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+        neon: 'linear-gradient(135deg, #13f1fc 0%, #0470dc 100%)',
+        minimalist: 'linear-gradient(135deg, #e0e0e0 0%, #ffffff 100%)',
+        vintage: 'linear-gradient(135deg, #b79891 0%, #94716b 100%)',
+        '3d': 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)'
+    };
+    
+    if (DOM.previewCard && themes[wishData.template]) {
+        DOM.previewCard.style.background = themes[wishData.template];
+    }
+}
+
+/* ============================================
+   LINK GENERATION
+   ============================================ */
+
+function generateLink() {
+    // Create URL with parameters
+    const params = new URLSearchParams({
+        to: wishData.recipientName,
+        from: wishData.senderName,
+        msg: wishData.customMessage,
+        template: wishData.template,
+        font: wishData.font,
+        color: wishData.color.replace('#', ''),
+        animation: wishData.animation,
+        stickers: wishData.stickers.join(',')
+    });
+    
+    const generatedUrl = `${CONFIG.siteUrl}?${params.toString()}`;
+    
+    if (DOM.generatedLink) {
+        DOM.generatedLink.value = generatedUrl;
+    }
+    
+    // Save to localStorage
+    saveWish();
+    
+    return generatedUrl;
+}
+
+function saveWish() {
+    const wishes = JSON.parse(localStorage.getItem('newYearWishes') || '[]');
+    wishes.push({
+        ...wishData,
+        timestamp: Date.now()
+    });
+    localStorage.setItem('newYearWishes', JSON.stringify(wishes));
+}
+
+/* ============================================
+   URL PARAMETERS HANDLING
+   ============================================ */
+
+function loadFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
-    const sender = urlParams.get('from') || 'Your Friend';
-    const receiver = urlParams.get('to') || 'Friend';
-    const theme = urlParams.get('theme') || 'fun';
-    const message = urlParams.get('msg') || '';
     
-    // Update wish card content
-    if (document.getElementById('senderName')) {
-        document.getElementById('senderName').textContent = sender;
-    }
-    if (document.getElementById('receiverName')) {
-        document.getElementById('receiverName').textContent = receiver;
-    }
-    
-    // Update message if custom message exists
-    if (message && document.querySelector('.wish-description')) {
-        document.querySelector('.wish-description').textContent = decodeURIComponent(message);
-    }
-    
-    // If URL has parameters, show wish reveal page
-    if (urlParams.get('from') || urlParams.get('to')) {
-        setTimeout(() => {
-            showPage('wishRevealPage');
-        }, 1000);
+    if (urlParams.has('to')) {
+        const wishFromUrl = {
+            recipientName: urlParams.get('to') || '',
+            senderName: urlParams.get('from') || '',
+            customMessage: urlParams.get('msg') || '',
+            template: urlParams.get('template') || 'fireworks',
+            font: urlParams.get('font') || 'Poppins',
+            color: '#' + (urlParams.get('color') || 'ffffff'),
+            animation: urlParams.get('animation') || 'fireworks',
+            stickers: urlParams.get('stickers') ? urlParams.get('stickers').split(',') : []
+        };
+        
+        // Display the wish
+        displaySharedWish(wishFromUrl);
     }
 }
 
-
-// ====================================== 
-// 🌈 EMOJI RAIN TRIGGER
-// ====================================== 
-
-function triggerEmojiRain() {
-    const emojis = ['🎊', '🎉', '✨', '💫', '⭐', '🌟', '💝', '❤️', '🎁'];
-    const body = document.body;
+function displaySharedWish(wish) {
+    // Create modal content
+    const wishHtml = `
+        <div class="wish-display" style="background: ${getThemeGradient(wish.template)}; padding: 3rem; border-radius: 20px; text-align: center; color: white;">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem; font-family: ${wish.font}; color: ${wish.color};">
+                Happy New Year 2025!
+            </h2>
+            <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: ${wish.font}; color: ${wish.color};">
+                Dear ${wish.recipientName}
+            </h3>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.8; font-family: ${wish.font}; color: ${wish.color};">
+                ${wish.customMessage || 'May this new year bring you joy, success, and endless happiness!'}
+            </p>
+            <p style="font-size: 1rem; font-style: italic; font-family: ${wish.font}; color: ${wish.color};">
+                From: ${wish.senderName}
+            </p>
+            <div style="margin-top: 2rem;">
+                <button class="btn btn-primary" onclick="scrollToSection('create')">
+                    <i class="fas fa-magic"></i> Create Your Own Wish
+                </button>
+            </div>
+        </div>
+    `;
     
-    for (let i = 0; i < 30; i++) {
-        setTimeout(() => {
-            const emoji = document.createElement('div');
-            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.position = 'fixed';
-            emoji.style.left = Math.random() * 100 + '%';
-            emoji.style.top = '-50px';
-            emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            emoji.style.zIndex = '9999';
-            emoji.style.pointerEvents = 'none';
-            emoji.style.animation = `confettiFall ${Math.random() * 2 + 3}s linear forwards`;
-            
-            body.appendChild(emoji);
-            
-            setTimeout(() => emoji.remove(), 5000);
-        }, i * 50);
+    // Show in modal or hero section
+    if (DOM.viewWishModal) {
+        document.getElementById('wishDisplay').innerHTML = wishHtml;
+        openModal('viewWishModal');
     }
-    
-    playSound('success');
-    createConfetti();
 }
 
-
-// ====================================== 
-// 📤 SHARE FUNCTIONS
-// ====================================== 
-
-function shareToWhatsApp() {
-    const sender = document.getElementById('senderName')?.textContent || 'Someone';
-    const receiver = document.getElementById('receiverName')?.textContent || 'You';
-    
-    const message = CONFIG.currentLang === 'en' 
-        ? `🎊 Hey! ${sender} sent you a special New Year 2026 wish! 🎉\n\nClick here to see your surprise:\n${window.location.href}\n\n✨ Create your own magical wish and share the joy!`
-        : `🎊 अरे! ${sender} ने आपके लिए नया साल 2026 की खास शुभकामना भेजी है! 🎉\n\nअपना सरप्राइज़ देखने के लिए यहाँ क्लिक करें:\n${window.location.href}\n\n✨ अपनी जादुई शुभकामना बनाएं और खुशियाँ बांटें!`;
-    
-    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
-    
-    // Update share count
-    updateShareCount();
-    playSound('success');
+function getThemeGradient(template) {
+    const gradients = {
+        fireworks: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        golden: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+        romantic: 'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)',
+        party: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+        neon: 'linear-gradient(135deg, #13f1fc 0%, #0470dc 100%)',
+        minimalist: 'linear-gradient(135deg, #e0e0e0 0%, #ffffff 100%)',
+        vintage: 'linear-gradient(135deg, #b79891 0%, #94716b 100%)',
+        '3d': 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)'
+    };
+    return gradients[template] || gradients.fireworks;
 }
 
-function shareToFacebook() {
-    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-    window.open(shareURL, '_blank', 'width=600,height=400');
-    updateShareCount();
-    playSound('click');
-}
-
-function shareToTwitter() {
-    const text = "Someone sent me a beautiful New Year 2026 wish! 🎊✨ Create yours too!";
-    const shareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
-    window.open(shareURL, '_blank', 'width=600,height=400');
-    updateShareCount();
-    playSound('click');
-}
-
-function shareToInstagram() {
-    alert(CONFIG.currentLang === 'en' 
-        ? 'Download the wish image and share it on Instagram! 📸'
-        : 'विश इमेज डाउनलोड करें और Instagram पर शेयर करें! 📸');
-    downloadWish();
-}
+/* ============================================
+   SHARING FUNCTIONS
+   ============================================ */
 
 function copyLink() {
-    const url = window.location.href;
+    const link = DOM.generatedLink.value;
     
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(() => {
-            showNotification(
-                CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉'
-            );
-            playSound('success');
-        });
-    } else {
-        // Fallback
-        const input = document.createElement('input');
-        input.value = url;
-        document.body.appendChild(input);
-        input.select();
+    navigator.clipboard.writeText(link).then(() => {
+        showToast('Link copied to clipboard!', 'success');
+        playSuccessSound();
+    }).catch(() => {
+        // Fallback for older browsers
+        DOM.generatedLink.select();
         document.execCommand('copy');
-        document.body.removeChild(input);
-        showNotification(
-            CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉'
-        );
-        playSound('success');
-    }
-}
-
-function updateShareCount() {
-    CONFIG.shareCount++;
-    localStorage.setItem('shareCount', CONFIG.shareCount);
-    
-    // Update challenge progress
-    updateChallengeProgress();
-    
-    // Achievement for first share
-    if (CONFIG.shareCount === 1) {
-        unlockAchievement('First Share! 🎉');
-    }
-    
-    // Achievement for 5 shares
-    if (CONFIG.shareCount === 5) {
-        unlockAchievement('Viral Star! 🌟');
-        unlockSecretGift();
-    }
-}
-
-
-// ====================================== 
-// 🖼️ DOWNLOAD WISH AS IMAGE
-// ====================================== 
-
-function downloadWish() {
-    // This would use html2canvas library in production
-    alert(CONFIG.currentLang === 'en' 
-        ? 'Download feature coming soon! For now, take a screenshot 📸'
-        : 'डाउनलोड फीचर जल्द आ रहा है! अभी स्क्रीनशॉट लें 📸');
-    
-    playSound('click');
-    
-    /* 
-    // Production code with html2canvas:
-    html2canvas(document.querySelector('#wishCard')).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'NewYear2026_Wish.png';
-        link.href = canvas.toDataURL();
-        link.click();
+        showToast('Link copied to clipboard!', 'success');
+        playSuccessSound();
     });
-    */
 }
 
-function sendLoveBack() {
-    showPage('createPage');
-    playSound('click');
+function shareOnWhatsApp() {
+    const link = DOM.generatedLink.value;
+    const text = `${CONFIG.socialShareText}\n${link}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    playClickSound();
 }
-// ====================================== 
-// 📝 CREATE YOUR OWN WISH - FORM HANDLING
-// ====================================== 
 
-function initializeCreatePage() {
-    const yourNameInput = document.getElementById('yourName');
-    const friendNameInput = document.getElementById('friendName');
-    const customMessageInput = document.getElementById('customMessage');
+function shareOnFacebook() {
+    const link = DOM.generatedLink.value;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`;
+    window.open(facebookUrl, '_blank', 'width=600,height=400');
+    playClickSound();
+}
+
+function shareOnTwitter() {
+    const link = DOM.generatedLink.value;
+    const text = CONFIG.socialShareText;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(link)}`;
+    window.open(twitterUrl, '_blank', 'width=600,height=400');
+    playClickSound();
+}
+
+function shareOnInstagram() {
+    showToast('Please download the image and share on Instagram!', 'info');
+    playClickSound();
+}
+
+function shareOnTelegram() {
+    const link = DOM.generatedLink.value;
+    const text = CONFIG.socialShareText;
+    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
+    window.open(telegramUrl, '_blank');
+    playClickSound();
+}
+
+function shareViaEmail() {
+    const link = DOM.generatedLink.value;
+    const subject = 'Happy New Year 2025! 🎊';
+    const body = `${CONFIG.socialShareText}\n\n${link}`;
+    const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+    playClickSound();
+}
+
+/* ============================================
+   DOWNLOAD CARD FUNCTION
+   ============================================ */
+
+function downloadCard() {
+    // Use html2canvas library or create image from DOM
+    showToast('Preparing your download...', 'info');
     
-    // Live preview updates
-    if (yourNameInput) {
-        yourNameInput.addEventListener('input', updateLivePreview);
-    }
-    if (friendNameInput) {
-        friendNameInput.addEventListener('input', updateLivePreview);
-    }
-    if (customMessageInput) {
-        customMessageInput.addEventListener('input', updateLivePreview);
-    }
-    
-    // Theme option buttons
-    document.querySelectorAll('.theme-option').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            CONFIG.selectedTheme = this.getAttribute('data-theme');
-            updateLivePreview();
-            playSound('click');
+    // Simple implementation - in production, use html2canvas
+    setTimeout(() => {
+        // Create a canvas and draw the card
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = 1200;
+        canvas.height = 630;
+        
+        // Background gradient
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#667eea');
+        gradient.addColorStop(1, '#764ba2');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Text
+        ctx.fillStyle = wishData.color;
+        ctx.font = `bold 60px ${wishData.font}`;
+        ctx.textAlign = 'center';
+        ctx.fillText('Happy New Year 2025!', canvas.width / 2, 150);
+        
+        ctx.font = `40px ${wishData.font}`;
+        ctx.fillText(`Dear ${wishData.recipientName}`, canvas.width / 2, 250);
+        
+        ctx.font = `30px ${wishData.font}`;
+        const message = wishData.customMessage || 'May this new year bring you joy, success, and endless happiness!';
+        wrapText(ctx, message, canvas.width / 2, 350, canvas.width - 200, 40);
+        
+        ctx.font = `italic 25px ${wishData.font}`;
+        ctx.fillText(`From: ${wishData.senderName}`, canvas.width / 2, canvas.height - 100);
+        
+        // Download
+        canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `NewYear2025-${wishData.recipientName}.png`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Card downloaded successfully!', 'success');
+            playSuccessSound();
         });
-    });
-    
-    // Tone option buttons
-    document.querySelectorAll('.tone-option').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.tone-option').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            CONFIG.selectedTone = this.getAttribute('data-tone');
-            updateLivePreview();
-            playSound('click');
-        });
-    });
+    }, 500);
 }
 
-function updateLivePreview() {
-    const yourName = document.getElementById('yourName')?.value || (CONFIG.currentLang === 'en' ? 'You' : 'आप');
-    const friendName = document.getElementById('friendName')?.value || (CONFIG.currentLang === 'en' ? 'Friend' : 'दोस्त');
-    const customMessage = document.getElementById('customMessage')?.value;
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
     
-    // Update preview receiver name
-    const previewReceiver = document.getElementById('previewReceiver');
-    if (previewReceiver) {
-        previewReceiver.textContent = friendName;
-    }
-    
-    // Update preview sender name
-    const previewSender = document.getElementById('previewSender');
-    if (previewSender) {
-        previewSender.textContent = yourName;
-    }
-    
-    // Update preview message
-    const previewMessage = document.getElementById('previewMessage');
-    if (previewMessage) {
-        if (customMessage && customMessage.trim() !== '') {
-            previewMessage.textContent = customMessage;
+    for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        
+        if (testWidth > maxWidth && n > 0) {
+            ctx.fillText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
         } else {
-            const template = WISH_TEMPLATES[CONFIG.selectedTone];
-            previewMessage.textContent = template ? template[CONFIG.currentLang] : '';
+            line = testLine;
         }
     }
-    
-    // Update preview theme style
-    updatePreviewTheme();
+    ctx.fillText(line, x, y);
 }
 
-function updatePreviewTheme() {
-    const livePreview = document.getElementById('livePreview');
-    if (!livePreview) return;
-    
-    // Remove all theme classes
-    livePreview.classList.remove('theme-fireworks', 'theme-galaxy', 'theme-golden', 'theme-romantic', 'theme-nature');
-    
-    // Add selected theme class
-    livePreview.classList.add(`theme-${CONFIG.selectedTheme}`);
-}
+/* ============================================
+   CREATE NEW WISH
+   ============================================ */
 
-function generateWishLink() {
-    const yourName = document.getElementById('yourName')?.value;
-    const friendName = document.getElementById('friendName')?.value;
-    const customMessage = document.getElementById('customMessage')?.value;
+function createNew() {
+    // Reset all data
+    currentStep = 1;
+    selectedTemplate = null;
+    uploadedPhoto = null;
+    selectedFont = 'Poppins';
+    selectedColor = '#ffffff';
+    selectedAnimation = 'fireworks';
+    selectedMusic = 'celebration';
+    selectedStickers = [];
     
-    // Validation
-    if (!yourName || yourName.trim() === '') {
-        showNotification(
-            CONFIG.currentLang === 'en' ? 'Please enter your name!' : 'कृपया अपना नाम दर्ज करें!'
-        );
-        return;
-    }
+    wishData = {
+        recipientName: '',
+        senderName: '',
+        customMessage: '',
+        template: 'fireworks',
+        photo: null,
+        font: 'Poppins',
+        color: '#ffffff',
+        animation: 'fireworks',
+        music: 'celebration',
+        stickers: []
+    };
     
-    if (!friendName || friendName.trim() === '') {
-        showNotification(
-            CONFIG.currentLang === 'en' ? "Please enter your friend's name!" : 'कृपया अपने दोस्त का नाम दर्ज करें!'
-        );
-        return;
-    }
+    // Reset form
+    if (DOM.recipientName) DOM.recipientName.value = '';
+    if (DOM.senderName) DOM.senderName.value = '';
+    if (DOM.customMessage) DOM.customMessage.value = '';
     
-    // Build URL
-    const baseURL = window.location.origin + window.location.pathname;
-    const params = new URLSearchParams({
-        from: yourName,
-        to: friendName,
-        theme: CONFIG.selectedTheme,
-        tone: CONFIG.selectedTone
-    });
+    // Reset selections
+    DOM.templateCards.forEach(c => c.classList.remove('selected'));
+    DOM.fontOptions.forEach(o => o.classList.remove('active'));
+    DOM.colorOptions.forEach(o => o.classList.remove('active'));
+    DOM.animationOptions.forEach(o => o.classList.remove('active'));
+    DOM.musicOptions.forEach(o => o.classList.remove('active'));
+    DOM.stickerOptions.forEach(o => o.classList.remove('active'));
     
-    if (customMessage && customMessage.trim() !== '') {
-        params.append('msg', customMessage);
-    }
-    
-    const generatedURL = `${baseURL}?${params.toString()}`;
-    
-    // Show generated link section
-    const generatedLinkSection = document.getElementById('generatedLinkSection');
-    const generatedLinkInput = document.getElementById('generatedLink');
-    
-    if (generatedLinkSection && generatedLinkInput) {
-        generatedLinkInput.value = generatedURL;
-        generatedLinkSection.classList.remove('hidden');
-        
-        // Scroll to link
-        generatedLinkSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-    
-    // Store for later use
-    CONFIG.generatedLink = generatedURL;
-    
-    playSound('success');
-    createConfetti();
-    unlockAchievement(CONFIG.currentLang === 'en' ? 'Wish Created! 🎊' : 'शुभकामना बनाई! 🎊');
-}
-
-function copyGeneratedLink() {
-    const linkInput = document.getElementById('generatedLink');
-    
-    if (linkInput) {
-        linkInput.select();
-        
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(linkInput.value).then(() => {
-                showNotification(CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉');
-                playSound('success');
-            });
-        } else {
-            document.execCommand('copy');
-            showNotification(CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉');
-            playSound('success');
-        }
-    }
-}
-
-function shareGeneratedLink() {
-    const link = CONFIG.generatedLink || document.getElementById('generatedLink')?.value;
-    const friendName = document.getElementById('friendName')?.value || 'your friend';
-    
-    if (!link) {
-        showNotification(CONFIG.currentLang === 'en' ? 'Please generate a link first!' : 'पहले लिंक बनाएं!');
-        return;
-    }
-    
-    const message = CONFIG.currentLang === 'en'
-        ? `🎊 Happy New Year 2026! 🎉\n\nI've sent you a special New Year wish! ✨\n\nClick here to see your surprise:\n${link}\n\nLet's make 2026 amazing together! 💫`
-        : `🎊 नया साल 2026 मुबारक हो! 🎉\n\nमैंने आपके लिए एक खास नए साल की शुभकामना भेजी है! ✨\n\nअपना सरप्राइज़ देखने के लिए यहाँ क्लिक करें:\n${link}\n\nचलो 2026 को शानदार बनाएं! 💫`;
-    
-    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
-    
-    updateShareCount();
-    playSound('success');
-}
-
-function downloadQR() {
-    const link = CONFIG.generatedLink || document.getElementById('generatedLink')?.value;
-    
-    if (!link) {
-        showNotification(CONFIG.currentLang === 'en' ? 'Please generate a link first!' : 'पहले लिंक बनाएं!');
-        return;
-    }
-    
-    // In production, use QR code library like qrcode.js
-    alert(CONFIG.currentLang === 'en' 
-        ? 'QR Code feature coming soon! For now, share the link directly. 📱'
-        : 'QR Code फीचर जल्द आ रहा है! अभी लिंक सीधे शेयर करें। 📱');
-    
-    playSound('click');
-}
-
-
-// ====================================== 
-// 📸 PHOTO BOOTH FUNCTIONALITY
-// ====================================== 
-
-let stream = null;
-let capturedImageData = null;
-
-function startCamera() {
-    const video = document.getElementById('cameraVideo');
-    const startBtn = document.getElementById('startCameraBtn');
-    const captureBtn = document.getElementById('captureBtn');
-    
-    if (!video) return;
-    
-    // Request camera access
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
-        .then(function(mediaStream) {
-            stream = mediaStream;
-            video.srcObject = mediaStream;
-            video.style.display = 'block';
-            
-            // Update buttons
-            if (startBtn) startBtn.classList.add('hidden');
-            if (captureBtn) captureBtn.classList.remove('hidden');
-            
-            playSound('success');
-        })
-        .catch(function(error) {
-            console.error('Camera error:', error);
-            showNotification(
-                CONFIG.currentLang === 'en' 
-                    ? 'Camera access denied. Please allow camera permissions.' 
-                    : 'कैमरा एक्सेस अस्वीकृत। कृपया कैमरा अनुमति दें।'
-            );
-        });
-}
-
-function capturePhoto() {
-    const video = document.getElementById('cameraVideo');
-    const canvas = document.getElementById('photoCanvas');
-    const capturedPhoto = document.getElementById('capturedPhoto');
-    const captureBtn = document.getElementById('captureBtn');
-    const retakeBtn = document.getElementById('retakeBtn');
-    const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
-    
-    if (!video || !canvas) return;
-    
-    // Set canvas size to video size
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    
-    // Draw video frame to canvas
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-    // Get image data
-    capturedImageData = canvas.toDataURL('image/png');
-    
-    // Show captured photo
-    if (capturedPhoto) {
-        capturedPhoto.src = capturedImageData;
-        capturedPhoto.style.display = 'block';
-    }
-    
-    // Hide video
-    video.style.display = 'none';
-    
-    // Stop camera stream
-    if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-    }
-    
-    // Update buttons
-    if (captureBtn) captureBtn.classList.add('hidden');
-    if (retakeBtn) retakeBtn.classList.remove('hidden');
-    if (downloadPhotoBtn) downloadPhotoBtn.classList.remove('hidden');
-    
-    playSound('success');
-    createConfetti();
-}
-
-function retakePhoto() {
-    const video = document.getElementById('cameraVideo');
-    const capturedPhoto = document.getElementById('capturedPhoto');
-    const captureBtn = document.getElementById('captureBtn');
-    const retakeBtn = document.getElementById('retakeBtn');
-    const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
-    
-    // Hide captured photo
-    if (capturedPhoto) {
-        capturedPhoto.style.display = 'none';
-    }
-    
-    // Update buttons
-    if (captureBtn) captureBtn.classList.remove('hidden');
-    if (retakeBtn) retakeBtn.classList.add('hidden');
-    if (downloadPhotoBtn) downloadPhotoBtn.classList.add('hidden');
-    
-    // Restart camera
-    startCamera();
-}
-
-function downloadPhoto() {
-    if (!capturedImageData) {
-        showNotification(CONFIG.currentLang === 'en' ? 'No photo to download!' : 'डाउनलोड करने के लिए कोई फोटो नहीं!');
-        return;
-    }
-    
-    const link = document.createElement('a');
-    link.download = 'NewYear2026_Photo.png';
-    link.href = capturedImageData;
-    link.click();
-    
-    playSound('success');
-    unlockAchievement(CONFIG.currentLang === 'en' ? 'Photo Downloaded! 📸' : 'फोटो डाउनलोड हुई! 📸');
-}
-
-// Frame selection
-function initializeFrameSelection() {
-    document.querySelectorAll('.frame-item').forEach(item => {
-        item.addEventListener('click', function() {
-            document.querySelectorAll('.frame-item').forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-            
-            const frameType = this.getAttribute('data-frame');
-            updateSelectedFrame(frameType);
-            
-            playSound('click');
-        });
-    });
-}
-
-function updateSelectedFrame(frameType) {
-    // In production, this would update the actual frame overlay
-    console.log('Selected frame:', frameType);
-}
-
-
-// ====================================== 
-// 🎁 FORTUNE COOKIE FUNCTIONALITY
-// ====================================== 
-
-let currentCategory = 'general';
-
-function initializeFortuneCookie() {
-    // Category selection
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentCategory = this.getAttribute('data-category');
-            playSound('click');
-        });
-    });
-}
-
-function crackFortuneCookie() {
-    const fortuneCookie = document.getElementById('fortuneCookie');
-    const fortuneText = document.getElementById('fortuneText');
-    const fortuneSlip = document.getElementById('fortuneSlip');
-    const fortuneShare = document.getElementById('fortuneShare');
-    const crackBtn = document.getElementById('crackCookieBtn');
-    
-    if (!fortuneCookie || !fortuneText) return;
-    
-    // Get random fortune from selected category
-    const fortunes = FORTUNES[CONFIG.currentLang][currentCategory];
-    const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-    
-    // Update fortune text
-    fortuneText.textContent = randomFortune;
-    
-    // Animate cookie cracking
-    fortuneCookie.classList.add('cracked');
-    
-    // Show fortune slip
-    if (fortuneSlip) {
-        fortuneSlip.classList.remove('hidden');
-    }
-    
-    // Show share button
-    if (fortuneShare) {
-        setTimeout(() => {
-            fortuneShare.classList.remove('hidden');
-        }, 1000);
-    }
-    
-    // Hide crack button
-    if (crackBtn) {
-        crackBtn.style.display = 'none';
-    }
-    
-    // Store fortune for sharing
-    CONFIG.currentFortune = randomFortune;
-    
-    playSound('success');
-    createConfetti();
-    unlockAchievement(CONFIG.currentLang === 'en' ? 'Fortune Revealed! 🔮' : 'भविष्यफल खुला! 🔮');
-}
-
-function shareFortune() {
-    const fortune = CONFIG.currentFortune;
-    
-    if (!fortune) {
-        showNotification(CONFIG.currentLang === 'en' ? 'Crack the cookie first!' : 'पहले कुकी तोड़ें!');
-        return;
-    }
-    
-    const message = CONFIG.currentLang === 'en'
-        ? `🔮 My 2026 Fortune:\n\n"${fortune}"\n\n✨ Discover your fortune too!\n${window.location.origin}`
-        : `🔮 मेरा 2026 भविष्यफल:\n\n"${fortune}"\n\n✨ अपना भविष्यफल भी जानें!\n${window.location.origin}`;
-    
-    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
-    
-    updateShareCount();
-    playSound('success');
-}
-
-
-// ====================================== 
-// 🎯 VIRAL CHALLENGE SYSTEM
-// ====================================== 
-
-function updateChallengeProgress() {
-    const shareCount = CONFIG.shareCount;
-    const progressBar = document.getElementById('challengeProgressBar');
-    const challengeCount = document.getElementById('challengeCount');
-    
-    if (progressBar) {
-        const percentage = Math.min((shareCount / 5) * 100, 100);
-        progressBar.style.width = percentage + '%';
-    }
-    
-    if (challengeCount) {
-        challengeCount.textContent = `${Math.min(shareCount, 5)}/5`;
+    // Remove photo
+    if (uploadedPhoto) {
+        removePhoto();
     }
     
     // Update steps
-    if (shareCount >= 1) {
-        const step2 = document.getElementById('step2');
-        if (step2) step2.classList.add('completed');
+    updateSteps();
+    scrollToSection('create');
+    showToast('Ready to create a new wish!', 'success');
+    playClickSound();
+}
+
+/* ============================================
+   COUNTDOWN TIMER
+   ============================================ */
+
+function initCountdown() {
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = CONFIG.newYearDate - now;
+    
+    if (distance < 0) {
+        // New Year has arrived!
+        DOM.daysElement.textContent = '00';
+        DOM.hoursElement.textContent = '00';
+        DOM.minutesElement.textContent = '00';
+        DOM.secondsElement.textContent = '00';
+        DOM.countdownMessage.innerHTML = '<p>🎊 Happy New Year 2025! 🎊</p>';
+        triggerCelebration();
+        return;
     }
     
-    if (shareCount >= 5) {
-        const step3 = document.getElementById('step3');
-        if (step3) step3.classList.add('completed');
-        unlockSecretGift();
-    }
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    DOM.daysElement.textContent = String(days).padStart(2, '0');
+    DOM.hoursElement.textContent = String(hours).padStart(2, '0');
+    DOM.minutesElement.textContent = String(minutes).padStart(2, '0');
+    DOM.secondsElement.textContent = String(seconds).padStart(2, '0');
 }
 
-function joinChallenge() {
-    showPage('createPage');
-    playSound('click');
-    showNotification(
-        CONFIG.currentLang === 'en' 
-            ? 'Create and share your wish to complete the challenge! 🚀'
-            : 'चैलेंज पूरा करने के लिए अपनी शुभकामना बनाएं और शेयर करें! 🚀'
-    );
+function triggerCelebration() {
+    // Trigger special animations and sounds
+    playSuccessSound();
+    createMassiveFireworks();
 }
 
-function unlockSecretGift() {
-    const secretGift = document.getElementById('secretGift');
-    
-    if (secretGift) {
-        secretGift.classList.remove('hidden');
-        playSound('success');
-        createConfetti();
-        triggerFireworks();
-    }
-}
-
-
-// ====================================== 
-// 🏆 ACHIEVEMENT SYSTEM
-// ====================================== 
-
-function unlockAchievement(message) {
-    // Check if already unlocked
-    if (CONFIG.achievements.includes(message)) return;
-    
-    CONFIG.achievements.push(message);
-    localStorage.setItem('achievements', JSON.stringify(CONFIG.achievements));
-    
-    // Show achievement popup
-    showAchievementPopup(message);
-}
-
-function showAchievementPopup(message) {
-    const achievementPopup = document.getElementById('achievementPopup');
-    
-    if (achievementPopup) {
-        achievementPopup.querySelector('span').textContent = message;
-        achievementPopup.classList.remove('hidden');
-        
-        playSound('success');
-        
+function createMassiveFireworks() {
+    // Create extra fireworks celebration
+    for (let i = 0; i < 20; i++) {
         setTimeout(() => {
-            achievementPopup.classList.add('hidden');
-        }, 4000);
+            // Trigger fireworks animation
+        }, i * 200);
     }
 }
 
-function closeAchievement() {
-    const achievementSystem = document.getElementById('achievementSystem');
-    if (achievementSystem) {
-        achievementSystem.classList.add('hidden');
+/* ============================================
+   RESOLUTIONS MANAGEMENT
+   ============================================ */
+
+function addResolution() {
+    const input = DOM.resolutionInput;
+    const text = input.value.trim();
+    
+    if (!text) {
+        showToast('Please enter a resolution!', 'warning');
+        return;
     }
+    
+    const resolutionItem = document.createElement('div');
+    resolutionItem.className = 'resolution-item';
+    resolutionItem.innerHTML = `
+        <span class="resolution-text">${text}</span>
+        <span class="resolution-likes" onclick="likeResolution(this)">❤️ 0</span>
+    `;
+    
+    DOM.resolutionsList.insertBefore(resolutionItem, DOM.resolutionsList.firstChild);
+    input.value = '';
+    
+    // Save to localStorage
+    saveResolution(text);
+    
+    showToast('Resolution added!', 'success');
+    playSuccessSound();
 }
 
+function likeResolution(element) {
+    const currentLikes = parseInt(element.textContent.split(' ')[1]);
+    element.textContent = `❤️ ${currentLikes + 1}`;
+    playClickSound();
+}
 
-// ====================================== 
-// 💝 DONATION/PAYMENT FUNCTIONS
-// ====================================== 
+function saveResolution(text) {
+    const resolutions = JSON.parse(localStorage.getItem('resolutions') || '[]');
+    resolutions.push({
+        text: text,
+        timestamp: Date.now(),
+        likes: 0
+    });
+    localStorage.setItem('resolutions', JSON.stringify(resolutions));
+}
 
-let selectedAmount = 0;
+/* ============================================
+   TEMPLATE FILTERING
+   ============================================ */
 
-function initializeDonationPage() {
-    // Amount selection
-    document.querySelectorAll('.amount-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            selectedAmount = parseInt(this.getAttribute('data-amount'));
-            playSound('click');
+function initTemplateFilters() {
+    DOM.filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.dataset.filter;
+            
+            // Update active button
+            DOM.filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Filter templates
+            DOM.showcaseCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInUp 0.5s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            playClickSound();
         });
     });
-    
-    // Custom amount
-    const customAmountInput = document.getElementById('customAmount');
-    if (customAmountInput) {
-        customAmountInput.addEventListener('input', function() {
-            selectedAmount = parseInt(this.value) || 0;
-            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
-        });
-    }
 }
 
-function payWithUPI() {
-    if (selectedAmount === 0) {
-        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
-        return;
-    }
-    
-    // In production, integrate actual UPI payment
-    const upiID = 'yourname@paytm'; // Replace with actual UPI ID
-    const upiURL = `upi://pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR&tn=Support NewYear2026`;
-    
-    showNotification(
-        CONFIG.currentLang === 'en'
-            ? `Opening UPI app for ₹${selectedAmount}... Thank you! 💝`
-            : `₹${selectedAmount} के लिए UPI ऐप खोल रहे हैं... धन्यवाद! 💝`
-    );
-    
-    window.location.href = upiURL;
-    playSound('success');
-}
+/* ============================================
+   GALLERY LOAD MORE
+   ============================================ */
 
-function payWithPhonePe() {
-    if (selectedAmount === 0) {
-        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
-        return;
-    }
+function loadMoreGallery() {
+    showToast('Loading more wishes...', 'info');
     
-    // PhonePe payment URL
-    const upiID = 'yourname@ybl'; // Replace with actual PhonePe UPI ID
-    const upiURL = `phonepe://pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR`;
-    
-    showNotification(
-        CONFIG.currentLang === 'en'
-            ? `Opening PhonePe for ₹${selectedAmount}... 🙏`
-            : `₹${selectedAmount} के लिए PhonePe खोल रहे हैं... 🙏`
-    );
-    
-    window.location.href = upiURL;
-    playSound('success');
-}
-
-function payWithGPay() {
-    if (selectedAmount === 0) {
-        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
-        return;
-    }
-    
-    // Google Pay payment URL
-    const upiID = 'yourname@okaxis'; // Replace with actual GPay UPI ID
-    const upiURL = `gpay://upi/pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR`;
-    
-    showNotification(
-        CONFIG.currentLang === 'en'
-            ? `Opening Google Pay for ₹${selectedAmount}... 💚`
-            : `₹${selectedAmount} के लिए Google Pay खोल रहे हैं... 💚`
-    );
-    
-    window.location.href = upiURL;
-    playSound('success');
-}
-
-function payWithPaytm() {
-    if (selectedAmount === 0) {
-        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
-        return;
-    }
-    
-    // Paytm payment URL
-    const upiID = 'yourname@paytm'; // Replace with actual Paytm UPI ID
-    const upiURL = `paytmmp://pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR`;
-    
-    showNotification(
-        CONFIG.currentLang === 'en'
-            ? `Opening Paytm for ₹${selectedAmount}... 💙`
-            : `₹${selectedAmount} के लिए Paytm खोल रहे हैं... 💙`
-    );
-    
-    window.location.href = upiURL;
-    playSound('success');
-}
-
-
-// ====================================== 
-// ⏰ COUNTDOWN TIMER TO 2026
-// ====================================== 
-
-function startCountdown() {
-    const targetDate = new Date('January 1, 2026 00:00:00').getTime();
-    
-    setInterval(() => {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        
-        // Calculate time units
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        // Update countdown display
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
-        
-        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-        
-        // If countdown finished
-        if (distance < 0) {
-            if (daysEl) daysEl.textContent = '00';
-            if (hoursEl) hoursEl.textContent = '00';
-            if (minutesEl) minutesEl.textContent = '00';
-            if (secondsEl) secondsEl.textContent = '00';
-            
-            // Trigger celebration
-            createConfetti();
-            triggerFireworks();
-        }
+    // Simulate loading
+    setTimeout(() => {
+        showToast('All wishes loaded!', 'success');
+        playClickSound();
     }, 1000);
 }
 
+/* ============================================
+   FAQ ACCORDION
+   ============================================ */
 
-// ====================================== 
-// 📊 NOTIFICATION SYSTEM
-// ====================================== 
+function initFAQ() {
+    DOM.faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other items
+            DOM.faqItems.forEach(i => i.classList.remove('active'));
+            
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+            
+            playClickSound();
+        });
+    });
+}
 
-function showNotification(message) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = 'notification-toast';
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        z-index: 10000;
-        animation: slideInRight 0.5s ease;
-        font-weight: 600;
+/* ============================================
+   MODAL FUNCTIONS
+   ============================================ */
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        playClickSound();
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        playClickSound();
+    }
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    const icons = {
+        success: 'fa-circle-check',
+        error: 'fa-circle-xmark',
+        warning: 'fa-triangle-exclamation',
+        info: 'fa-circle-info'
+    };
+    
+    toast.innerHTML = `
+        <i class="fas ${icons[type]}"></i>
+        <div class="toast-message">${message}</div>
     `;
     
-    document.body.appendChild(notification);
+    DOM.toastContainer.appendChild(toast);
     
-    // Remove after 3 seconds
+    // Auto remove
     setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.5s ease';
-        setTimeout(() => {
-            notification.remove();
-        }, 500);
-    }, 3000);
+        toast.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, CONFIG.toastDuration);
 }
 
+/* ============================================
+   SOUND EFFECTS
+   ============================================ */
 
-// ====================================== 
-// 📱 LIVE WISH COUNTER (SOCIAL PROOF)
-// ====================================== 
-
-function updateLiveCounter() {
-    const counterEl = document.getElementById('wishCounter');
-    
-    if (counterEl) {
-        setInterval(() => {
-            let currentCount = parseInt(counterEl.textContent.replace(/,/g, ''));
-            currentCount += Math.floor(Math.random() * 3) + 1;
-            counterEl.textContent = currentCount.toLocaleString();
-        }, 5000);
+function playClickSound() {
+    if (DOM.clickSound) {
+        DOM.clickSound.currentTime = 0;
+        DOM.clickSound.play().catch(() => {});
     }
 }
 
-
-// ====================================== 
-// 📊 ANALYTICS & TRACKING
-// ====================================== 
-
-function trackEvent(eventName, eventData = {}) {
-    // In production, integrate with Google Analytics or other analytics
-    console.log('Event tracked:', eventName, eventData);
-    
-    // Example: Google Analytics
-    // if (typeof gtag !== 'undefined') {
-    //     gtag('event', eventName, eventData);
-    // }
-    
-    // Store in localStorage for basic tracking
-    const events = JSON.parse(localStorage.getItem('events') || '[]');
-    events.push({
-        name: eventName,
-        data: eventData,
-        timestamp: new Date().toISOString()
-    });
-    localStorage.setItem('events', JSON.stringify(events));
+function playSuccessSound() {
+    if (DOM.successSound) {
+        DOM.successSound.currentTime = 0;
+        DOM.successSound.play().catch(() => {});
+    }
 }
-// ====================================== 
-// 🎬 EVENT LISTENERS & INITIALIZATION
-// ====================================== 
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎊 Happy New Year 2026 Website Loaded!');
-    
-    // Initialize all features
-    initializeApp();
-    
-    // Load saved preferences
-    loadUserPreferences();
-    
-    // Check URL parameters
-    loadWishFromURL();
-    
-    // Start countdown
-    startCountdown();
-    
-    // Update live counter
-    updateLiveCounter();
-    
-    // Initialize page-specific features
-    initializeCreatePage();
-    initializeFortuneCookie();
-    initializeDonationPage();
-    initializeFrameSelection();
-    
-    // Track page load
-    trackEvent('page_load', { page: 'landing' });
-});
+/* ============================================
+   BACK TO TOP
+   ============================================ */
 
-
-// ====================================== 
-// 🚀 APP INITIALIZATION
-// ====================================== 
-
-function initializeApp() {
-    // Music Toggle
-    const musicToggle = document.getElementById('musicToggle');
-    if (musicToggle) {
-        musicToggle.addEventListener('click', toggleMusic);
-    }
-    
-    // Sound Toggle
-    const soundToggle = document.getElementById('soundToggle');
-    if (soundToggle) {
-        soundToggle.addEventListener('click', toggleSound);
-    }
-    
-    // Theme Switcher
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const theme = this.getAttribute('data-theme');
-            switchTheme(theme);
-            trackEvent('theme_change', { theme });
+function initBackToTop() {
+    DOM.backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
+        playClickSound();
+    });
+}
+
+/* ============================================
+   PHOTO EDITOR FUNCTIONS
+   ============================================ */
+
+function resetPhotoFilters() {
+    document.getElementById('brightness').value = 100;
+    document.getElementById('contrast').value = 100;
+    document.getElementById('saturation').value = 100;
+    applyPhotoFilters();
+    playClickSound();
+}
+
+function applyPhotoFilters() {
+    const brightness = document.getElementById('brightness').value;
+    const contrast = document.getElementById('contrast').value;
+    const saturation = document.getElementById('saturation').value;
+    
+    const image = document.getElementById('editorImage');
+    if (image) {
+        image.style.filter = `
+            brightness(${brightness}%)
+            contrast(${contrast}%)
+            saturate(${saturation}%)
+        `;
+    }
+    
+    playClickSound();
+}
+
+/* ============================================
+   ANIMATIONS INITIALIZATION
+   ============================================ */
+
+function initAnimations() {
+    initFireworks();
+    initParticles();
+    initSnow();
+}
+
+/* ============================================
+   LOCAL STORAGE MANAGEMENT
+   ============================================ */
+
+function loadSavedData() {
+    const savedWishes = localStorage.getItem('newYearWishes');
+    if (savedWishes) {
+        try {
+            const wishes = JSON.parse(savedWishes);
+            console.log('Loaded saved wishes:', wishes.length);
+        } catch (e) {
+            console.error('Error loading saved wishes:', e);
+        }
+    }
+}
+
+function clearSavedData() {
+    localStorage.removeItem('newYearWishes');
+    localStorage.removeItem('resolutions');
+    showToast('All saved data cleared!', 'success');
+}
+
+/* ============================================
+   FORM VALIDATION
+   ============================================ */
+
+function validateForm() {
+    const requiredFields = [
+        DOM.recipientName,
+        DOM.senderName
+    ];
+    
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            field.style.borderColor = 'var(--error-color)';
+            isValid = false;
+        } else {
+            field.style.borderColor = '';
+        }
     });
     
-    // Language Switcher
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const lang = this.getAttribute('data-lang');
-            switchLanguage(lang);
-            trackEvent('language_change', { language: lang });
-        });
-    });
-    
-    // Landing Page Buttons
-    const revealBtn = document.getElementById('revealBtn');
-    if (revealBtn) {
-        revealBtn.addEventListener('click', function() {
-            showPage('wishRevealPage');
-            trackEvent('reveal_clicked');
-        });
-    }
-    
-    const createOwnBtn = document.getElementById('createOwnBtn');
-    if (createOwnBtn) {
-        createOwnBtn.addEventListener('click', function() {
-            showPage('createPage');
-            trackEvent('create_clicked');
-        });
-    }
-    
-    // Generate Wish Link Button
-    const generateBtn = document.getElementById('generateBtn');
-    if (generateBtn) {
-        generateBtn.addEventListener('click', function() {
-            generateWishLink();
-            trackEvent('link_generated');
-        });
-    }
-    
-    // Photo Booth Buttons
-    const startCameraBtn = document.getElementById('startCameraBtn');
-    if (startCameraBtn) {
-        startCameraBtn.addEventListener('click', function() {
-            startCamera();
-            trackEvent('camera_started');
-        });
-    }
-    
-    const captureBtn = document.getElementById('captureBtn');
-    if (captureBtn) {
-        captureBtn.addEventListener('click', function() {
-            capturePhoto();
-            trackEvent('photo_captured');
-        });
-    }
-    
-    const retakeBtn = document.getElementById('retakeBtn');
-    if (retakeBtn) {
-        retakeBtn.addEventListener('click', retakePhoto);
-    }
-    
-    const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
-    if (downloadPhotoBtn) {
-        downloadPhotoBtn.addEventListener('click', downloadPhoto);
-    }
-    
-    // Fortune Cookie Button
-    const crackCookieBtn = document.getElementById('crackCookieBtn');
-    if (crackCookieBtn) {
-        crackCookieBtn.addEventListener('click', function() {
-            crackFortuneCookie();
-            trackEvent('fortune_revealed', { category: currentCategory });
-        });
-    }
-    
-    // Challenge Button
-    const joinChallengeBtn = document.getElementById('joinChallengeBtn');
-    if (joinChallengeBtn) {
-        joinChallengeBtn.addEventListener('click', function() {
-            joinChallenge();
-            trackEvent('challenge_joined');
-        });
-    }
-    
-    // Update challenge progress from saved count
-    const savedShareCount = localStorage.getItem('shareCount');
-    if (savedShareCount) {
-        CONFIG.shareCount = parseInt(savedShareCount);
-        updateChallengeProgress();
-    }
-    
-    // Footer navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
+    return isValid;
+}
+
+/* ============================================
+   KEYBOARD SHORTCUTS
+   ============================================ */
+
+function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K to open create section
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
-            const pageId = this.getAttribute('href').substring(1);
-            showPage(pageId);
-        });
-    });
-    
-    // Random fireworks on canvas click
-    canvas.addEventListener('click', function(e) {
-        createFirework(e.clientX, e.clientY);
-    });
-    
-    // Prevent right-click on images (optional protection)
-    document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
+            scrollToSection('create');
+        }
+        
+        // Escape to close modals
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(modal => {
+                closeModal(modal.id);
+            });
+        }
+        
+        // Arrow keys for step navigation
+        if (currentStep > 0 && currentStep <= 4) {
+            if (e.key === 'ArrowRight') {
+                nextStep();
+            } else if (e.key === 'ArrowLeft') {
+                previousStep();
+            }
         }
     });
 }
 
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
 
-// ====================================== 
-// 💾 LOCAL STORAGE MANAGEMENT
-// ====================================== 
-
-function loadUserPreferences() {
-    // Load theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        CONFIG.currentTheme = savedTheme;
-        switchTheme(savedTheme);
-    }
+function handleResize() {
+    // Handle responsive changes
+    const width = window.innerWidth;
     
-    // Load language
-    const savedLang = localStorage.getItem('language');
-    if (savedLang) {
-        CONFIG.currentLang = savedLang;
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            if (btn.getAttribute('data-lang') === savedLang) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
+    if (width < 768) {
+        // Mobile adjustments
+    } else if (width < 1024) {
+        // Tablet adjustments
+    } else {
+        // Desktop adjustments
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATION
+   ============================================ */
+
+function optimizePerformance() {
+    // Lazy load images
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                imageObserver.unobserve(img);
             }
         });
-        switchLanguage(savedLang);
-    }
+    });
     
-    // Load achievements
-    const savedAchievements = localStorage.getItem('achievements');
-    if (savedAchievements) {
-        CONFIG.achievements = JSON.parse(savedAchievements);
-    }
+    images.forEach(img => imageObserver.observe(img));
+}
+
+/* ============================================
+   ERROR HANDLING
+   ============================================ */
+
+function setupErrorHandling() {
+    window.addEventListener('error', (e) => {
+        console.error('Global error:', e.error);
+        showToast('An error occurred. Please try again.', 'error');
+    });
     
-    // Load music preference
-    const musicEnabled = localStorage.getItem('musicEnabled');
-    if (musicEnabled === 'true') {
-        CONFIG.musicEnabled = true;
-        document.getElementById('musicToggle')?.classList.add('active');
-    }
+    window.addEventListener('unhandledrejection', (e) => {
+        console.error('Unhandled promise rejection:', e.reason);
+    });
+}
+
+/* ============================================
+   ANALYTICS & TRACKING
+   ============================================ */
+
+function trackEvent(category, action, label) {
+    // Google Analytics or custom tracking
+    console.log('Track event:', category, action, label);
+}
+
+/* ============================================
+   SOCIAL MEDIA META TAGS UPDATE
+   ============================================ */
+
+function updateMetaTags(wish) {
+    const title = `Happy New Year 2025 from ${wish.senderName} to ${wish.recipientName}`;
+    const description = wish.customMessage || 'Create your personalized New Year wish!';
     
-    // Load sound preference
-    const soundEnabled = localStorage.getItem('soundEnabled');
-    if (soundEnabled !== null) {
-        CONFIG.soundEnabled = soundEnabled === 'true';
-        if (CONFIG.soundEnabled) {
-            document.getElementById('soundToggle')?.classList.add('active');
-        }
-    }
+    document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+    document.querySelector('meta[name="description"]').setAttribute('content', description);
 }
 
-function saveUserPreferences() {
-    localStorage.setItem('theme', CONFIG.currentTheme);
-    localStorage.setItem('language', CONFIG.currentLang);
-    localStorage.setItem('musicEnabled', CONFIG.musicEnabled);
-    localStorage.setItem('soundEnabled', CONFIG.soundEnabled);
-}
-
-// Save preferences when changed
-window.addEventListener('beforeunload', saveUserPreferences);
-
-
-// ====================================== 
-// 📱 MOBILE OPTIMIZATIONS
-// ====================================== 
-
-function detectMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-function optimizeForMobile() {
-    if (detectMobile()) {
-        // Reduce particle count on mobile
-        document.body.classList.add('mobile-device');
-        
-        // Disable some animations on low-end devices
-        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
-            document.body.classList.add('low-performance');
-        }
-        
-        // Add touch feedback
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('touchstart', function() {
-                this.style.transform = 'scale(0.95)';
-            });
-            btn.addEventListener('touchend', function() {
-                this.style.transform = '';
-            });
-        });
-        
-        // Optimize video for mobile
-        const video = document.getElementById('cameraVideo');
-        if (video) {
-            video.setAttribute('playsinline', 'true');
-        }
-    }
-}
-
-// Initialize mobile optimizations
-optimizeForMobile();
-
-
-// ====================================== 
-// 🔧 UTILITY FUNCTIONS
-// ====================================== 
+/* ============================================
+   UTILITY FUNCTIONS
+   ============================================ */
 
 function debounce(func, wait) {
     let timeout;
@@ -1647,499 +1747,360 @@ function throttle(func, limit) {
     };
 }
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function generateRandomId() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
-function getRandomColor() {
-    const colors = ['#ff6b9d', '#ffd700', '#00f5ff', '#b24bf3', '#38ef7d', '#ff8c00'];
-    return colors[Math.floor(Math.random() * colors.length)];
+function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 }
 
-function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+/* ============================================
+   NEWSLETTER SUBSCRIPTION
+   ============================================ */
+
+function subscribeNewsletter() {
+    const emailInput = document.querySelector('.newsletter-input');
+    const email = emailInput.value.trim();
+    
+    if (!email || !isValidEmail(email)) {
+        showToast('Please enter a valid email!', 'warning');
+        return;
+    }
+    
+    // Simulate subscription
+    showToast('Thank you for subscribing!', 'success');
+    emailInput.value = '';
+    playSuccessSound();
 }
 
-function sanitizeInput(input) {
-    const div = document.createElement('div');
-    div.textContent = input;
-    return div.innerHTML;
-}
-
-function validateEmail(email) {
+function isValidEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
 }
 
-function validateURL(url) {
-    try {
-        new URL(url);
-        return true;
-    } catch (e) {
-        return false;
+/* ============================================
+   SHARE STATISTICS
+   ============================================ */
+
+function incrementShareCount(platform) {
+    const stats = JSON.parse(localStorage.getItem('shareStats') || '{}');
+    stats[platform] = (stats[platform] || 0) + 1;
+    localStorage.setItem('shareStats', JSON.stringify(stats));
+    trackEvent('Share', platform, 'New Year Wish');
+}
+
+/* ============================================
+   PRINT FUNCTIONALITY
+   ============================================ */
+
+function printCard() {
+    window.print();
+    trackEvent('Action', 'Print', 'Greeting Card');
+}
+
+/* ============================================
+   CONFETTI BURST EFFECT
+   ============================================ */
+
+function createConfettiBurst(x, y) {
+    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7'];
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            left: ${x}px;
+            top: ${y}px;
+            pointer-events: none;
+            z-index: 10000;
+            border-radius: 50%;
+        `;
+        
+        document.body.appendChild(particle);
+        
+        const angle = (Math.PI * 2 * i) / particleCount;
+        const velocity = 5 + Math.random() * 5;
+        const vx = Math.cos(angle) * velocity;
+        const vy = Math.sin(angle) * velocity;
+        
+        animateParticle(particle, vx, vy);
     }
 }
 
-
-// ====================================== 
-// 🐛 ERROR HANDLING
-// ====================================== 
-
-window.addEventListener('error', function(e) {
-    console.error('Error occurred:', e.error);
+function animateParticle(particle, vx, vy) {
+    let x = parseFloat(particle.style.left);
+    let y = parseFloat(particle.style.top);
+    let opacity = 1;
     
-    // Log error for analytics
-    trackEvent('error', {
-        message: e.error?.message,
-        stack: e.error?.stack,
-        filename: e.filename,
-        lineno: e.lineno
-    });
-    
-    // Don't show error to user unless critical
-    return true; // Prevents default error handling
-});
-
-window.addEventListener('unhandledrejection', function(e) {
-    console.error('Unhandled promise rejection:', e.reason);
-    
-    trackEvent('unhandled_rejection', {
-        reason: e.reason?.toString()
-    });
-});
-
-// Fallback for unsupported features
-function checkBrowserSupport() {
-    const features = {
-        canvas: !!document.createElement('canvas').getContext,
-        localStorage: (function() {
-            try {
-                localStorage.setItem('test', 'test');
-                localStorage.removeItem('test');
-                return true;
-            } catch(e) {
-                return false;
-            }
-        })(),
-        webGL: (function() {
-            try {
-                const canvas = document.createElement('canvas');
-                return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
-            } catch(e) {
-                return false;
-            }
-        })(),
-        getUserMedia: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
-    };
-    
-    // Warn about unsupported features
-    if (!features.canvas) {
-        console.warn('Canvas not supported - fireworks disabled');
-    }
-    
-    if (!features.localStorage) {
-        console.warn('LocalStorage not supported - preferences won\'t be saved');
-    }
-    
-    if (!features.getUserMedia) {
-        console.warn('Camera not supported - photo booth disabled');
-        const photoBoothBtn = document.querySelector('[href="#photoBoothPage"]');
-        if (photoBoothBtn) {
-            photoBoothBtn.style.opacity = '0.5';
-            photoBoothBtn.title = 'Camera not supported on this device';
+    function update() {
+        x += vx;
+        y += vy;
+        vy += 0.2; // Gravity
+        opacity -= 0.02;
+        
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.opacity = opacity;
+        
+        if (opacity > 0) {
+            requestAnimationFrame(update);
+        } else {
+            particle.remove();
         }
     }
     
-    return features;
+    update();
 }
 
-// Check browser support on load
-const browserSupport = checkBrowserSupport();
+/* ============================================
+   CLICK EFFECTS
+   ============================================ */
 
+function initClickEffects() {
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('button, .btn, a')) {
+            createConfettiBurst(e.clientX, e.clientY);
+        }
+    });
+}
 
-// ====================================== 
-// 🚀 PERFORMANCE OPTIMIZATIONS
-// ====================================== 
+/* ============================================
+   EASTER EGGS
+   ============================================ */
 
-// Lazy load images
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
+let konamiCode = [];
+const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+function initEasterEggs() {
+    document.addEventListener('keydown', (e) => {
+        konamiCode.push(e.key);
+        konamiCode.splice(-konamiSequence.length - 1, konamiCode.length - konamiSequence.length);
+        
+        if (konamiCode.join(',').includes(konamiSequence.join(','))) {
+            activateEasterEgg();
+            konamiCode = [];
+        }
+    });
+}
+
+function activateEasterEgg() {
+    showToast('🎊 Secret mode activated! Extra fireworks! 🎊', 'success');
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            createConfettiBurst(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight
+            );
+        }, i * 100);
+    }
+}
+
+/* ============================================
+   SERVICE WORKER REGISTRATION (PWA)
+   ============================================ */
+
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('Service Worker registered:', registration);
+        }).catch(error => {
+            console.log('Service Worker registration failed:', error);
         });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-}
-
-// Optimize animations based on device performance
-function optimizeAnimations() {
-    // Reduce motion if user prefers
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.body.classList.add('reduce-motion');
-    }
-    
-    // Check FPS and reduce animations if low
-    let lastTime = performance.now();
-    let frames = 0;
-    let fps = 60;
-    
-    function checkFPS() {
-        const currentTime = performance.now();
-        frames++;
-        
-        if (currentTime >= lastTime + 1000) {
-            fps = Math.round((frames * 1000) / (currentTime - lastTime));
-            frames = 0;
-            lastTime = currentTime;
-            
-            // If FPS is low, reduce effects
-            if (fps < 30) {
-                document.body.classList.add('low-fps');
-                console.warn('Low FPS detected, reducing animations');
-            }
-        }
-        
-        requestAnimationFrame(checkFPS);
-    }
-    
-    requestAnimationFrame(checkFPS);
-}
-
-// Initialize optimizations
-if ('IntersectionObserver' in window) {
-    lazyLoadImages();
-}
-
-optimizeAnimations();
-
-// Preload critical resources
-function preloadCriticalResources() {
-    const resources = [
-        // Add URLs of critical resources to preload
-    ];
-    
-    resources.forEach(url => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.href = url;
-        link.as = url.endsWith('.css') ? 'style' : url.endsWith('.js') ? 'script' : 'fetch';
-        document.head.appendChild(link);
-    });
-}
-
-
-// ====================================== 
-// 🎯 URL PARAMETER HANDLING
-// ====================================== 
-
-function getURLParameter(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
-
-function updateURLParameter(key, value) {
-    const url = new URL(window.location);
-    url.searchParams.set(key, value);
-    window.history.pushState({}, '', url);
-}
-
-function removeURLParameter(key) {
-    const url = new URL(window.location);
-    url.searchParams.delete(key);
-    window.history.pushState({}, '', url);
-}
-
-
-// ====================================== 
-// 📊 VISITOR STATISTICS
-// ====================================== 
-
-function updateVisitorStats() {
-    // Get or create visitor ID
-    let visitorId = localStorage.getItem('visitorId');
-    if (!visitorId) {
-        visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('visitorId', visitorId);
-    }
-    
-    // Increment visit count
-    let visitCount = parseInt(localStorage.getItem('visitCount') || '0');
-    visitCount++;
-    localStorage.setItem('visitCount', visitCount);
-    
-    // Track first visit date
-    if (!localStorage.getItem('firstVisit')) {
-        localStorage.setItem('firstVisit', new Date().toISOString());
-    }
-    
-    // Track last visit
-    localStorage.setItem('lastVisit', new Date().toISOString());
-    
-    // Track session
-    sessionStorage.setItem('sessionStart', sessionStorage.getItem('sessionStart') || new Date().toISOString());
-    
-    trackEvent('visitor_stats', {
-        visitorId,
-        visitCount,
-        isReturning: visitCount > 1
-    });
-}
-
-updateVisitorStats();
-
-
-// ====================================== 
-// 🎨 DYNAMIC THEME PREVIEW
-// ====================================== 
-
-// Add CSS for theme previews dynamically
-const themeStyles = document.createElement('style');
-themeStyles.textContent = `
-    .theme-fireworks { background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(102, 126, 234, 0.2)); }
-    .theme-galaxy { background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3)); }
-    .theme-golden { background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 140, 0, 0.3)); }
-    .theme-romantic { background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(255, 20, 147, 0.3)); }
-    .theme-nature { background: linear-gradient(135deg, rgba(34, 139, 34, 0.3), rgba(144, 238, 144, 0.3)); }
-    
-    @media (max-width: 768px) {
-        .reduce-motion * { animation-duration: 0.01ms !important; }
-        .low-performance .stars, .low-performance #fireworksCanvas { display: none; }
-        .low-fps .sparkle-effect { display: none; }
-    }
-`;
-document.head.appendChild(themeStyles);
-
-
-// ====================================== 
-// 🎊 SPECIAL EFFECTS ON PAGE VISIBILITY
-// ====================================== 
-
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-        // Pause animations when tab is hidden
-        bgMusic.pause();
-    } else {
-        // Resume if music was enabled
-        if (CONFIG.musicEnabled) {
-            bgMusic.play().catch(e => console.log('Autoplay prevented'));
-        }
-        
-        // Welcome back effect
-        triggerFireworks();
-    }
-});
-
-
-// ====================================== 
-// 🎯 KEYBOARD SHORTCUTS (Easter Eggs)
-// ====================================== 
-
-document.addEventListener('keydown', function(e) {
-    // Ctrl/Cmd + K: Toggle confetti
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        createConfetti();
-        playSound('success');
-    }
-    
-    // Ctrl/Cmd + F: Trigger fireworks
-    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-        e.preventDefault();
-        triggerFireworks();
-    }
-    
-    // Ctrl/Cmd + M: Toggle music
-    if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
-        e.preventDefault();
-        toggleMusic();
-    }
-    
-    // Escape: Close modals
-    if (e.key === 'Escape') {
-        closeAchievement();
-    }
-});
-
-
-// ====================================== 
-// 🎁 SPECIAL DATE FEATURES
-// ====================================== 
-
-function checkSpecialDate() {
-    const today = new Date();
-    const month = today.getMonth() + 1; // 0-indexed
-    const day = today.getDate();
-    
-    // New Year's Day
-    if (month === 1 && day === 1) {
-        showNotification('🎊 Happy New Year! 🎊');
-        createConfetti();
-        triggerFireworks();
-        unlockAchievement('Visited on New Year! 🎉');
-    }
-    
-    // New Year's Eve
-    if (month === 12 && day === 31) {
-        showNotification('🎆 New Year\'s Eve! Get ready for 2026! 🎆');
-        // Start continuous fireworks
-        setInterval(() => {
-            if (Math.random() > 0.5) {
-                triggerFireworks();
-            }
-        }, 3000);
-    }
-    
-    // Christmas
-    if (month === 12 && day === 25) {
-        showNotification('🎄 Merry Christmas! 🎅');
-        unlockAchievement('Christmas Visitor! 🎄');
     }
 }
 
-checkSpecialDate();
+/* ============================================
+   INSTALL PROMPT (PWA)
+   ============================================ */
 
-
-// ====================================== 
-// 🌐 SHARE API (Modern Web Share)
-// ====================================== 
-
-async function nativeShare() {
-    if (navigator.share) {
-        try {
-            await navigator.share({
-                title: '🎊 Happy New Year 2026!',
-                text: 'Check out this amazing New Year wish I created!',
-                url: window.location.href
-            });
-            
-            updateShareCount();
-            playSound('success');
-            trackEvent('native_share');
-        } catch (err) {
-            console.log('Share cancelled or failed:', err);
-        }
-    } else {
-        // Fallback to WhatsApp
-        shareToWhatsApp();
-    }
-}
-
-
-// ====================================== 
-// 🎬 SCROLL ANIMATIONS
-// ====================================== 
-
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all cards
-    document.querySelectorAll('.glass-card').forEach(card => {
-        observer.observe(card);
-    });
-}
-
-// Initialize scroll animations if supported
-if ('IntersectionObserver' in window) {
-    initScrollAnimations();
-}
-
-
-// ====================================== 
-// 💫 PWA SUPPORT (Progressive Web App)
-// ====================================== 
-
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered'))
-            .catch(err => console.log('Service Worker registration failed'));
-    });
-}
-
-// Install prompt
 let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // Show install button if you want
-    console.log('App can be installed');
-});
+function initInstallPrompt() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallButton();
+    });
+}
 
-function installPWA() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-                trackEvent('pwa_installed');
-            }
+function showInstallButton() {
+    // Show install button in UI
+    const installBtn = document.createElement('button');
+    installBtn.className = 'btn btn-primary install-btn';
+    installBtn.innerHTML = '<i class="fas fa-download"></i> Install App';
+    installBtn.style.cssText = 'position: fixed; bottom: 20px; left: 20px; z-index: 1000;';
+    
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response: ${outcome}`);
             deferredPrompt = null;
+            installBtn.remove();
+        }
+    });
+    
+    document.body.appendChild(installBtn);
+}
+
+/* ============================================
+   NOTIFICATION PERMISSION
+   ============================================ */
+
+function requestNotificationPermission() {
+    if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                console.log('Notification permission granted');
+            }
         });
     }
 }
 
-
-// ====================================== 
-// 🎯 FINAL INITIALIZATION
-// ====================================== 
-
-console.log(`
-╔═══════════════════════════════════════╗
-║   🎊 HAPPY NEW YEAR 2026 🎊          ║
-║   Website Successfully Loaded!        ║
-║   ✨ Spread Joy & Love ✨            ║
-╚═══════════════════════════════════════╝
-`);
-
-// Log performance metrics
-window.addEventListener('load', () => {
-    if (performance.timing) {
-        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-        console.log(`⚡ Page loaded in ${loadTime}ms`);
-        trackEvent('performance', { loadTime });
+function sendNotification(title, options) {
+    if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, options);
     }
+}
+
+/* ============================================
+   ADVANCED FEATURES
+   ============================================ */
+
+function initAdvancedFeatures() {
+    // Voice commands (experimental)
+    if ('webkitSpeechRecognition' in window) {
+        initVoiceCommands();
+    }
+    
+    // Geolocation for timezone-based countdown
+    if ('geolocation' in navigator) {
+        initGeolocation();
+    }
+    
+    // Device orientation for interactive effects
+    if (window.DeviceOrientationEvent) {
+        initDeviceOrientation();
+    }
+}
+
+function initVoiceCommands() {
+    // Voice recognition implementation
+    console.log('Voice commands available');
+}
+
+function initGeolocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log('User location:', position.coords);
+        // Adjust countdown based on timezone
+    });
+}
+
+function initDeviceOrientation() {
+    window.addEventListener('deviceorientation', (e) => {
+        // Create interactive effects based on device tilt
+    });
+}
+
+/* ============================================
+   INITIALIZATION
+   ============================================ */
+
+function init() {
+    // Core initialization
+    initPreloader();
+    initNavigation();
+    initMusicControl();
+    initThemeSwitcher();
+    initStatsCounter();
+    initBackToTop();
+    
+    // Feature initialization
+    initTemplateSelection();
+    initPhotoUpload();
+    initCustomization();
+    initCountdown();
+    initTemplateFilters();
+    initFAQ();
+    
+    // Advanced features
+    initKeyboardShortcuts();
+    initClickEffects();
+    initEasterEggs();
+    
+    // Performance & PWA
+    optimizePerformance();
+    setupErrorHandling();
+    
+    // Load data
+    loadSavedData();
+    loadFromUrl();
+    
+    // Resize handler
+    window.addEventListener('resize', debounce(handleResize, 250));
+    
+    // Newsletter
+    const newsletterBtn = document.querySelector('.newsletter-btn');
+    if (newsletterBtn) {
+        newsletterBtn.addEventListener('click', subscribeNewsletter);
+    }
+    
+    console.log('🎊 Happy New Year 2025 Platform Initialized! 🎊');
+}
+
+/* ============================================
+   DOCUMENT READY
+   ============================================ */
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+/* ============================================
+   WINDOW LOAD
+   ============================================ */
+
+window.addEventListener('load', () => {
+    // Additional initialization after page fully loads
+    console.log('Page fully loaded');
 });
 
-// Expose some functions globally for inline onclick handlers
-window.shareToWhatsApp = shareToWhatsApp;
-window.shareToFacebook = shareToFacebook;
-window.shareToTwitter = shareToTwitter;
-window.shareToInstagram = shareToInstagram;
-window.copyLink = copyLink;
-window.downloadWish = downloadWish;
-window.sendLoveBack = sendLoveBack;
-window.triggerEmojiRain = triggerEmojiRain;
-window.shareFortune = shareFortune;
-window.copyGeneratedLink = copyGeneratedLink;
-window.shareGeneratedLink = shareGeneratedLink;
-window.downloadQR = downloadQR;
-window.closeAchievement = closeAchievement;
-window.payWithUPI = payWithUPI;
-window.payWithPhonePe = payWithPhonePe;
-window.payWithGPay = payWithGPay;
-window.payWithPaytm = payWithPaytm;
+/* ============================================
+   EXPORT FUNCTIONS (if using modules)
+   ============================================ */
 
-// Ready state
-console.log('🎉 All systems ready! Happy New Year 2026! 🎉');
+// Export functions for external use
+window.scrollToSection = scrollToSection;
+window.nextStep = nextStep;
+window.previousStep = previousStep;
+window.copyLink = copyLink;
+window.shareOnWhatsApp = shareOnWhatsApp;
+window.shareOnFacebook = shareOnFacebook;
+window.shareOnTwitter = shareOnTwitter;
+window.shareOnInstagram = shareOnInstagram;
+window.shareOnTelegram = shareOnTelegram;
+window.shareViaEmail = shareViaEmail;
+window.downloadCard = downloadCard;
+window.createNew = createNew;
+window.addResolution = addResolution;
+window.likeResolution = likeResolution;
+window.loadMoreGallery = loadMoreGallery;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.removePhoto = removePhoto;
+window.resetPhotoFilters = resetPhotoFilters;
+window.applyPhotoFilters = applyPhotoFilters;
+
+/* END OF SCRIPT */
