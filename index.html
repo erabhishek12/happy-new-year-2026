@@ -3,851 +3,1516 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Surprise your loved ones with personalized New Year 2026 wishes! Create magical moments.">
-    <meta property="og:title" content="🎉 Happy New Year 2026 - Your Personalized Surprise!">
-    <meta property="og:description" content="Someone special sent you New Year wishes! Click to reveal the surprise.">
-    <meta property="og:image" content="https://i.imgur.com/your-preview-image.jpg">
+    <meta name="description" content="Create Amazing Personalized Happy New Year 2025 Wishes - Viral Greeting Card Generator with Custom Names, Photos & Stunning Animations">
+    <meta name="keywords" content="Happy New Year 2025, New Year Wishes, Greeting Cards, Personalized Cards, Viral Wishes">
+    <meta property="og:title" content="Happy New Year 2025 - Personalized Wishes">
+    <meta property="og:description" content="Create Your Own Magical New Year Greeting with Custom Names & Photos!">
+    <meta property="og:image" content="preview.jpg">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary_large_image">
     
-    <title>🎉 Happy New Year 2026 - Surprise Awaits!</title>
+    <title>🎊 Happy New Year 2025 - Create Personalized Wishes 🎆</title>
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Playfair+Display:wght@400;700;900&family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600;800&family=Raleway:wght@300;500;700;900&family=Caveat:wght@400;700&family=Satisfy&family=Pacifico&family=Great+Vibes&family=Lobster&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css for Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎊</text></svg>">
 </head>
 <body>
 
-    <!-- 🎵 Background Music Toggle -->
-    <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <!-- 🔊 Sound Effects Toggle -->
-    <button id="soundToggle" class="sound-toggle" aria-label="Toggle Sound">
-        <i class="fas fa-volume-up"></i>
-    </button>
-
-    <!-- 🎨 Theme Switcher -->
-    <div class="theme-switcher">
-        <button class="theme-btn" data-theme="galaxy" title="Galaxy">🌌</button>
-        <button class="theme-btn" data-theme="golden" title="Golden">✨</button>
-        <button class="theme-btn" data-theme="neon" title="Neon">💫</button>
-        <button class="theme-btn" data-theme="rose" title="Rose">🌹</button>
-        <button class="theme-btn" data-theme="ice" title="Ice">❄️</button>
+    <!-- ============================================ -->
+    <!-- PRELOADER SECTION -->
+    <!-- ============================================ -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <div class="firework-loader">
+                <div class="spark"></div>
+                <div class="spark"></div>
+                <div class="spark"></div>
+                <div class="spark"></div>
+                <div class="spark"></div>
+            </div>
+            <h2 class="loading-text animate__animated animate__pulse animate__infinite">
+                <span class="letter" style="--i:0">L</span>
+                <span class="letter" style="--i:1">O</span>
+                <span class="letter" style="--i:2">A</span>
+                <span class="letter" style="--i:3">D</span>
+                <span class="letter" style="--i:4">I</span>
+                <span class="letter" style="--i:5">N</span>
+                <span class="letter" style="--i:6">G</span>
+                <span class="letter" style="--i:7">.</span>
+                <span class="letter" style="--i:8">.</span>
+                <span class="letter" style="--i:9">.</span>
+            </h2>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+            <p class="loading-percentage" id="loadingPercentage">0%</p>
+        </div>
     </div>
 
-    <!-- 🎆 Fireworks Canvas -->
-    <canvas id="fireworksCanvas"></canvas>
-
-    <!-- ✨ Confetti Container -->
-    <div id="confettiContainer"></div>
-
-    <!-- 🌟 Stars Background -->
-    <div class="stars"></div>
-
-    <!-- ====================================== -->
-    <!-- 📱 PAGE 1: SURPRISE ENTRY / LANDING -->
-    <!-- ====================================== -->
-    <section id="landingPage" class="page active">
-        <div class="container">
-            
-            <!-- Hero Content -->
-            <div class="hero-content glass-card">
-                <div class="sparkle-effect"></div>
-                
-                <h1 class="hero-title animate-pop">
-                    🎊 A Special Surprise<br>
-                    <span class="gradient-text">Awaits You</span>
-                </h1>
-                
-                <p class="hero-subtitle">
-                    Someone you know has sent you<br>
-                    a personalized New Year wish ✨
-                </p>
-
-                <!-- Live Counter (Social Proof) -->
-                <div class="live-counter">
-                    <i class="fas fa-heart pulse"></i>
-                    <span id="wishCounter">12,847</span> people wished today
-                </div>
-
-                <!-- Main CTA Buttons -->
-                <div class="cta-buttons">
-                    <button id="revealBtn" class="btn btn-primary btn-glow">
-                        <i class="fas fa-gift"></i>
-                        Reveal My Surprise
-                    </button>
-                    
-                    <button id="createOwnBtn" class="btn btn-secondary">
-                        <i class="fas fa-wand-magic-sparkles"></i>
-                        Create Your Own Wish
-                    </button>
-                </div>
-
-                <!-- Features Preview -->
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <i class="fas fa-camera"></i>
-                        <span>Photo Booth</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-cookie-bite"></i>
-                        <span>Fortune 2026</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-download"></i>
-                        <span>Download</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-share-nodes"></i>
-                        <span>Share Magic</span>
-                    </div>
-                </div>
-            </div>
-
- <!-- 📢 Self Promo Card - Banner -->
-<a href="https://i-m-er-abhi.vercel.app"
-   target="_blank"
-   class="promo-card glass-card promo-banner-link">
-
-    <span class="promo-badge">✨ Featured</span>
-
-    <img
-        src="assets/pp.jpeg"
-        alt="JavaSourceCode Banner"
-        class="promo-banner-img"
-    />
-
-</a>
-
-
-    <!-- ====================================== -->
-    <!-- 📱 PAGE 2: PERSONALIZED WISH REVEAL -->
-    <!-- ====================================== -->
-    <section id="wishRevealPage" class="page">
-        <div class="container">
-            
-            <!-- Animated Gift Box Opening -->
-            <div id="giftBox" class="gift-box">
-                <div class="gift-lid"></div>
-                <div class="gift-base"></div>
-                <div class="gift-ribbon"></div>
-            </div>
-
-            <!-- Wish Card -->
-            <div id="wishCard" class="wish-card glass-card hidden">
-                <div class="wish-header">
-                    <div class="from-badge">From: <span id="senderName">Your Friend</span></div>
-                </div>
-
-                <div class="wish-content">
-                    <h2 class="wish-greeting">
-                        Dear <span id="receiverName" class="gradient-text">Friend</span>,
-                    </h2>
-
-                    <div class="wish-message">
-                        <p class="main-wish">
-                            🎊 Wishing you a<br>
-                            <span class="big-text">HAPPY NEW YEAR</span><br>
-                            <span class="year-text">2026</span>
-                        </p>
-
-                        <p class="wish-description">
-                            May this year bring you endless joy, success, and magical moments! 
-                            Let's make 2026 the best year yet! ✨
-                        </p>
-                    </div>
-
-                    <div class="wish-footer">
-                        <div class="emoji-rain-trigger" onclick="triggerEmojiRain()">
-                            Click for magic! ✨
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="wish-actions">
-                    <button class="btn btn-primary" onclick="shareToWhatsApp()">
-                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
-                    </button>
-                    
-                    <button class="btn btn-secondary" onclick="downloadWish()">
-                        <i class="fas fa-download"></i> Download Image
-                    </button>
-
-                    <button class="btn btn-outline" onclick="sendLoveBack()">
-                        <i class="fas fa-heart"></i> Send Love Back
-                    </button>
-                </div>
-
-                <!-- Social Share -->
-                <div class="social-share">
-                    <p>Share the joy:</p>
-                    <div class="social-buttons">
-                        <button onclick="shareToFacebook()" title="Facebook">
-                            <i class="fab fa-facebook"></i>
-                        </button>
-                        <button onclick="shareToTwitter()" title="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </button>
-                        <button onclick="shareToInstagram()" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </button>
-                        <button onclick="copyLink()" title="Copy Link">
-                            <i class="fas fa-link"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Achievement Unlocked -->
-            <div id="achievementPopup" class="achievement-popup hidden">
-                <i class="fas fa-trophy"></i>
-                <span>Achievement Unlocked: First Wish Revealed! 🎉</span>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- 📱 PAGE 3: CREATE YOUR OWN WISH -->
-    <!-- ====================================== -->
-    <section id="createPage" class="page">
-        <div class="container">
-            
-            <div class="page-header">
-                <h2 class="page-title gradient-text">Create Your Magic ✨</h2>
-                <p class="page-subtitle">Personalize and share your unique New Year wish</p>
-            </div>
-
-            <div class="create-grid">
-                
-                <!-- Left: Form -->
-                <div class="create-form glass-card">
-                    <h3><i class="fas fa-pen-fancy"></i> Customize Your Wish</h3>
-
-                    <div class="form-group">
-                        <label for="yourName">
-                            <i class="fas fa-user"></i> Your Name
-                        </label>
-                        <input type="text" id="yourName" placeholder="Enter your name" class="input-field">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="friendName">
-                            <i class="fas fa-user-friends"></i> Friend's Name
-                        </label>
-                        <input type="text" id="friendName" placeholder="Who are you wishing?" class="input-field">
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <i class="fas fa-palette"></i> Choose Theme
-                        </label>
-                        <div class="theme-options">
-                            <button class="theme-option active" data-theme="fireworks">
-                                🎆 Fireworks
-                            </button>
-                            <button class="theme-option" data-theme="galaxy">
-                                🌌 Galaxy
-                            </button>
-                            <button class="theme-option" data-theme="golden">
-                                ✨ Golden
-                            </button>
-                            <button class="theme-option" data-theme="romantic">
-                                💕 Romantic
-                            </button>
-                            <button class="theme-option" data-theme="nature">
-                                🌿 Nature
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <i class="fas fa-face-smile"></i> Message Tone
-                        </label>
-                        <div class="tone-options">
-                            <button class="tone-option active" data-tone="fun">
-                                🎉 Fun
-                            </button>
-                            <button class="tone-option" data-tone="emotional">
-                                💝 Emotional
-                            </button>
-                            <button class="tone-option" data-tone="spiritual">
-                                🙏 Spiritual
-                            </button>
-                            <button class="tone-option" data-tone="motivational">
-                                🚀 Motivational
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="customMessage">
-                            <i class="fas fa-message"></i> Personal Message (Optional)
-                        </label>
-                        <textarea id="customMessage" rows="3" placeholder="Add your heartfelt message..." class="input-field"></textarea>
-                    </div>
-
-                    <button id="generateBtn" class="btn btn-primary btn-block">
-                        <i class="fas fa-sparkles"></i> Generate My Wish Link
-                    </button>
-
-                </div>
-
-                <!-- Right: Live Preview -->
-                <div class="preview-section">
-                    <div class="preview-label">
-                        <i class="fas fa-eye"></i> Live Preview
-                    </div>
-                    
-                    <div id="livePreview" class="live-preview glass-card">
-                        <div class="preview-content">
-                            <h3>Dear <span id="previewReceiver">Friend</span>,</h3>
-                            <p class="preview-wish">
-                                🎊 Happy New Year<br>
-                                <span class="preview-year">2026</span>
-                            </p>
-                            <p class="preview-message" id="previewMessage">
-                                May this year bring endless joy! ✨
-                            </p>
-                            <div class="preview-from">
-                                - <span id="previewSender">You</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Generated Link Section -->
-                    <div id="generatedLinkSection" class="generated-link hidden">
-                        <h4><i class="fas fa-link"></i> Your Unique Link:</h4>
-                        <div class="link-box">
-                            <input type="text" id="generatedLink" readonly class="link-input">
-                            <button onclick="copyGeneratedLink()" class="btn-copy">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="link-actions">
-                            <button onclick="shareGeneratedLink()" class="btn btn-success">
-                                <i class="fab fa-whatsapp"></i> Share via WhatsApp
-                            </button>
-                            <button onclick="downloadQR()" class="btn btn-secondary">
-                                <i class="fas fa-qrcode"></i> Get QR Code
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
+    <!-- ============================================ -->
+    <!-- BACKGROUND CANVAS FOR ANIMATIONS -->
+    <!-- ============================================ -->
+    <canvas id="fireworksCanvas" class="fireworks-canvas"></canvas>
+    <canvas id="particlesCanvas" class="particles-canvas"></canvas>
+    <canvas id="snowCanvas" class="snow-canvas"></canvas>
     
-    <!-- ====================================== -->
-    <!-- 🌐 LANGUAGE TOGGLE -->
-    <!-- ====================================== -->
-    <div class="language-toggle">
-        <button class="lang-btn active" data-lang="en">
-            English
-        </button>
-        <button class="lang-btn" data-lang="hi">
-            हिंदी
-        </button>
-    </div>
-
-
-    <!-- ====================================== -->
-    <!-- 📸 PAGE 4: PHOTO BOOTH -->
-    <!-- ====================================== -->
-    <section id="photoBoothPage" class="page">
-        <div class="container">
-            
-            <div class="page-header">
-                <h2 class="page-title gradient-text">
-                    <span data-en="Photo Booth 2026" data-hi="फोटो बूथ 2026">Photo Booth 2026</span> 📸
-                </h2>
-                <p class="page-subtitle" data-en="Capture your New Year moment with festive frames" data-hi="नए साल की यादें सजाएं खूबसूरत फ्रेम्स के साथ">
-                    Capture your New Year moment with festive frames
-                </p>
-            </div>
-
-            <div class="photobooth-grid">
-                
-                <!-- Camera Section -->
-                <div class="camera-section glass-card">
-                    <div class="camera-container">
-                        <video id="cameraVideo" autoplay playsinline></video>
-                        <canvas id="photoCanvas" class="hidden"></canvas>
-                        <img id="capturedPhoto" class="hidden" alt="Captured">
-                        
-                        <!-- Frame Overlay -->
-                        <div id="frameOverlay" class="frame-overlay">
-                            <img id="selectedFrame" src="" alt="Frame">
-                        </div>
-                    </div>
-
-                    <div class="camera-controls">
-                        <button id="startCameraBtn" class="btn btn-primary">
-                            <i class="fas fa-camera"></i>
-                            <span data-en="Start Camera" data-hi="कैमरा चालू करें">Start Camera</span>
-                        </button>
-                        <button id="captureBtn" class="btn btn-success hidden">
-                            <i class="fas fa-circle"></i>
-                            <span data-en="Capture" data-hi="फोटो लें">Capture</span>
-                        </button>
-                        <button id="retakeBtn" class="btn btn-secondary hidden">
-                            <i class="fas fa-rotate-right"></i>
-                            <span data-en="Retake" data-hi="फिर से लें">Retake</span>
-                        </button>
-                        <button id="downloadPhotoBtn" class="btn btn-primary hidden">
-                            <i class="fas fa-download"></i>
-                            <span data-en="Download" data-hi="डाउनलोड करें">Download</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Frame Selection -->
-                <div class="frames-section glass-card">
-                    <h3>
-                        <i class="fas fa-images"></i>
-                        <span data-en="Choose Frame" data-hi="फ्रेम चुनें">Choose Frame</span>
-                    </h3>
-                    <div class="frames-grid">
-                        <div class="frame-item active" data-frame="frame1">
-                            <div class="frame-preview frame-1">🎊 2026</div>
-                            <span data-en="Party" data-hi="पार्टी">Party</span>
-                        </div>
-                        <div class="frame-item" data-frame="frame2">
-                            <div class="frame-preview frame-2">✨ HNY</div>
-                            <span data-en="Golden" data-hi="सुनहरा">Golden</span>
-                        </div>
-                        <div class="frame-item" data-frame="frame3">
-                            <div class="frame-preview frame-3">🌟 2026</div>
-                            <span data-en="Sparkle" data-hi="चमकीला">Sparkle</span>
-                        </div>
-                        <div class="frame-item" data-frame="frame4">
-                            <div class="frame-preview frame-4">🪔 2026</div>
-                            <span data-en="Desi" data-hi="देसी">Desi</span>
-                        </div>
-                        <div class="frame-item" data-frame="frame5">
-                            <div class="frame-preview frame-5">💝 2026</div>
-                            <span data-en="Love" data-hi="प्यार">Love</span>
-                        </div>
-                        <div class="frame-item" data-frame="frame6">
-                            <div class="frame-preview frame-6">🎆 2026</div>
-                            <span data-en="Fireworks" data-hi="आतिशबाज़ी">Fireworks</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- 🎁 PAGE 5: FORTUNE COOKIE 2026 -->
-    <!-- ====================================== -->
-    <section id="fortunePage" class="page">
-        <div class="container">
-            
-            <div class="page-header">
-                <h2 class="page-title gradient-text">
-                    <span data-en="Your 2026 Fortune" data-hi="आपका 2026 भविष्यफल">Your 2026 Fortune</span> 🔮
-                </h2>
-                <p class="page-subtitle" data-en="Discover what 2026 has in store for you" data-hi="जानें 2026 में क्या है आपके लिए खास">
-                    Discover what 2026 has in store for you
-                </p>
-            </div>
-
-            <div class="fortune-container">
-                
-                <!-- Fortune Cookie Animation -->
-                <div class="fortune-cookie-wrapper">
-                    <div id="fortuneCookie" class="fortune-cookie">
-                        <div class="cookie-half cookie-left"></div>
-                        <div class="cookie-half cookie-right"></div>
-                        <div id="fortuneSlip" class="fortune-slip hidden">
-                            <p id="fortuneText"></p>
-                        </div>
-                    </div>
-                </div>
-
-                <button id="crackCookieBtn" class="btn btn-primary btn-glow">
-                    <i class="fas fa-hand-pointer"></i>
-                    <span data-en="Crack Open Your Fortune" data-hi="अपना भाग्य खोलें">Crack Open Your Fortune</span>
-                </button>
-
-                <!-- Fortune Categories -->
-                <div class="fortune-categories glass-card">
-                    <h3 data-en="Choose Your Path" data-hi="अपना रास्ता चुनें">Choose Your Path</h3>
-                    <div class="category-grid">
-                        <button class="category-btn active" data-category="general">
-                            <i class="fas fa-star"></i>
-                            <span data-en="General" data-hi="सामान्य">General</span>
-                        </button>
-                        <button class="category-btn" data-category="love">
-                            <i class="fas fa-heart"></i>
-                            <span data-en="Love" data-hi="प्यार">Love</span>
-                        </button>
-                        <button class="category-btn" data-category="career">
-                            <i class="fas fa-briefcase"></i>
-                            <span data-en="Career" data-hi="करियर">Career</span>
-                        </button>
-                        <button class="category-btn" data-category="wealth">
-                            <i class="fas fa-coins"></i>
-                            <span data-en="Wealth" data-hi="धन">Wealth</span>
-                        </button>
-                        <button class="category-btn" data-category="health">
-                            <i class="fas fa-heart-pulse"></i>
-                            <span data-en="Health" data-hi="स्वास्थ्य">Health</span>
-                        </button>
-                        <button class="category-btn" data-category="spiritual">
-                            <i class="fas fa-om"></i>
-                            <span data-en="Spiritual" data-hi="आध्यात्मिक">Spiritual</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Share Fortune -->
-                <div id="fortuneShare" class="fortune-share hidden">
-                    <button class="btn btn-secondary" onclick="shareFortune()">
-                        <i class="fas fa-share"></i>
-                        <span data-en="Share My Fortune" data-hi="भाग्य शेयर करें">Share My Fortune</span>
-                    </button>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- 🎯 PAGE 6: VIRAL CHALLENGE -->
-    <!-- ====================================== -->
-    <section id="challengePage" class="page">
-        <div class="container">
-            
-            <div class="challenge-card glass-card">
-                <div class="challenge-badge">🔥 VIRAL CHALLENGE</div>
-                
-                <h2 class="challenge-title">
-                    <span data-en="2026 Wishes Challenge" data-hi="2026 शुभकामना चैलेंज">2026 Wishes Challenge</span>
-                </h2>
-                
-                <p class="challenge-description" data-en="Share wishes with 5 friends to unlock a secret surprise gift!" data-hi="5 दोस्तों को शुभकामनाएं भेजें और पाएं गुप्त उपहार!">
-                    Share wishes with 5 friends to unlock a secret surprise gift!
-                </p>
-
-                <!-- Progress Bar -->
-                <div class="challenge-progress">
-                    <div class="progress-label">
-                        <span data-en="Progress" data-hi="प्रगति">Progress</span>
-                        <span id="challengeCount">0/5</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div id="challengeProgressBar" class="progress-fill"></div>
-                    </div>
-                </div>
-
-                <!-- Challenge Steps -->
-                <div class="challenge-steps">
-                    <div class="step completed">
-                        <i class="fas fa-check-circle"></i>
-                        <span data-en="Create your wish" data-hi="अपनी शुभकामना बनाएं">Create your wish</span>
-                    </div>
-                    <div class="step" id="step2">
-                        <i class="fas fa-circle"></i>
-                        <span data-en="Share with 5 friends" data-hi="5 दोस्तों को भेजें">Share with 5 friends</span>
-                    </div>
-                    <div class="step" id="step3">
-                        <i class="fas fa-circle"></i>
-                        <span data-en="Unlock secret gift" data-hi="गुप्त उपहार पाएं">Unlock secret gift</span>
-                    </div>
-                </div>
-
-                <button id="joinChallengeBtn" class="btn btn-primary btn-glow">
-                    <i class="fas fa-rocket"></i>
-                    <span data-en="Join Challenge" data-hi="चैलेंज शुरू करें">Join Challenge</span>
-                </button>
-
-                <!-- Secret Gift (Hidden) -->
-                <div id="secretGift" class="secret-gift hidden">
-                    <div class="gift-animation">🎁</div>
-                    <h3 data-en="Congratulations!" data-hi="बधाई हो!">Congratulations!</h3>
-                    <p data-en="You unlocked: Premium 2026 Calendar Download!" data-hi="आपने अनलॉक किया: प्रीमियम 2026 कैलेंडर!">
-                        You unlocked: Premium 2026 Calendar Download!
-                    </p>
-                    <button class="btn btn-success">
-                        <i class="fas fa-download"></i>
-                        <span data-en="Download Now" data-hi="अभी डाउनलोड करें">Download Now</span>
-                    </button>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- 💝 PAGE 7: SUPPORT / DONATION -->
-    <!-- ====================================== -->
-    <section id="donationPage" class="page">
-        <div class="container">
-            
-            <div class="donation-card glass-card">
-                <div class="donation-header">
-                    <i class="fas fa-heart heart-beat"></i>
-                    <h2 data-en="Support This Project" data-hi="इस प्रोजेक्ट को सपोर्ट करें">Support This Project</h2>
-                    <p data-en="Help us keep this free & ad-light for everyone" data-hi="इसे सभी के लिए मुफ्त रखने में मदद करें">
-                        Help us keep this free & ad-light for everyone
-                    </p>
-                </div>
-
-                <!-- Donation Amounts -->
-                <div class="donation-amounts">
-                    <h3>
-                        <i class="fas fa-coffee"></i>
-                        <span data-en="Buy us a coffee" data-hi="एक कॉफी पिलाएं">Buy us a coffee</span>
-                    </h3>
-                    <div class="amount-grid">
-                        <button class="amount-btn" data-amount="49">
-                            ☕ ₹49
-                        </button>
-                        <button class="amount-btn popular" data-amount="99">
-                            <div class="popular-badge">Popular</div>
-                            🍕 ₹99
-                        </button>
-                        <button class="amount-btn" data-amount="199">
-                            🎁 ₹199
-                        </button>
-                        <button class="amount-btn" data-amount="499">
-                            💝 ₹499
-                        </button>
-                    </div>
-                    
-                    <div class="custom-amount">
-                        <input type="number" id="customAmount" placeholder="Custom amount" class="input-field">
-                    </div>
-                </div>
-
-                <!-- Payment Options -->
-                <div class="payment-options">
-                    <h4 data-en="Choose Payment Method" data-hi="भुगतान विधि चुनें">Choose Payment Method</h4>
-                    
-                    <div class="payment-buttons">
-                        <button class="payment-btn" onclick="payWithUPI()">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>UPI</span>
-                        </button>
-                        <button class="payment-btn" onclick="payWithPhonePe()">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='18' font-size='18'%3E📱%3C/text%3E%3C/svg%3E" alt="PhonePe">
-                            <span>PhonePe</span>
-                        </button>
-                        <button class="payment-btn" onclick="payWithGPay()">
-                            <i class="fab fa-google-pay"></i>
-                            <span>GPay</span>
-                        </button>
-                        <button class="payment-btn" onclick="payWithPaytm()">
-                            💳 <span>Paytm</span>
-                        </button>
-                    </div>
-
-                    <!-- QR Code for Direct UPI -->
-                    <div class="upi-qr">
-                        <p data-en="Or scan QR code:" data-hi="या QR कोड स्कैन करें:">Or scan QR code:</p>
-                        <div class="qr-placeholder">
-                            <i class="fas fa-qrcode"></i>
-                            <p>UPI QR Code</p>
-                            <small>yourname@paytm</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thank You Message -->
-                <div class="donation-footer">
-                    <p class="small-text" data-en="Every contribution helps us improve & add more features ❤️" data-hi="हर योगदान हमें बेहतर बनाने में मदद करता है ❤️">
-                        Every contribution helps us improve & add more features ❤️
-                    </p>
-                </div>
-
-            </div>
-
-            <!-- Contributor Wall -->
-            <div class="contributors-wall glass-card">
-                <h3>
-                    <i class="fas fa-users"></i>
-                    <span data-en="Our Amazing Supporters" data-hi="हमारे शानदार समर्थक">Our Amazing Supporters</span>
-                </h3>
-                <div class="contributors-list">
-                    <div class="contributor-avatar">R</div>
-                    <div class="contributor-avatar">A</div>
-                    <div class="contributor-avatar">P</div>
-                    <div class="contributor-avatar">+127</div>
-                </div>
-                <p class="small-text" data-en="Join these awesome people!" data-hi="इन शानदार लोगों में शामिल हों!">
-                    Join these awesome people!
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- 📢 SELF PROMO CARD 2 -->
-    <!-- ====================================== -->
-    <section class="promo-section">
-        <div class="container">
-            <div class="promo-card-2 glass-card">
-                <div class="promo-badge-2">🎯 Recommended</div>
-                <div class="promo-grid">
-                    <div class="promo-image">
-                        <i class="fas fa-code fa-3x"></i>
-                    </div>
-                    <div class="promo-details">
-                        <h3 data-en="Learn Web Development" data-hi="वेब डेवलपमेंट सीखें">Learn Web Development</h3>
-                        <p data-en="Master HTML, CSS, JavaScript & build viral projects like this" data-hi="HTML, CSS, JavaScript सीखें और ऐसे प्रोजेक्ट बनाएं">
-                            Master HTML, CSS, JavaScript & build viral projects like this
-                        </p>
-                        <div class="promo-features">
-                            <span>✅ <span data-en="Free tutorials" data-hi="मुफ्त ट्यूटोरियल">Free tutorials</span></span>
-                            <span>✅ <span data-en="Project files" data-hi="प्रोजेक्ट फाइल्स">Project files</span></span>
-                            <span>✅ <span data-en="Community support" data-hi="कम्युनिटी सपोर्ट">Community support</span></span>
-                        </div>
-                        <button class="btn btn-primary">
-                            <span data-en="Start Learning Free" data-hi="मुफ्त में सीखें">Start Learning Free</span> →
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- ⏰ COUNTDOWN TO 2026 -->
-    <!-- ====================================== -->
-    <section class="countdown-section">
-        <div class="container">
-            <div class="countdown-card glass-card">
-                <h3 data-en="Time Until 2026" data-hi="2026 तक का समय">Time Until 2026</h3>
-                <div id="countdown" class="countdown-grid">
-                    <div class="countdown-item">
-                        <div class="countdown-value" id="days">00</div>
-                        <div class="countdown-label" data-en="Days" data-hi="दिन">Days</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-value" id="hours">00</div>
-                        <div class="countdown-label" data-en="Hours" data-hi="घंटे">Hours</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-value" id="minutes">00</div>
-                        <div class="countdown-label" data-en="Minutes" data-hi="मिनट">Minutes</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="countdown-value" id="seconds">00</div>
-                        <div class="countdown-label" data-en="Seconds" data-hi="सेकंड">Seconds</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- 🏆 ACHIEVEMENT SYSTEM -->
-    <!-- ====================================== -->
-    <div id="achievementSystem" class="achievement-system hidden">
-        <div class="achievement-popup-full">
-            <div class="achievement-icon">🏆</div>
-            <h2 data-en="Achievement Unlocked!" data-hi="उपलब्धि अनलॉक!">Achievement Unlocked!</h2>
-            <p id="achievementText"></p>
-            <button onclick="closeAchievement()" class="btn btn-secondary">
-                <span data-en="Awesome!" data-hi="शानदार!">Awesome!</span>
-            </button>
-        </div>
-    </div>
-
-
-    <!-- ====================================== -->
-    <!-- 📱 FOOTER -->
-    <!-- ====================================== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                
-                <div class="footer-section">
-                    <h4>✨ <span data-en="About" data-hi="हमारे बारे में">About</span></h4>
-                    <p data-en="Spread joy & love this New Year with personalized wishes" data-hi="नए साल में खुशियाँ और प्यार फैलाएं">
-                        Spread joy & love this New Year with personalized wishes
-                    </p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🔗 <span data-en="Quick Links" data-hi="लिंक्स">Quick Links</span></h4>
-                    <ul>
-                        <li><a href="#createPage" data-en="Create Wish" data-hi="विश बनाएं">Create Wish</a></li>
-                        <li><a href="#photoBoothPage" data-en="Photo Booth" data-hi="फोटो बूथ">Photo Booth</a></li>
-                        <li><a href="#fortunePage" data-en="Fortune 2026" data-hi="भविष्यफल">Fortune 2026</a></li>
-                        <li><a href="#donationPage" data-en="Support Us" data-hi="सपोर्ट करें">Support Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>📱 <span data-en="Follow Us" data-hi="फॉलो करें">Follow Us</span></h4>
-                    <div class="social-icons">
-                        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="footer-bottom">
-                <p>
-                    Made with <i class="fas fa-heart"></i> 
-                    <span data-en="for spreading happiness" data-hi="खुशियाँ फैलाने के लिए">for spreading happiness</span>
-                </p>
-                <p class="small-text">© 2026 NewYearWishes.com | 
-                    <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>
-                </p>
-            </div>
-
-        </div>
-    </footer>
-
-
-    <!-- ====================================== -->
-    <!-- 🎵 AUDIO ELEMENTS -->
-    <!-- ====================================== -->
+    <!-- ============================================ -->
+    <!-- AUDIO ELEMENTS -->
+    <!-- ============================================ -->
     <audio id="bgMusic" loop>
         <source src="assests/bg.mp3" type="audio/mpeg">
     </audio>
-
     <audio id="clickSound">
-        <source src="assests/click.webm" type="audio/mpeg">
+        <source src="assests/click.webm" type="audio/wav">
     </audio>
-
     <audio id="successSound">
-        <source src="assests/wo.mp3" type="audio/mpeg">
+        <source src="assests/wo.mp3" type="audio/wav">
     </audio>
 
+    <!-- ============================================ -->
+    <!-- MUSIC CONTROL BUTTON -->
+    <!-- ============================================ -->
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-music"></i>
+        <span class="music-status">Click to Play</span>
+    </div>
 
-    <!-- ====================================== -->
-    <!-- 📜 JAVASCRIPT -->
-    <!-- ====================================== -->
+    <!-- ============================================ -->
+    <!-- THEME SWITCHER -->
+    <!-- ============================================ -->
+    <div class="theme-switcher" id="themeSwitcher">
+        <i class="fas fa-palette"></i>
+        <div class="theme-options" id="themeOptions">
+            <div class="theme-option" data-theme="classic" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                <span>Classic</span>
+            </div>
+            <div class="theme-option" data-theme="golden" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%)">
+                <span>Golden</span>
+            </div>
+            <div class="theme-option" data-theme="romantic" style="background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)">
+                <span>Romantic</span>
+            </div>
+            <div class="theme-option" data-theme="neon" style="background: linear-gradient(135deg, #13f1fc 0%, #0470dc 100%)">
+                <span>Neon</span>
+            </div>
+            <div class="theme-option" data-theme="sunset" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)">
+                <span>Sunset</span>
+            </div>
+            <div class="theme-option" data-theme="ocean" style="background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)">
+                <span>Ocean</span>
+            </div>
+            <div class="theme-option" data-theme="forest" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)">
+                <span>Forest</span>
+            </div>
+            <div class="theme-option" data-theme="midnight" style="background: linear-gradient(135deg, #2c3e50 0%, #000000 100%)">
+                <span>Midnight</span>
+            </div>
+            <div class="theme-option" data-theme="candy" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)">
+                <span>Candy</span>
+            </div>
+            <div class="theme-option" data-theme="royal" style="background: linear-gradient(135deg, #141e30 0%, #243b55 100%)">
+                <span>Royal</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MAIN NAVIGATION -->
+    <!-- ============================================ -->
+    <nav class="main-nav" id="mainNav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-champagne-glasses"></i>
+                <span>NY2025</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#create" class="nav-link"><i class="fas fa-magic"></i> Create</a></li>
+                <li><a href="#templates" class="nav-link"><i class="fas fa-images"></i> Templates</a></li>
+                <li><a href="#gallery" class="nav-link"><i class="fas fa-photo-film"></i> Gallery</a></li>
+                <li><a href="#countdown" class="nav-link"><i class="fas fa-clock"></i> Countdown</a></li>
+                <li><a href="#share" class="nav-link"><i class="fas fa-share-nodes"></i> Share</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION / HOME -->
+    <!-- ============================================ -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text animate__animated animate__fadeInDown">
+                <h1 class="hero-title">
+                    <span class="title-line">Happy New Year</span>
+                    <span class="title-year">2025</span>
+                </h1>
+                <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+                    Create Magical Personalized Wishes & Share Love with Everyone! 🎊
+                </p>
+                <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-2s">
+                    <button class="btn btn-primary btn-large" onclick="scrollToSection('create')">
+                        <i class="fas fa-wand-magic-sparkles"></i> Create Your Wish
+                    </button>
+                    <button class="btn btn-secondary btn-large" onclick="scrollToSection('templates')">
+                        <i class="fas fa-images"></i> Browse Templates
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-stats animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="50000">0</div>
+                    <div class="stat-label">Wishes Created</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-label">Templates</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="1000">0</div>
+                    <div class="stat-label">Happy Users</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FEATURES SECTION -->
+    <!-- ============================================ -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">✨</span>
+                    Amazing Features
+                    <span class="title-icon">✨</span>
+                </h2>
+                <p class="section-subtitle">Everything you need to create the perfect New Year wish!</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <h3 class="feature-title">Personalized Names</h3>
+                    <p class="feature-description">Add custom names and create unique wishes for everyone special in your life!</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3 class="feature-title">Photo Upload</h3>
+                    <p class="feature-description">Upload your favorite photos and create memorable personalized greeting cards!</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">10+ Themes</h3>
+                    <p class="feature-description">Choose from stunning themes - Classic, Golden, Romantic, Neon, and more!</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-share-nodes"></i>
+                    </div>
+                    <h3 class="feature-title">Easy Sharing</h3>
+                    <p class="feature-description">Share your wishes via WhatsApp, Facebook, Instagram, Twitter instantly!</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3 class="feature-title">Download Cards</h3>
+                    <p class="feature-description">Download high-quality images of your greetings for offline sharing!</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="feature-title">Custom Links</h3>
+                    <p class="feature-description">Generate unique shareable links with personalized names and messages!</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="feature-icon">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="feature-title">Stunning Animations</h3>
+                    <p class="feature-description">Enjoy fireworks, confetti, sparkles, and magical 3D animations!</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="800">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-screen"></i>
+                    </div>
+                    <h3 class="feature-title">Fully Responsive</h3>
+                    <p class="feature-description">Perfect experience on all devices - mobile, tablet, and desktop!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CREATE YOUR WISH SECTION -->
+    <!-- ============================================ -->
+    <section id="create" class="create-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🎨</span>
+                    Create Your Personalized Wish
+                    <span class="title-icon">🎨</span>
+                </h2>
+                <p class="section-subtitle">Follow these simple steps to create an amazing New Year greeting!</p>
+            </div>
+            
+            <div class="create-container">
+                <!-- Step Indicator -->
+                <div class="steps-indicator">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Choose Template</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Personalize</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Customize</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Preview & Share</div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Template Selection -->
+                <div class="step-content active" id="step1">
+                    <h3 class="step-title">Choose Your Favorite Template</h3>
+                    <div class="templates-grid">
+                        <div class="template-card" data-template="fireworks">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <i class="fas fa-burst template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">Fireworks Celebration</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                        
+                        <div class="template-card" data-template="golden">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">
+                                    <i class="fas fa-star template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">Golden Elegance</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                        
+                        <div class="template-card" data-template="romantic">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);">
+                                    <i class="fas fa-heart template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">Romantic Love</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                        
+                        <div class="template-card" data-template="party">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                    <i class="fas fa-champagne-glasses template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">Party Time</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                        
+                        <div class="template-card" data-template="neon">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #13f1fc 0%, #0470dc 100%);">
+                                    <i class="fas fa-lightbulb template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">Neon Lights</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                        
+                        <div class="template-card" data-template="minimalist">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #e0e0e0 0%, #ffffff 100%);">
+                                    <i class="fas fa-circle template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">Minimalist</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                        
+                        <div class="template-card" data-template="vintage">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #b79891 0%, #94716b 100%);">
+                                    <i class="fas fa-clock-rotate-left template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">Vintage Classic</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                        
+                        <div class="template-card" data-template="3d">
+                            <div class="template-preview">
+                                <div class="template-img" style="background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);">
+                                    <i class="fas fa-cube template-icon"></i>
+                                </div>
+                            </div>
+                            <h4 class="template-name">3D Modern</h4>
+                            <button class="btn btn-select-template">Select</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Personalization -->
+                <div class="step-content" id="step2">
+                    <h3 class="step-title">Personalize Your Wish</h3>
+                    <div class="personalization-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="recipientName">
+                                    <i class="fas fa-user"></i> Recipient's Name *
+                                </label>
+                                <input type="text" id="recipientName" placeholder="Enter name (e.g., John)" class="form-input" required>
+                                <small class="form-hint">This name will appear on the greeting card</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="senderName">
+                                    <i class="fas fa-signature"></i> Your Name *
+                                </label>
+                                <input type="text" id="senderName" placeholder="Your name (e.g., Sarah)" class="form-input" required>
+                                <small class="form-hint">Your name as the sender</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customMessage">
+                                <i class="fas fa-message"></i> Custom Message
+                            </label>
+                            <textarea id="customMessage" rows="4" placeholder="Write your heartfelt New Year message..." class="form-input"></textarea>
+                            <small class="form-hint">Optional: Add a personal message (max 200 characters)</small>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="photoUpload">
+                                    <i class="fas fa-camera"></i> Upload Photo (Optional)
+                                </label>
+                                <div class="photo-upload-area" id="photoUploadArea">
+                                    <input type="file" id="photoUpload" accept="image/*" class="photo-input">
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-cloud-arrow-up"></i>
+                                        <p>Click or drag to upload photo</p>
+                                        <small>Supports: JPG, PNG, GIF (Max 5MB)</small>
+                                    </div>
+                                    <div class="photo-preview" id="photoPreview"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="previousStep()">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button class="btn btn-primary" onclick="nextStep()">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Customization -->
+                <div class="step-content" id="step3">
+                    <h3 class="step-title">Customize Your Card</h3>
+                    <div class="customization-panel">
+                        <div class="customization-options">
+                            <!-- Font Selection -->
+                            <div class="option-group">
+                                <h4 class="option-title">
+                                    <i class="fas fa-font"></i> Font Style
+                                </h4>
+                                <div class="font-options">
+                                    <button class="font-option" data-font="Poppins" style="font-family: 'Poppins';">Poppins</button>
+                                    <button class="font-option" data-font="Playfair Display" style="font-family: 'Playfair Display';">Playfair</button>
+                                    <button class="font-option" data-font="Dancing Script" style="font-family: 'Dancing Script';">Dancing</button>
+                                    <button class="font-option" data-font="Montserrat" style="font-family: 'Montserrat';">Montserrat</button>
+                                    <button class="font-option" data-font="Great Vibes" style="font-family: 'Great Vibes';">Great Vibes</button>
+                                    <button class="font-option" data-font="Pacifico" style="font-family: 'Pacifico';">Pacifico</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Color Selection -->
+                            <div class="option-group">
+                                <h4 class="option-title">
+                                    <i class="fas fa-droplet"></i> Text Color
+                                </h4>
+                                <div class="color-options">
+                                    <button class="color-option" data-color="#ffffff" style="background: #ffffff;"></button>
+                                    <button class="color-option" data-color="#ffd700" style="background: #ffd700;"></button>
+                                    <button class="color-option" data-color="#ff6b6b" style="background: #ff6b6b;"></button>
+                                    <button class="color-option" data-color="#4ecdc4" style="background: #4ecdc4;"></button>
+                                    <button class="color-option" data-color="#a29bfe" style="background: #a29bfe;"></button>
+                                    <button class="color-option" data-color="#fd79a8" style="background: #fd79a8;"></button>
+                                    <button class="color-option" data-color="#00b894" style="background: #00b894;"></button>
+                                    <button class="color-option" data-color="#e17055" style="background: #e17055;"></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Animation Selection -->
+                            <div class="option-group">
+                                <h4 class="option-title">
+                                    <i class="fas fa-wand-magic-sparkles"></i> Animation Style
+                                </h4>
+                                <div class="animation-options">
+                                    <button class="animation-option active" data-animation="fireworks">
+                                        <i class="fas fa-burst"></i>
+                                        <span>Fireworks</span>
+                                    </button>
+                                    <button class="animation-option" data-animation="confetti">
+                                        <i class="fas fa-star"></i>
+                                        <span>Confetti</span>
+                                    </button>
+                                    <button class="animation-option" data-animation="sparkles">
+                                        <i class="fas fa-sparkles"></i>
+                                        <span>Sparkles</span>
+                                    </button>
+                                    <button class="animation-option" data-animation="snow">
+                                        <i class="fas fa-snowflake"></i>
+                                        <span>Snow</span>
+                                    </button>
+                                    <button class="animation-option" data-animation="hearts">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Hearts</span>
+                                    </button>
+                                    <button class="animation-option" data-animation="stars">
+                                        <i class="fas fa-star"></i>
+                                        <span>Stars</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Music Selection -->
+                            <div class="option-group">
+                                <h4 class="option-title">
+                                    <i class="fas fa-music"></i> Background Music
+                                </h4>
+                                <div class="music-options">
+                                    <button class="music-option" data-music="celebration">
+                                        <i class="fas fa-champagne-glasses"></i>
+                                        <span>Celebration</span>
+                                    </button>
+                                    <button class="music-option" data-music="joyful">
+                                        <i class="fas fa-face-smile"></i>
+                                        <span>Joyful</span>
+                                    </button>
+                                    <button class="music-option" data-music="romantic">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Romantic</span>
+                                    </button>
+                                    <button class="music-option" data-music="none">
+                                        <i class="fas fa-volume-xmark"></i>
+                                        <span>No Music</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sticker Selection -->
+                            <div class="option-group">
+                                <h4 class="option-title">
+                                    <i class="fas fa-icons"></i> Add Stickers
+                                </h4>
+                                <div class="sticker-options">
+                                    <button class="sticker-option" data-sticker="🎊">🎊</button>
+                                    <button class="sticker-option" data-sticker="🎉">🎉</button>
+                                    <button class="sticker-option" data-sticker="🎆">🎆</button>
+                                    <button class="sticker-option" data-sticker="🎇">🎇</button>
+                                    <button class="sticker-option" data-sticker="✨">✨</button>
+                                    <button class="sticker-option" data-sticker="🌟">🌟</button>
+                                    <button class="sticker-option" data-sticker="💫">💫</button>
+                                    <button class="sticker-option" data-sticker="⭐">⭐</button>
+                                    <button class="sticker-option" data-sticker="🥳">🥳</button>
+                                    <button class="sticker-option" data-sticker="🍾">🍾</button>
+                                    <button class="sticker-option" data-sticker="🥂">🥂</button>
+                                    <button class="sticker-option" data-sticker="🎈">🎈</button>
+                                    <button class="sticker-option" data-sticker="🎁">🎁</button>
+                                    <button class="sticker-option" data-sticker="🎀">🎀</button>
+                                    <button class="sticker-option" data-sticker="💝">💝</button>
+                                    <button class="sticker-option" data-sticker="❤️">❤️</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="previousStep()">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button class="btn btn-primary" onclick="nextStep()">
+                                Preview <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Preview & Share -->
+                <div class="step-content" id="step4">
+                    <h3 class="step-title">Preview & Share Your Wish</h3>
+                    <div class="preview-section">
+                        <div class="preview-card" id="previewCard">
+                            <div class="card-content">
+                                <div class="card-decorations">
+                                    <div class="decoration top-left"></div>
+                                    <div class="decoration top-right"></div>
+                                    <div class="decoration bottom-left"></div>
+                                    <div class="decoration bottom-right"></div>
+                                </div>
+                                <div class="card-photo" id="cardPhoto"></div>
+                                <div class="card-stickers" id="cardStickers"></div>
+                                <h2 class="card-title">Happy New Year 2025!</h2>
+                                <h3 class="card-recipient" id="cardRecipient">Dear Friend</h3>
+                                <p class="card-message" id="cardMessage">
+                                    May this new year bring you joy, success, and endless happiness!
+                                </p>
+                                <p class="card-sender" id="cardSender">From: Your Name</p>
+                            </div>
+                        </div>
+                        
+                        <div class="share-options">
+                            <h4 class="share-title">
+                                <i class="fas fa-share-nodes"></i> Share Your Wish
+                            </h4>
+                            
+                            <!-- Generated Link -->
+                            <div class="generated-link-section">
+                                <label>Your Personalized Link:</label>
+                                <div class="link-box">
+                                    <input type="text" id="generatedLink" readonly class="link-input">
+                                    <button class="btn btn-copy" onclick="copyLink()">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </div>
+                                <small class="link-hint">Share this unique link with anyone!</small>
+                            </div>
+                            
+                            <!-- Social Share Buttons -->
+                            <div class="social-share-buttons">
+                                <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </button>
+                                <button class="share-btn facebook" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span>Facebook</span>
+                                </button>
+                                <button class="share-btn twitter" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i>
+                                    <span>Twitter</span>
+                                </button>
+                                <button class="share-btn instagram" onclick="shareOnInstagram()">
+                                    <i class="fab fa-instagram"></i>
+                                    <span>Instagram</span>
+                                </button>
+                                <button class="share-btn telegram" onclick="shareOnTelegram()">
+                                    <i class="fab fa-telegram"></i>
+                                    <span>Telegram</span>
+                                </button>
+                                <button class="share-btn email" onclick="shareViaEmail()">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Download Button -->
+                            <button class="btn btn-download" onclick="downloadCard()">
+                                <i class="fas fa-download"></i> Download as Image
+                            </button>
+                            
+                            <!-- Create New Button -->
+                            <button class="btn btn-secondary" onclick="createNew()">
+                                <i class="fas fa-plus"></i> Create Another Wish
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TEMPLATES GALLERY SECTION -->
+    <!-- ============================================ -->
+    <section id="templates" class="templates-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🎭</span>
+                    Browse Amazing Templates
+                    <span class="title-icon">🎭</span>
+                </h2>
+                <p class="section-subtitle">Choose from our collection of stunning, professionally designed templates!</p>
+            </div>
+            
+            <!-- Template Filters -->
+            <div class="template-filters">
+                <button class="filter-btn active" data-filter="all">All Templates</button>
+                <button class="filter-btn" data-filter="classic">Classic</button>
+                <button class="filter-btn" data-filter="modern">Modern</button>
+                <button class="filter-btn" data-filter="elegant">Elegant</button>
+                <button class="filter-btn" data-filter="fun">Fun & Party</button>
+                <button class="filter-btn" data-filter="romantic">Romantic</button>
+                <button class="filter-btn" data-filter="minimal">Minimal</button>
+            </div>
+            
+            <!-- Templates Grid -->
+            <div class="templates-showcase">
+                <!-- Template 1 -->
+                <div class="showcase-card" data-category="classic">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="demo-content">
+                                <h3>Happy New Year</h3>
+                                <p>2025</p>
+                                <div class="demo-sparkles">✨✨✨</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="classic-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Classic Purple</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Classic</span>
+                            <span class="tag">Popular</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 2 -->
+                <div class="showcase-card" data-category="elegant">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">
+                            <div class="demo-content">
+                                <h3>✨ 2025 ✨</h3>
+                                <p>Cheers to New Beginnings</p>
+                                <div class="demo-sparkles">🥂</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="golden-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Golden Elegance</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Elegant</span>
+                            <span class="tag">Premium</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 3 -->
+                <div class="showcase-card" data-category="romantic">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);">
+                            <div class="demo-content">
+                                <h3>Happy 2025 ❤️</h3>
+                                <p>With Love & Joy</p>
+                                <div class="demo-sparkles">💕💕💕</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="romantic-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Romantic Dreams</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Romantic</span>
+                            <span class="tag">Love</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 4 -->
+                <div class="showcase-card" data-category="fun">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <div class="demo-content">
+                                <h3>🎉 PARTY TIME 🎉</h3>
+                                <p>Happy New Year 2025</p>
+                                <div class="demo-sparkles">🥳🎊🎈</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="party-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Party Celebration</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Fun</span>
+                            <span class="tag">Party</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 5 -->
+                <div class="showcase-card" data-category="modern">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #13f1fc 0%, #0470dc 100%);">
+                            <div class="demo-content">
+                                <h3>2025</h3>
+                                <p>New Year, New Adventures</p>
+                                <div class="demo-sparkles">⚡✨⚡</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="neon-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Neon Electric</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Modern</span>
+                            <span class="tag">Trendy</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 6 -->
+                <div class="showcase-card" data-category="minimal">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);">
+                            <div class="demo-content">
+                                <h3 style="color: #333;">2025</h3>
+                                <p style="color: #666;">Simple & Beautiful</p>
+                                <div class="demo-sparkles" style="color: #999;">○ ○ ○</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="minimal-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Minimalist White</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Minimal</span>
+                            <span class="tag">Clean</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 7 -->
+                <div class="showcase-card" data-category="classic">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #b79891 0%, #94716b 100%);">
+                            <div class="demo-content">
+                                <h3>Happy New Year</h3>
+                                <p>Est. 2025</p>
+                                <div class="demo-sparkles">🕰️</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="vintage-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Vintage Classic</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Classic</span>
+                            <span class="tag">Vintage</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 8 -->
+                <div class="showcase-card" data-category="modern">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);">
+                            <div class="demo-content">
+                                <h3>2025 🌊</h3>
+                                <p>Make Waves This Year</p>
+                                <div class="demo-sparkles">🌟💎🌟</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="ocean-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Ocean Breeze</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Modern</span>
+                            <span class="tag">Fresh</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 9 -->
+                <div class="showcase-card" data-category="elegant">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #141e30 0%, #243b55 100%);">
+                            <div class="demo-content">
+                                <h3>✨ 2025 ✨</h3>
+                                <p>Royal Celebrations</p>
+                                <div class="demo-sparkles">👑</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="royal-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Royal Midnight</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Elegant</span>
+                            <span class="tag">Luxury</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 10 -->
+                <div class="showcase-card" data-category="fun">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                            <div class="demo-content">
+                                <h3>Sweet 2025 🍭</h3>
+                                <p>Sugar & Spice</p>
+                                <div class="demo-sparkles">🎀💖🎀</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="candy-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Candy Sweet</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Fun</span>
+                            <span class="tag">Cute</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 11 -->
+                <div class="showcase-card" data-category="modern">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);">
+                            <div class="demo-content">
+                                <h3>🌿 2025 🌿</h3>
+                                <p>Fresh Start</p>
+                                <div class="demo-sparkles">🍃✨🍃</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="nature-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Nature Green</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Modern</span>
+                            <span class="tag">Eco</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template 12 -->
+                <div class="showcase-card" data-category="elegant">
+                    <div class="showcase-image">
+                        <div class="template-demo" style="background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%);">
+                            <div class="demo-content">
+                                <h3>Happy 2025</h3>
+                                <p>Luxe & Glamour</p>
+                                <div class="demo-sparkles">💎✨💎</div>
+                            </div>
+                        </div>
+                        <div class="showcase-overlay">
+                            <button class="btn btn-use-template" data-template="glamour-1">
+                                <i class="fas fa-magic"></i> Use This Template
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h4>Glamour Ruby</h4>
+                        <div class="showcase-tags">
+                            <span class="tag">Elegant</span>
+                            <span class="tag">VIP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- COUNTDOWN SECTION -->
+    <!-- ============================================ -->
+    <section id="countdown" class="countdown-section">
+        <div class="countdown-overlay"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">⏰</span>
+                    Countdown to 2025
+                    <span class="title-icon">⏰</span>
+                </h2>
+                <p class="section-subtitle">Get ready for the biggest celebration!</p>
+            </div>
+            
+            <div class="countdown-container">
+                <div class="countdown-timer">
+                    <div class="time-unit">
+                        <div class="time-value" id="days">00</div>
+                        <div class="time-label">Days</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="hours">00</div>
+                        <div class="time-label">Hours</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="minutes">00</div>
+                        <div class="time-label">Minutes</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="seconds">00</div>
+                        <div class="time-label">Seconds</div>
+                    </div>
+                </div>
+                
+                <div class="countdown-message" id="countdownMessage">
+                    <p>🎊 The countdown is on! 🎊</p>
+                </div>
+            </div>
+            
+            <!-- New Year Resolutions -->
+            <div class="resolutions-section">
+                <h3 class="resolutions-title">✨ Share Your 2025 Resolutions ✨</h3>
+                <div class="resolution-form">
+                    <input type="text" id="resolutionInput" placeholder="What's your goal for 2025?" class="resolution-input">
+                    <button class="btn btn-add-resolution" onclick="addResolution()">
+                        <i class="fas fa-plus"></i> Add Resolution
+                    </button>
+                </div>
+                <div class="resolutions-list" id="resolutionsList">
+                    <div class="resolution-item">
+                        <span class="resolution-text">Learn something new every day</span>
+                        <span class="resolution-likes">❤️ 234</span>
+                    </div>
+                    <div class="resolution-item">
+                        <span class="resolution-text">Travel to 5 new places</span>
+                        <span class="resolution-likes">❤️ 189</span>
+                    </div>
+                    <div class="resolution-item">
+                        <span class="resolution-text">Read 24 books this year</span>
+                        <span class="resolution-likes">❤️ 156</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- GALLERY SECTION -->
+    <!-- ============================================ -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">📸</span>
+                    Wishes Gallery
+                    <span class="title-icon">📸</span>
+                </h2>
+                <p class="section-subtitle">Beautiful wishes created by our amazing users!</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <h3>Happy New Year!</h3>
+                        <p class="gallery-name">To: Sarah</p>
+                        <p class="gallery-from">From: John</p>
+                        <div class="gallery-stats">
+                            <span><i class="fas fa-heart"></i> 245</span>
+                            <span><i class="fas fa-share"></i> 89</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-card" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">
+                        <h3>Cheers to 2025!</h3>
+                        <p class="gallery-name">To: Michael</p>
+                        <p class="gallery-from">From: Emma</p>
+                        <div class="gallery-stats">
+                            <span><i class="fas fa-heart"></i> 198</span>
+                            <span><i class="fas fa-share"></i> 67</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-card" style="background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);">
+                        <h3>Best Wishes! ❤️</h3>
+                        <p class="gallery-name">To: Lisa</p>
+                        <p class="gallery-from">From: David</p>
+                        <div class="gallery-stats">
+                            <span><i class="fas fa-heart"></i> 312</span>
+                            <span><i class="fas fa-share"></i> 124</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <h3>Party Time! 🎉</h3>
+                        <p class="gallery-name">To: Team</p>
+                        <p class="gallery-from">From: Boss</p>
+                        <div class="gallery-stats">
+                            <span><i class="fas fa-heart"></i> 567</span>
+                            <span><i class="fas fa-share"></i> 234</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-card" style="background: linear-gradient(135deg, #13f1fc 0%, #0470dc 100%);">
+                        <h3>New Adventures!</h3>
+                        <p class="gallery-name">To: Friends</p>
+                        <p class="gallery-from">From: Alex</p>
+                        <div class="gallery-stats">
+                            <span><i class="fas fa-heart"></i> 423</span>
+                            <span><i class="fas fa-share"></i> 178</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-card" style="background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);">
+                        <h3>Fresh Start 🌊</h3>
+                        <p class="gallery-name">To: Mom & Dad</p>
+                        <p class="gallery-from">From: Kids</p>
+                        <div class="gallery-stats">
+                            <span><i class="fas fa-heart"></i> 689</span>
+                            <span><i class="fas fa-share"></i> 289</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-load-more">
+                <button class="btn btn-secondary" onclick="loadMoreGallery()">
+                    <i class="fas fa-arrows-rotate"></i> Load More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TESTIMONIALS SECTION -->
+    <!-- ============================================ -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">💬</span>
+                    What People Say
+                    <span class="title-icon">💬</span>
+                </h2>
+                <p class="section-subtitle">Hear from our happy users!</p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "This is absolutely amazing! I created personalized wishes for all my friends and family. The animations are stunning!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">👩</div>
+                        <div class="author-info">
+                            <h4>Jessica Brown</h4>
+                            <p>New York, USA</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Super easy to use! I love how I can customize everything. My friends were so impressed with the cards I sent them!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">👨</div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>London, UK</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "The best New Year wishing platform I've ever used! Beautiful templates and sharing is so convenient. Highly recommended!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">👩</div>
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>Mumbai, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FAQ SECTION -->
+    <!-- ============================================ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">❓</span>
+                    Frequently Asked Questions
+                    <span class="title-icon">❓</span>
+                </h2>
+                <p class="section-subtitle">Got questions? We've got answers!</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>How do I create a personalized New Year wish?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Simply click on "Create Your Wish" button, choose a template, enter the recipient's name, customize it with your personal message and photo, then share or download!</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Is this service completely free?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! All features including template selection, customization, sharing, and downloading are 100% free. No hidden charges or subscriptions required.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Can I use my own photos?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! You can upload your own photos (JPG, PNG, GIF formats) up to 5MB. Your photos make the wishes even more personal and special.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>How can I share my created wishes?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can share via WhatsApp, Facebook, Twitter, Instagram, Telegram, Email, or copy the unique link. You can also download the image to share anywhere you like!</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Can I create multiple wishes for different people?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Create unlimited personalized wishes for all your friends, family members, colleagues, and loved ones. Each wish gets its own unique link.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Will my personalized link expire?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No! Your personalized links are permanent. People can access them anytime, making it perfect for lasting memories.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER SECTION -->
+    <!-- ============================================ -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- About Section -->
+                    <div class="footer-column">
+                        <h3 class="footer-title">
+                            <i class="fas fa-champagne-glasses"></i> Happy New Year 2025
+                        </h3>
+                        <p class="footer-description">
+                            Create beautiful, personalized New Year wishes and share love with everyone you care about. Make 2025 memorable!
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
+                            <li><a href="#create"><i class="fas fa-angle-right"></i> Create Wish</a></li>
+                            <li><a href="#templates"><i class="fas fa-angle-right"></i> Templates</a></li>
+                            <li><a href="#gallery"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                            <li><a href="#countdown"><i class="fas fa-angle-right"></i> Countdown</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Features -->
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Features</h4>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Personalized Names</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Photo Upload</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Custom Messages</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Social Sharing</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right"></i> Download Cards</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Stay Connected</h4>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-envelope"></i> hello@newyear2025.com</p>
+                            <p><i class="fas fa-globe"></i> www.newyear2025.com</p>
+                        </div>
+                        <div class="newsletter-form">
+                            <input type="email" placeholder="Your email" class="newsletter-input">
+                            <button class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p class="copyright">
+                        © 2025 Happy New Year Wishes. Made with <i class="fas fa-heart"></i> for spreading joy!
+                    </p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>|</span>
+                        <a href="#">Terms of Service</a>
+                        <span>|</span>
+                        <a href="#">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- MODAL - VIEW WISH -->
+    <!-- ============================================ -->
+    <div class="modal" id="viewWishModal">
+        <div class="modal-overlay" onclick="closeModal('viewWishModal')"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('viewWishModal')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <div class="wish-display" id="wishDisplay">
+                    <!-- Wish content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MODAL - PHOTO EDITOR -->
+    <!-- ============================================ -->
+    <div class="modal" id="photoEditorModal">
+        <div class="modal-overlay" onclick="closeModal('photoEditorModal')"></div>
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal('photoEditorModal')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h3><i class="fas fa-crop"></i> Edit Your Photo</h3>
+            </div>
+            <div class="modal-body">
+                <div class="photo-editor">
+                    <div class="editor-canvas">
+                        <img id="editorImage" src="" alt="Edit Photo">
+                    </div>
+                    <div class="editor-controls">
+                        <div class="control-group">
+                            <label>Brightness</label>
+                            <input type="range" id="brightness" min="0" max="200" value="100">
+                        </div>
+                        <div class="control-group">
+                            <label>Contrast</label>
+                            <input type="range" id="contrast" min="0" max="200" value="100">
+                        </div>
+                        <div class="control-group">
+                            <label>Saturation</label>
+                            <input type="range" id="saturation" min="0" max="200" value="100">
+                        </div>
+                        <div class="editor-actions">
+                            <button class="btn btn-secondary" onclick="resetPhotoFilters()">
+                                <i class="fas fa-rotate-left"></i> Reset
+                            </button>
+                            <button class="btn btn-primary" onclick="applyPhotoFilters()">
+                                <i class="fas fa-check"></i> Apply
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- NOTIFICATION TOAST -->
+    <!-- ============================================ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ============================================ -->
+    <!-- BACK TO TOP BUTTON -->
+    <!-- ============================================ -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================ -->
+    <!-- FLOATING ACTION BUTTONS -->
+    <!-- ============================================ -->
+    <div class="floating-actions">
+        <button class="fab-button" onclick="scrollToSection('create')" title="Create New Wish">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- JavaScript Files -->
     <script src="script.js"></script>
-
+    
+    <!-- Initialize Animations on Scroll -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+    
 </body>
 </html>
