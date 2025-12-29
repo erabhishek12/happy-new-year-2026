@@ -1,2053 +1,2145 @@
-/* ============================================ */
-/* 🚀 NEW YEAR MAGIC 2026 - COMPLETE JAVASCRIPT */
-/* Author: Abhishek Kumar */
-/* Version: 1.0.0 */
-/* ============================================ */
-
-(function() {
-    'use strict';
-
-    /* ============================================ */
-    /* 📦 CONFIGURATION & CONSTANTS */
-    /* ============================================ */
-    const CONFIG = {
-        siteName: 'New Year Magic 2026',
-        siteUrl: window.location.origin + window.location.pathname,
-        targetYear: 2026,
-        targetDate: new Date('January 1, 2026 00:00:00').getTime(),
-        defaultTheme: 'fireworks',
-        defaultLanguage: 'en',
-        defaultTone: 'fun',
-        upiId: '9546983729@fam',
-        upiName: 'Abhishek Kumar',
-        supportAmounts: [49, 99, 199, 499],
-        animationSpeed: 60, // FPS
-        maxParticles: 100,
-        maxFireworks: 5,
-    };
-
-    /* ============================================ */
-    /* 🗣️ LANGUAGE STRINGS */
-    /* ============================================ */
-    const STRINGS = {
-        en: {
-            happyNewYear: 'Happy New Year',
-            wishes: [
-                'Happy New Year',
-                'Prosperous New Year',
-                'Wonderful New Year',
-                'Magical New Year',
-                'Blessed New Year',
-                'Amazing New Year',
-                'Fantastic New Year',
-                'Incredible New Year'
-            ],
-            tones: {
-                fun: [
-                    'May your year be full of fun and laughter! 🎉',
-                    'Party hard and achieve harder! 🥳',
-                    'Let\'s make 2026 absolutely epic! 🚀',
-                    'New year, new memes, new adventures! 😄'
-                ],
-                emotional: [
-                    'You mean the world to me. Happy New Year! 💕',
-                    'Grateful for every moment with you. 🥺',
-                    'May our bond grow stronger in 2026! ❤️',
-                    'You make every year special. 🌟'
-                ],
-                spiritual: [
-                    'May divine blessings shower upon you! 🙏',
-                    'Wishing you inner peace and enlightenment. ✨',
-                    'May God\'s grace guide your path. 🙏',
-                    'Blessed beginnings await you! 🕉️'
-                ],
-                motivational: [
-                    'This is YOUR year to shine! 🔥',
-                    'Dream big, work hard, achieve more! 💪',
-                    'Success is calling your name! 🏆',
-                    'Unleash your true potential in 2026! 🚀'
-                ]
-            },
-            affirmations: [
-                '2026 is going to be my year of transformation and success!',
-                'I am ready to embrace all the opportunities coming my way!',
-                'Every day brings me closer to my dreams and goals!',
-                'I am grateful for the blessings in my life!',
-                'I attract positivity, love, and abundance!',
-                'My potential is limitless and my future is bright!',
-                'I choose happiness and success in everything I do!',
-                'The best is yet to come for me!'
-            ],
-            shareText: '✨ Someone special sent you New Year wishes! Open to see your surprise 🎆',
-            copySuccess: 'Link copied to clipboard! 📋',
-            promiseSaved: 'Your promise has been saved! 💪',
-            reflectionsSaved: 'Your reflections have been saved! 🙏',
-            linkGenerated: 'Magic link generated successfully! ✨',
-            installApp: 'Add to Home Screen for quick access!'
-        },
-        hi: {
-            happyNewYear: 'नव वर्ष की शुभकामनाएं',
-            wishes: [
-                'नव वर्ष की शुभकामनाएं',
-                'समृद्ध नव वर्ष',
-                'शानदार नव वर्ष',
-                'जादुई नव वर्ष',
-                'धन्य नव वर्ष',
-                'अद्भुत नव वर्ष',
-                'शानदार नव वर्ष',
-                'अविश्वसनीय नव वर्ष'
-            ],
-            tones: {
-                fun: [
-                    'आपका साल मज़े और हंसी से भरा हो! 🎉',
-                    'खूब पार्टी करो और खूब मेहनत करो! 🥳',
-                    '2026 को बिल्कुल शानदार बनाते हैं! 🚀',
-                    'नया साल, नए मीम्स, नए एडवेंचर! 😄'
-                ],
-                emotional: [
-                    'तुम मेरे लिए दुनिया हो। नव वर्ष की शुभकामनाएं! 💕',
-                    'तुम्हारे साथ हर पल के लिए आभारी हूं। 🥺',
-                    '2026 में हमारा रिश्ता और मजबूत हो! ❤️',
-                    'तुम हर साल को खास बनाते हो। 🌟'
-                ],
-                spiritual: [
-                    'दिव्य आशीर्वाद आप पर बरसें! 🙏',
-                    'आंतरिक शांति और ज्ञान की कामना! ✨',
-                    'भगवान की कृपा आपका मार्गदर्शन करे। 🙏',
-                    'धन्य शुरुआत आपका इंतजार कर रही है! 🕉️'
-                ],
-                motivational: [
-                    'यह आपका चमकने का साल है! 🔥',
-                    'बड़े सपने देखो, मेहनत करो, और पाओ! 💪',
-                    'सफलता आपका नाम पुकार रही है! 🏆',
-                    '2026 में अपनी असली क्षमता दिखाओ! 🚀'
-                ]
-            },
-            affirmations: [
-                '2026 मेरे परिवर्तन और सफलता का साल होगा!',
-                'मैं आने वाले सभी अवसरों को गले लगाने के लिए तैयार हूं!',
-                'हर दिन मुझे मेरे सपनों के करीब लाता है!',
-                'मैं अपने जीवन के आशीर्वादों के लिए आभारी हूं!',
-                'मैं सकारात्मकता, प्यार और समृद्धि को आकर्षित करता/करती हूं!',
-                'मेरी क्षमता असीमित है और मेरा भविष्य उज्ज्वल है!',
-                'मैं हर काम में खुशी और सफलता चुनता/चुनती हूं!',
-                'मेरे लिए सबसे अच्छा अभी आना बाकी है!'
-            ],
-            shareText: '✨ किसी खास ने आपको नव वर्ष की शुभकामनाएं भेजी हैं! खोलें और अपना सरप्राइज देखें 🎆',
-            copySuccess: 'लिंक कॉपी हो गया! 📋',
-            promiseSaved: 'आपका वादा सेव हो गया! 💪',
-            reflectionsSaved: 'आपके विचार सेव हो गए! 🙏',
-            linkGenerated: 'जादू लिंक बन गया! ✨',
-            installApp: 'होम स्क्रीन पर जोड़ें!'
-        }
-    };
-
-    /* ============================================ */
-    /* 🎯 STATE MANAGEMENT */
-    /* ============================================ */
-    const state = {
-        currentPage: 'landing',
-        currentLanguage: 'en',
-        currentTheme: 'fireworks',
-        soundEnabled: false,
-        isLoading: true,
-        urlParams: {},
-        promiseStep: 1,
-        selectedFocus: null,
-        selectedWord: null,
-        selectedTone: 'fun',
-        selectedWishLang: 'en',
-        generatedLink: '',
-        deferredPrompt: null,
-        animationFrameIds: {},
-        particles: [],
-        fireworks: [],
-        confetti: []
-    };
-
-    /* ============================================ */
-    /* 🔧 UTILITY FUNCTIONS */
-    /* ============================================ */
-    const utils = {
-        // Get element by ID
-        $(id) {
-            return document.getElementById(id);
-        },
-
-        // Query selector
-        $$(selector) {
-            return document.querySelectorAll(selector);
-        },
-
-        // Single query selector
-        $q(selector) {
-            return document.querySelector(selector);
-        },
-
-        // Add event listener
-        on(element, event, handler) {
-            if (element) {
-                element.addEventListener(event, handler);
-            }
-        },
-
-        // Remove event listener
-        off(element, event, handler) {
-            if (element) {
-                element.removeEventListener(event, handler);
-            }
-        },
-
-        // Delegate event
-        delegate(parent, selector, event, handler) {
-            if (parent) {
-                parent.addEventListener(event, (e) => {
-                    if (e.target.matches(selector) || e.target.closest(selector)) {
-                        handler(e);
-                    }
-                });
-            }
-        },
-
-        // Parse URL parameters
-        getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                name: params.get('name') || params.get('n') || '',
-                sender: params.get('sender') || params.get('s') || '',
-                theme: params.get('theme') || params.get('t') || CONFIG.defaultTheme,
-                tone: params.get('tone') || params.get('o') || CONFIG.defaultTone,
-                message: params.get('message') || params.get('m') || '',
-                lang: params.get('lang') || params.get('l') || CONFIG.defaultLanguage
-            };
-        },
-
-        // Generate shareable link
-        generateLink(params) {
-            const url = new URL(CONFIG.siteUrl);
-            Object.keys(params).forEach(key => {
-                if (params[key]) {
-                    url.searchParams.set(key, params[key]);
-                }
-            });
-            return url.toString();
-        },
-
-        // Copy to clipboard
-        async copyToClipboard(text) {
-            try {
-                await navigator.clipboard.writeText(text);
-                return true;
-            } catch (err) {
-                // Fallback for older browsers
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                textarea.style.position = 'fixed';
-                textarea.style.opacity = '0';
-                document.body.appendChild(textarea);
-                textarea.select();
-                const result = document.execCommand('copy');
-                document.body.removeChild(textarea);
-                return result;
-            }
-        },
-
-        // Debounce function
-        debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        },
-
-        // Throttle function
-        throttle(func, limit) {
-            let inThrottle;
-            return function(...args) {
-                if (!inThrottle) {
-                    func.apply(this, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            };
-        },
-
-        // Random number between min and max
-        random(min, max) {
-            return Math.random() * (max - min) + min;
-        },
-
-        // Random integer between min and max
-        randomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        },
-
-        // Random item from array
-        randomItem(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        },
-
-        // Format date
-        formatDate(date) {
-            return new Intl.DateTimeFormat(state.currentLanguage === 'hi' ? 'hi-IN' : 'en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            }).format(date);
-        },
-
-        // Check if mobile device
-        isMobile() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        },
-
-        // Check reduced motion preference
-        prefersReducedMotion() {
-            return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        },
-
-        // Encode string for URL
-        encodeParam(str) {
-            return encodeURIComponent(str).replace(/%20/g, '+');
-        },
-
-        // Decode string from URL
-        decodeParam(str) {
-            return decodeURIComponent(str.replace(/\+/g, '%20'));
-        },
-
-        // Local storage helpers
-        storage: {
-            set(key, value) {
-                try {
-                    localStorage.setItem(`nym2026_${key}`, JSON.stringify(value));
-                } catch (e) {
-                    console.warn('LocalStorage not available');
-                }
-            },
-            get(key) {
-                try {
-                    const item = localStorage.getItem(`nym2026_${key}`);
-                    return item ? JSON.parse(item) : null;
-                } catch (e) {
-                    return null;
-                }
-            },
-            remove(key) {
-                try {
-                    localStorage.removeItem(`nym2026_${key}`);
-                } catch (e) {
-                    console.warn('LocalStorage not available');
-                }
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 🍞 TOAST NOTIFICATIONS */
-    /* ============================================ */
-    const toast = {
-        container: null,
-
-        init() {
-            this.container = utils.$('toastContainer');
-        },
-
-        show(message, type = 'info', duration = 3000) {
-            if (!this.container) return;
-
-            const icons = {
-                success: '✅',
-                error: '❌',
-                info: 'ℹ️',
-                warning: '⚠️'
-            };
-
-            const toastEl = document.createElement('div');
-            toastEl.className = `toast ${type}`;
-            toastEl.innerHTML = `
-                <span class="toast-icon">${icons[type]}</span>
-                <span class="toast-message">${message}</span>
-            `;
-
-            this.container.appendChild(toastEl);
-
-            setTimeout(() => {
-                toastEl.remove();
-            }, duration);
-        },
-
-        success(message) {
-            this.show(message, 'success');
-        },
-
-        error(message) {
-            this.show(message, 'error');
-        },
-
-        info(message) {
-            this.show(message, 'info');
-        }
-    };
-
-    /* ============================================ */
-    /* 🪟 MODAL MANAGER */
-    /* ============================================ */
-    const modal = {
-        current: null,
-
-        open(modalId) {
-            const modalEl = utils.$(modalId);
-            if (modalEl) {
-                modalEl.classList.add('active');
-                document.body.classList.add('no-scroll');
-                this.current = modalEl;
-            }
-        },
-
-        close(modalId) {
-            const modalEl = modalId ? utils.$(modalId) : this.current;
-            if (modalEl) {
-                modalEl.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-                this.current = null;
-            }
-        },
-
-        init() {
-            // Close on overlay click
-            utils.$$('.modal-overlay').forEach(overlay => {
-                utils.on(overlay, 'click', () => this.close());
-            });
-
-            // Close buttons
-            utils.on(utils.$('closeShareModal'), 'click', () => this.close('shareModal'));
-            utils.on(utils.$('closeUpiModal'), 'click', () => this.close('upiModal'));
-            utils.on(utils.$('closeSuccessModal'), 'click', () => this.close('successModal'));
-
-            // ESC key to close
-            utils.on(document, 'keydown', (e) => {
-                if (e.key === 'Escape' && this.current) {
-                    this.close();
-                }
-            });
-        }
-    };
-
-    /* ============================================ */
-    /* 🔄 PRELOADER */
-    /* ============================================ */
-    const preloader = {
-        element: null,
-
-        init() {
-            this.element = utils.$('preloader');
-        },
-
-        hide() {
-            if (this.element) {
-                setTimeout(() => {
-                    this.element.classList.add('hidden');
-                    state.isLoading = false;
-                    // Start animations after preloader hides
-                    animations.init();
-                }, 2000);
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 🌐 LANGUAGE MANAGER */
-    /* ============================================ */
-    const language = {
-        current: 'en',
-
-        init() {
-            // Check URL param first
-            if (state.urlParams.lang) {
-                this.current = state.urlParams.lang;
-            } else {
-                // Check saved preference
-                const saved = utils.storage.get('language');
-                if (saved) {
-                    this.current = saved;
-                } else {
-                    // Auto-detect from browser
-                    const browserLang = navigator.language || navigator.userLanguage;
-                    if (browserLang.startsWith('hi')) {
-                        this.current = 'hi';
-                    }
-                }
-            }
-            state.currentLanguage = this.current;
-            this.apply();
-            this.updateToggle();
-        },
-
-        toggle() {
-            this.current = this.current === 'en' ? 'hi' : 'en';
-            state.currentLanguage = this.current;
-            utils.storage.set('language', this.current);
-            this.apply();
-            this.updateToggle();
-        },
-
-        updateToggle() {
-            const btn = utils.$('langToggle');
-            if (btn) {
-                btn.querySelector('.lang-text').textContent = this.current.toUpperCase();
-            }
-        },
-
-        apply() {
-            // Update all elements with data-lang attributes
-            utils.$$('[data-lang-en]').forEach(el => {
-                const text = el.getAttribute(`data-lang-${this.current}`);
-                if (text) {
-                    el.textContent = text;
-                }
-            });
-
-            // Update placeholders
-            utils.$$('[data-placeholder-en]').forEach(el => {
-                const placeholder = el.getAttribute(`data-placeholder-${this.current}`);
-                if (placeholder) {
-                    el.placeholder = placeholder;
-                }
-            });
-
-            // Update HTML lang attribute
-            document.documentElement.lang = this.current;
-        },
-
-        getString(key) {
-            return STRINGS[this.current][key] || STRINGS.en[key];
-        },
-
-        getRandomWish() {
-            const wishes = STRINGS[this.current].wishes;
-            return utils.randomItem(wishes);
-        },
-
-        getToneMessage(tone) {
-            const messages = STRINGS[this.current].tones[tone];
-            return utils.randomItem(messages);
-        },
-
-        getAffirmation() {
-            const affirmations = STRINGS[this.current].affirmations;
-            return utils.randomItem(affirmations);
-        }
-    };
-
-    /* ============================================ */
-    /* 🎨 THEME MANAGER */
-    /* ============================================ */
-    const theme = {
-        current: 'fireworks',
-        themes: ['fireworks', 'galaxy', 'golden', 'nature', 'romantic'],
-
-        init() {
-            // Check URL param first
-            if (state.urlParams.theme && this.themes.includes(state.urlParams.theme)) {
-                this.current = state.urlParams.theme;
-            } else {
-                // Check saved preference
-                const saved = utils.storage.get('theme');
-                if (saved && this.themes.includes(saved)) {
-                    this.current = saved;
-                }
-            }
-            state.currentTheme = this.current;
-            this.apply();
-        },
-
-        set(themeName) {
-            if (this.themes.includes(themeName)) {
-                this.current = themeName;
-                state.currentTheme = themeName;
-                utils.storage.set('theme', themeName);
-                this.apply();
-            }
-        },
-
-        apply() {
-            // Remove all theme classes
-            this.themes.forEach(t => {
-                document.body.classList.remove(`theme-${t}`);
-            });
-            // Add current theme class
-            document.body.classList.add(`theme-${this.current}`);
-
-            // Update theme buttons if on create page
-            utils.$$('.theme-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.theme === this.current);
-            });
-        },
-
-        cycle() {
-            const currentIndex = this.themes.indexOf(this.current);
-            const nextIndex = (currentIndex + 1) % this.themes.length;
-            this.set(this.themes[nextIndex]);
-            toast.info(`Theme: ${this.themes[nextIndex].charAt(0).toUpperCase() + this.themes[nextIndex].slice(1)}`);
-        }
-    };
-
-    /* ============================================ */
-    /* 🔊 AUDIO MANAGER */
-    /* ============================================ */
-    const audio = {
-        bgMusic: null,
-        fireworkSound: null,
-        revealSound: null,
-        successSound: null,
-        enabled: false,
-
-        init() {
-            this.bgMusic = utils.$('bgMusic');
-            this.fireworkSound = utils.$('fireworkSound');
-            this.revealSound = utils.$('revealSound');
-            this.successSound = utils.$('successSound');
-
-            // Set volumes
-            if (this.bgMusic) this.bgMusic.volume = 0.3;
-            if (this.fireworkSound) this.fireworkSound.volume = 0.5;
-            if (this.revealSound) this.revealSound.volume = 0.6;
-            if (this.successSound) this.successSound.volume = 0.5;
-        },
-
-        toggle() {
-            this.enabled = !this.enabled;
-            state.soundEnabled = this.enabled;
-            this.updateIcon();
-
-            if (this.enabled) {
-                this.playBackground();
-            } else {
-                this.stopBackground();
-            }
-        },
-
-        updateIcon() {
-            const btn = utils.$('soundToggle');
-            if (btn) {
-                btn.querySelector('.sound-icon').textContent = this.enabled ? '🔊' : '🔇';
-            }
-        },
-
-        playBackground() {
-            if (this.bgMusic && this.enabled) {
-                this.bgMusic.play().catch(() => {});
-            }
-        },
-
-        stopBackground() {
-            if (this.bgMusic) {
-                this.bgMusic.pause();
-                this.bgMusic.currentTime = 0;
-            }
-        },
-
-        playFirework() {
-            if (this.fireworkSound && this.enabled) {
-                this.fireworkSound.currentTime = 0;
-                this.fireworkSound.play().catch(() => {});
-            }
-        },
-
-        playReveal() {
-            if (this.revealSound && this.enabled) {
-                this.revealSound.currentTime = 0;
-                this.revealSound.play().catch(() => {});
-            }
-        },
-
-        playSuccess() {
-            if (this.successSound && this.enabled) {
-                this.successSound.currentTime = 0;
-                this.successSound.play().catch(() => {});
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* ⏱️ COUNTDOWN TIMER */
-    /* ============================================ */
-    const countdown = {
-        elements: {},
-        interval: null,
-
-        init() {
-            this.elements = {
-                days: utils.$('days'),
-                hours: utils.$('hours'),
-                minutes: utils.$('minutes'),
-                seconds: utils.$('seconds'),
-                container: utils.$('countdownContainer')
-            };
-
-            this.update();
-            this.interval = setInterval(() => this.update(), 1000);
-        },
-
-        update() {
-            const now = new Date().getTime();
-            const distance = CONFIG.targetDate - now;
-
-            if (distance < 0) {
-                // New Year has arrived!
-                this.showCelebration();
-                clearInterval(this.interval);
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            if (this.elements.days) this.elements.days.textContent = String(days).padStart(2, '0');
-            if (this.elements.hours) this.elements.hours.textContent = String(hours).padStart(2, '0');
-            if (this.elements.minutes) this.elements.minutes.textContent = String(minutes).padStart(2, '0');
-            if (this.elements.seconds) this.elements.seconds.textContent = String(seconds).padStart(2, '0');
-        },
-
-        showCelebration() {
-            if (this.elements.container) {
-                this.elements.container.innerHTML = `
-                    <h2 class="celebration-text" style="font-size: 2rem; color: var(--gold);">
-                        🎆 Happy New Year 2026! 🎆
-                    </h2>
-                `;
-            }
-            animations.triggerCelebration();
-        }
-    };
-
-    /* ============================================ */
-    /* 🧭 NAVIGATION */
-    /* ============================================ */
-    const navigation = {
-        currentPage: 'landing',
-
-        init() {
-            // Page navigation links
-            utils.$$('.nav-link').forEach(link => {
-                utils.on(link, 'click', (e) => {
-                    e.preventDefault();
-                    const page = link.dataset.page;
-                    this.goTo(page);
-                    this.closeMobileMenu();
-                });
-            });
-
-            // Buttons with page targets
-            utils.$$('[data-page-target]').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    const page = btn.dataset.pageTarget;
-                    this.goTo(page);
-                });
-            });
-
-            // Mobile menu toggle
-            const menuBtn = utils.$('navMenuBtn');
-            const navLinks = utils.$('navLinks');
-            utils.on(menuBtn, 'click', () => {
-                menuBtn.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-
-            // Check URL hash on load
-            const hash = window.location.hash.replace('#', '');
-            if (hash && utils.$(hash)) {
-                this.goTo(hash);
-            }
-
-            // Check if coming from shared link
-            if (state.urlParams.name) {
-                this.goTo('wishes');
-            }
-        },
-
-        goTo(pageId) {
-            if (!utils.$(pageId)) return;
-
-            // Hide all pages
-            utils.$$('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-
-            // Show target page
-            const targetPage = utils.$(pageId);
-            targetPage.classList.add('active');
-
-            // Update nav links
-            utils.$$('.nav-link').forEach(link => {
-                link.classList.toggle('active', link.dataset.page === pageId);
-            });
-
-            // Update state
-            this.currentPage = pageId;
-            state.currentPage = pageId;
-
-            // Update URL hash
-            history.pushState(null, '', `#${pageId}`);
-
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Page-specific actions
-            this.onPageEnter(pageId);
-        },
-
-        onPageEnter(pageId) {
-            switch (pageId) {
-                case 'wishes':
-                    wishPage.init();
-                    break;
-                case 'promise':
-                    promisePage.init();
-                    break;
-                case 'gratitude':
-                    gratitudePage.init();
-                    break;
-                case 'create':
-                    createPage.init();
-                    break;
-            }
-        },
-
-        closeMobileMenu() {
-            const menuBtn = utils.$('navMenuBtn');
-            const navLinks = utils.$('navLinks');
-            if (menuBtn) menuBtn.classList.remove('active');
-            if (navLinks) navLinks.classList.remove('active');
-        }
-    };
-
-    /* ============================================ */
-    /* 💌 WISH PAGE */
-    /* ============================================ */
-    const wishPage = {
-        initialized: false,
-
-        init() {
-            if (this.initialized) return;
-
-            const params = state.urlParams;
-
-            // Set recipient name
-            const displayName = utils.$('displayName');
-            if (displayName) {
-                displayName.textContent = params.name || 'Friend';
-            }
-
-            // Set sender info
-            if (params.sender) {
-                const senderInfo = utils.$('senderInfo');
-                const senderName = utils.$('senderName');
-                if (senderInfo && senderName) {
-                    senderInfo.style.display = 'inline-flex';
-                    senderName.textContent = params.sender;
-                }
-            }
-
-            // Set custom message
-            if (params.message) {
-                const customContainer = utils.$('customMessageContainer');
-                const customMessage = utils.$('customMessage');
-                if (customContainer && customMessage) {
-                    customContainer.style.display = 'block';
-                    customMessage.textContent = utils.decodeParam(params.message);
-                }
-            }
-
-            // Apply theme from params
-            if (params.theme) {
-                theme.set(params.theme);
-            }
-
-            // Start typing animation
-            this.startTypingAnimation();
-
-            // Trigger animations
-            setTimeout(() => {
-                animations.triggerConfetti();
-                audio.playReveal();
-                this.createBalloons();
-            }, 500);
-
-            this.initialized = true;
-        },
-
-        startTypingAnimation() {
-            const typingText = utils.$('typingText');
-            if (!typingText) return;
-
-            const wishText = language.getRandomWish();
-            const toneMessage = language.getToneMessage(state.urlParams.tone || 'fun');
-            
-            let i = 0;
-            const typeWriter = () => {
-                if (i < wishText.length) {
-                    typingText.textContent += wishText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
-                } else {
-                    // Update tagline with tone message
-                    const tagline = utils.$q('.wish-tagline');
-                    if (tagline) {
-                        tagline.textContent = toneMessage;
-                    }
-                }
-            };
-            
-            setTimeout(typeWriter, 1000);
-        },
-
-        createBalloons() {
-            const container = utils.$('balloonsContainer');
-            if (!container) return;
-
-            const balloonEmojis = ['🎈', '🎊', '🎉', '🎀', '⭐', '💫'];
-            
-            for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    const balloon = document.createElement('div');
-                    balloon.className = 'balloon';
-                    balloon.textContent = utils.randomItem(balloonEmojis);
-                    balloon.style.left = utils.random(5, 95) + '%';
-                    balloon.style.animationDuration = utils.random(4, 8) + 's';
-                    container.appendChild(balloon);
-
-                    // Remove after animation
-                    setTimeout(() => balloon.remove(), 8000);
-                }, i * 500);
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 📝 PROMISE PAGE */
-    /* ============================================ */
-    const promisePage = {
-        currentStep: 1,
-        totalSteps: 3,
-        data: {
-            name: '',
-            focus: '',
-            promise: ''
-        },
-
-        init() {
-            this.bindEvents();
-            this.loadSaved();
-        },
-
-        bindEvents() {
-            // Focus buttons
-            utils.$$('.focus-btn').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    utils.$$('.focus-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    this.data.focus = btn.dataset.focus;
-                    state.selectedFocus = btn.dataset.focus;
-                });
-            });
-
-            // Character count
-            const promiseText = utils.$('promiseText');
-            const charCount = utils.$('promiseCharCount');
-            if (promiseText && charCount) {
-                utils.on(promiseText, 'input', () => {
-                    charCount.textContent = promiseText.value.length;
-                    this.data.promise = promiseText.value;
-                });
-            }
-
-            // Name input
-            const nameInput = utils.$('promiseName');
-            if (nameInput) {
-                utils.on(nameInput, 'input', () => {
-                    this.data.name = nameInput.value;
-                });
-            }
-
-            // Navigation buttons
-            utils.on(utils.$('promiseNextBtn'), 'click', () => this.nextStep());
-            utils.on(utils.$('promisePrevBtn'), 'click', () => this.prevStep());
-            utils.on(utils.$('generatePromiseBtn'), 'click', () => this.generate());
-            utils.on(utils.$('downloadPromiseBtn'), 'click', () => this.download());
-            utils.on(utils.$('sharePromiseBtn'), 'click', () => this.share());
-            utils.on(utils.$('newPromiseBtn'), 'click', () => this.reset());
-        },
-
-        nextStep() {
-            if (this.validateStep()) {
-                this.currentStep++;
-                this.updateSteps();
-            }
-        },
-
-        prevStep() {
-            this.currentStep--;
-            this.updateSteps();
-        },
-
-        validateStep() {
-            switch (this.currentStep) {
-                case 1:
-                    if (!this.data.name.trim()) {
-                        toast.error('Please enter your name');
-                        return false;
-                    }
-                    break;
-                case 2:
-                    if (!this.data.focus) {
-                        toast.error('Please select a focus area');
-                        return false;
-                    }
-                    break;
-            }
-            return true;
-        },
-
-        updateSteps() {
-            // Update step visibility
-            utils.$$('.form-step').forEach((step, index) => {
-                step.classList.toggle('active', index + 1 === this.currentStep);
-            });
-
-            // Update buttons
-            const prevBtn = utils.$('promisePrevBtn');
-            const nextBtn = utils.$('promiseNextBtn');
-            const generateBtn = utils.$('generatePromiseBtn');
-
-            if (prevBtn) prevBtn.style.display = this.currentStep > 1 ? 'inline-flex' : 'none';
-            if (nextBtn) nextBtn.style.display = this.currentStep < this.totalSteps ? 'inline-flex' : 'none';
-            if (generateBtn) generateBtn.style.display = this.currentStep === this.totalSteps ? 'inline-flex' : 'none';
-        },
-
-        generate() {
-            if (!this.data.promise.trim()) {
-                toast.error('Please write your promise');
-                return;
-            }
-
-            // Save data
-            utils.storage.set('promise', this.data);
-
-            // Update result card
-            const focusIcons = {
-                health: '💪',
-                wealth: '💰',
-                study: '📚',
-                career: '💼',
-                family: '👨‍👩‍👧‍👦',
-                spiritual: '🧘'
-            };
-
-            const focusBadge = utils.$('promiseFocusBadge');
-            if (focusBadge) {
-                focusBadge.innerHTML = `
-                    <span class="focus-icon">${focusIcons[this.data.focus]}</span>
-                    <span class="focus-name">${this.data.focus.charAt(0).toUpperCase() + this.data.focus.slice(1)}</span>
-                `;
-            }
-
-            const userName = utils.$('promiseUserName');
-            if (userName) userName.textContent = this.data.name;
-
-            const content = utils.$('promiseContent');
-            if (content) content.textContent = `"${this.data.promise}"`;
-
-            const date = utils.$('promiseDate');
-            if (date) date.textContent = utils.formatDate(new Date());
-
-            // Show result, hide form
-            const form = utils.$('promiseForm');
-            const result = utils.$('promiseResult');
-            if (form) form.style.display = 'none';
-            if (result) result.style.display = 'block';
-
-            // Trigger celebration
-            animations.triggerConfetti();
-            audio.playSuccess();
-            toast.success(language.getString('promiseSaved'));
-        },
-
-        async download() {
-            const card = utils.$('promiseCard');
-            if (!card) return;
-
-            try {
-                // Using html2canvas library would be ideal here
-                // For now, we'll create a simple text-based download
-                toast.info('Promise card saved! Take a screenshot to share.');
-                
-                // Alternative: Copy promise text
-                const text = `🎯 My New Year Promise 2026\n\nFocus: ${this.data.focus}\n\n"${this.data.promise}"\n\n- ${this.data.name}\n\n✨ New Year Magic 2026`;
-                await utils.copyToClipboard(text);
-                toast.success('Promise text copied!');
-            } catch (err) {
-                toast.error('Could not download. Please screenshot.');
-            }
-        },
-
-        share() {
-            const text = `🎯 I made my New Year Promise 2026!\n\nFocus: ${this.data.focus}\n"${this.data.promise}"\n\nCreate yours: ${CONFIG.siteUrl}#promise`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My New Year Promise 2026',
-                    text: text,
-                    url: `${CONFIG.siteUrl}#promise`
-                }).catch(() => {});
-            } else {
-                this.shareWhatsApp(text);
-            }
-        },
-
-        shareWhatsApp(text) {
-            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-        },
-
-        reset() {
-            this.currentStep = 1;
-            this.data = { name: '', focus: '', promise: '' };
-            
-            // Reset form
-            const nameInput = utils.$('promiseName');
-            const promiseText = utils.$('promiseText');
-            if (nameInput) nameInput.value = '';
-            if (promiseText) promiseText.value = '';
-            
-            utils.$$('.focus-btn').forEach(b => b.classList.remove('active'));
-            
-            // Show form, hide result
-            const form = utils.$('promiseForm');
-            const result = utils.$('promiseResult');
-            if (form) form.style.display = 'block';
-            if (result) result.style.display = 'none';
-            
-            this.updateSteps();
-        },
-
-        loadSaved() {
-            const saved = utils.storage.get('promise');
-            if (saved) {
-                this.data = saved;
-                const nameInput = utils.$('promiseName');
-                if (nameInput && saved.name) nameInput.value = saved.name;
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 🙏 GRATITUDE PAGE */
-    /* ============================================ */
-    const gratitudePage = {
-        data: {
-            bestMemory: '',
-            gratefulFor: '',
-            toImprove: '',
-            word: ''
-        },
-
-        init() {
-            this.bindEvents();
-            this.loadSaved();
-            this.updateAffirmation();
-        },
-
-        bindEvents() {
-            // Word buttons
-            utils.$$('.word-btn').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    utils.$$('.word-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    this.data.word = btn.dataset.word;
-                    state.selectedWord = btn.dataset.word;
-                });
-            });
-
-            // Custom word input
-            const customWord = utils.$('customWord');
-            if (customWord) {
-                utils.on(customWord, 'input', () => {
-                    if (customWord.value.trim()) {
-                        utils.$$('.word-btn').forEach(b => b.classList.remove('active'));
-                        this.data.word = customWord.value;
-                    }
-                });
-            }
-
-            // Textarea inputs
-            const inputs = ['bestMemory', 'gratefulFor', 'toImprove'];
-            inputs.forEach(id => {
-                const el = utils.$(id);
-                if (el) {
-                    utils.on(el, 'input', () => {
-                        this.data[id] = el.value;
-                    });
-                }
-            });
-
-            // Save button
-            utils.on(utils.$('saveReflectionsBtn'), 'click', () => this.save());
-            
-            // Share button
-            utils.on(utils.$('shareReflectionsBtn'), 'click', () => this.share());
-            
-            // New affirmation button
-            utils.on(utils.$('newAffirmationBtn'), 'click', () => this.updateAffirmation());
-        },
-
-        save() {
-            utils.storage.set('gratitude', this.data);
-            animations.triggerConfetti();
-            audio.playSuccess();
-            toast.success(language.getString('reflectionsSaved'));
-        },
-
-        share() {
-            const word = this.data.word || 'Success';
-            const text = `🌟 My word for 2026: ${word}\n\nWhat's yours? Create at: ${CONFIG.siteUrl}#gratitude`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My 2026 Word',
-                    text: text,
-                    url: `${CONFIG.siteUrl}#gratitude`
-                }).catch(() => {});
-            } else {
-                const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-                window.open(url, '_blank');
-            }
-        },
-
-        updateAffirmation() {
-            const textEl = utils.$('affirmationText');
-            if (textEl) {
-                textEl.textContent = `"${language.getAffirmation()}"`;
-            }
-        },
-
-        loadSaved() {
-            const saved = utils.storage.get('gratitude');
-            if (saved) {
-                this.data = saved;
-                Object.keys(saved).forEach(key => {
-                    const el = utils.$(key);
-                    if (el && saved[key]) {
-                        el.value = saved[key];
-                    }
-                });
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* ✨ CREATE PAGE */
-    /* ============================================ */
-    const createPage = {
-        data: {
-            sender: '',
-            recipient: '',
-            theme: 'fireworks',
-            tone: 'fun',
-            message: '',
-            lang: 'en'
-        },
-
-        init() {
-            this.bindEvents();
-            this.loadSaved();
-        },
-
-        bindEvents() {
-            // Sender name
-            const senderInput = utils.$('senderNameInput');
-            if (senderInput) {
-                utils.on(senderInput, 'input', () => {
-                    this.data.sender = senderInput.value;
-                    this.updatePreview();
-                });
-            }
-
-            // Recipient name
-            const recipientInput = utils.$('recipientNameInput');
-            if (recipientInput) {
-                utils.on(recipientInput, 'input', () => {
-                    this.data.recipient = recipientInput.value;
-                    this.updatePreview();
-                });
-            }
-
-            // Theme buttons
-            utils.$$('.theme-btn').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    utils.$$('.theme-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    this.data.theme = btn.dataset.theme;
-                    theme.set(btn.dataset.theme);
-                    this.updatePreview();
-                });
-            });
-
-            // Tone buttons
-            utils.$$('.tone-btn').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    utils.$$('.tone-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    this.data.tone = btn.dataset.tone;
-                    state.selectedTone = btn.dataset.tone;
-                    this.updatePreview();
-                });
-            });
-
-            // Language buttons
-            utils.$$('.lang-btn').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    utils.$$('.lang-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    this.data.lang = btn.dataset.lang;
-                    state.selectedWishLang = btn.dataset.lang;
-                });
-            });
-
-            // Custom message
-            const customMsg = utils.$('customMessageInput');
-            const charCount = utils.$('customMsgCharCount');
-            if (customMsg) {
-                utils.on(customMsg, 'input', () => {
-                    this.data.message = customMsg.value;
-                    if (charCount) charCount.textContent = customMsg.value.length;
-                    this.updatePreview();
-                });
-            }
-
-            // Generate button
-            utils.on(utils.$('generateMagicBtn'), 'click', () => this.generate());
-
-            // Copy link button
-            utils.on(utils.$('copyLinkBtn'), 'click', () => this.copyLink());
-
-            // Share buttons
-            utils.on(utils.$('shareWhatsappLink'), 'click', () => this.shareWhatsApp());
-            utils.on(utils.$('shareTelegramLink'), 'click', () => this.shareTelegram());
-            utils.on(utils.$('shareTwitterLink'), 'click', () => this.shareTwitter());
-            utils.on(utils.$('shareFacebookLink'), 'click', () => this.shareFacebook());
-        },
-
-        updatePreview() {
-            const previewSender = utils.$('previewSender');
-            const previewRecipient = utils.$('previewRecipient');
-            const previewMessage = utils.$('previewMessage');
-            const previewCustom = utils.$('previewCustom');
-            const previewTheme = utils.$('previewThemeIndicator');
-
-            const themeEmojis = {
-                fireworks: '🎆',
-                galaxy: '🌌',
-                golden: '🏆',
-                nature: '🌿',
-                romantic: '💕'
-            };
-
-            if (previewSender) previewSender.textContent = `From: ${this.data.sender || 'You'}`;
-            if (previewRecipient) previewRecipient.textContent = `Dear ${this.data.recipient || 'Friend'}`;
-            if (previewMessage) previewMessage.textContent = 'Happy New Year 2026!';
-            if (previewCustom) previewCustom.textContent = this.data.message || '';
-            if (previewTheme) {
-                previewTheme.textContent = `${themeEmojis[this.data.theme]} ${this.data.theme.charAt(0).toUpperCase() + this.data.theme.slice(1)}`;
-            }
-        },
-
-        generate() {
-            if (!this.data.recipient.trim()) {
-                toast.error('Please enter recipient\'s name');
-                return;
-            }
-
-            // Save data
-            utils.storage.set('createData', this.data);
-
-            // Generate link
-            const params = {
-                name: this.data.recipient,
-                sender: this.data.sender,
-                theme: this.data.theme,
-                tone: this.data.tone,
-                lang: this.data.lang
-            };
-
-            if (this.data.message) {
-                params.message = utils.encodeParam(this.data.message);
-            }
-
-            state.generatedLink = utils.generateLink(params);
-
-            // Show link section
-            const linkInput = utils.$('generatedLink');
-            const linkSection = utils.$('generatedLinkSection');
-            const sponsoredCreate = utils.$('sponsoredCreate');
-
-            if (linkInput) linkInput.value = state.generatedLink;
-            if (linkSection) linkSection.style.display = 'block';
-            if (sponsoredCreate) sponsoredCreate.style.display = 'block';
-
-            // Celebration
-            animations.triggerConfetti();
-            audio.playSuccess();
-            toast.success(language.getString('linkGenerated'));
-
-            // Scroll to link section
-            if (linkSection) {
-                linkSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        },
-
-        async copyLink() {
-            if (state.generatedLink) {
-                const success = await utils.copyToClipboard(state.generatedLink);
-                const copyIcon = utils.$('copyIcon');
-                
-                if (success) {
-                    if (copyIcon) copyIcon.textContent = '✅';
-                    toast.success(language.getString('copySuccess'));
-                    
-                    setTimeout(() => {
-                        if (copyIcon) copyIcon.textContent = '📋';
-                    }, 2000);
-                } else {
-                    toast.error('Failed to copy');
-                }
-            }
-        },
-
-        getShareText() {
-            const lang = state.currentLanguage;
-            const recipientName = this.data.recipient || 'you';
-            return lang === 'hi' 
-                ? `✨ ${this.data.sender || 'किसी खास'} ने ${recipientName} के लिए नव वर्ष की शुभकामनाएं भेजी हैं! 🎆\n\nखोलें और अपना सरप्राइज देखें:`
-                : `✨ ${this.data.sender || 'Someone special'} sent New Year wishes for ${recipientName}! 🎆\n\nOpen to see your surprise:`;
-        },
-
-        shareWhatsApp() {
-            const text = `${this.getShareText()}\n${state.generatedLink}`;
-            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-        },
-
-        shareTelegram() {
-            const text = this.getShareText();
-            const url = `https://t.me/share/url?url=${encodeURIComponent(state.generatedLink)}&text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-        },
-
-        shareTwitter() {
-            const text = `${this.getShareText()} ${state.generatedLink}`;
-            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-        },
-
-        shareFacebook() {
-            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(state.generatedLink)}`;
-            window.open(url, '_blank');
-        },
-
-        loadSaved() {
-            const saved = utils.storage.get('createData');
-            if (saved) {
-                this.data = { ...this.data, ...saved };
-                
-                const senderInput = utils.$('senderNameInput');
-                if (senderInput && saved.sender) senderInput.value = saved.sender;
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 🎆 ANIMATIONS */
-    /* ============================================ */
-    const animations = {
-        fireworksCanvas: null,
-        particlesCanvas: null,
-        confettiCanvas: null,
-        fireworksCtx: null,
-        particlesCtx: null,
-        confettiCtx: null,
-
-        init() {
-            if (utils.prefersReducedMotion()) return;
-
-            this.fireworksCanvas = utils.$('fireworksCanvas');
-            this.particlesCanvas = utils.$('particlesCanvas');
-            this.confettiCanvas = utils.$('confettiCanvas');
-
-            if (this.fireworksCanvas) {
-                this.fireworksCtx = this.fireworksCanvas.getContext('2d');
-                this.resizeCanvas(this.fireworksCanvas);
-            }
-
-            if (this.particlesCanvas) {
-                this.particlesCtx = this.particlesCanvas.getContext('2d');
-                this.resizeCanvas(this.particlesCanvas);
-            }
-
-            if (this.confettiCanvas) {
-                this.confettiCtx = this.confettiCanvas.getContext('2d');
-                this.resizeCanvas(this.confettiCanvas);
-            }
-
-            // Handle resize
-            window.addEventListener('resize', utils.debounce(() => {
-                this.resizeCanvas(this.fireworksCanvas);
-                this.resizeCanvas(this.particlesCanvas);
-                this.resizeCanvas(this.confettiCanvas);
-            }, 250));
-
-            // Start background particles
-            this.initParticles();
-            this.animateParticles();
-
-            // Start periodic fireworks
-            this.startFireworks();
-        },
-
-        resizeCanvas(canvas) {
-            if (canvas) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-        },
-
-        // Particle System
-        initParticles() {
-            state.particles = [];
-            const count = utils.isMobile() ? 30 : 50;
-
-            for (let i = 0; i < count; i++) {
-                state.particles.push({
-                    x: utils.random(0, window.innerWidth),
-                    y: utils.random(0, window.innerHeight),
-                    size: utils.random(1, 3),
-                    speedX: utils.random(-0.5, 0.5),
-                    speedY: utils.random(-0.5, 0.5),
-                    opacity: utils.random(0.3, 0.8),
-                    color: utils.randomItem(['#ffd700', '#ffffff', '#ffa500', '#ff6b6b', '#4ecdc4'])
-                });
-            }
-        },
-
-        animateParticles() {
-            if (!this.particlesCtx || utils.prefersReducedMotion()) return;
-
-            const ctx = this.particlesCtx;
-            const canvas = this.particlesCanvas;
-
-            const animate = () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                state.particles.forEach(p => {
-                    // Update position
-                    p.x += p.speedX;
-                    p.y += p.speedY;
-
-                    // Wrap around edges
-                    if (p.x < 0) p.x = canvas.width;
-                    if (p.x > canvas.width) p.x = 0;
-                    if (p.y < 0) p.y = canvas.height;
-                    if (p.y > canvas.height) p.y = 0;
-
-                    // Draw particle
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    ctx.globalAlpha = p.opacity;
-                    ctx.fill();
-                });
-
-                ctx.globalAlpha = 1;
-                state.animationFrameIds.particles = requestAnimationFrame(animate);
-            };
-
-            animate();
-        },
-
-        // Fireworks System
-        startFireworks() {
-            if (utils.prefersReducedMotion()) return;
-
-            const launchFirework = () => {
-                if (state.currentPage === 'landing' || state.currentPage === 'wishes') {
-                    this.createFirework();
-                }
-                
-                // Random interval for next firework
-                setTimeout(launchFirework, utils.random(2000, 5000));
-            };
-
-            setTimeout(launchFirework, 1000);
-        },
-
-        createFirework() {
-            if (!this.fireworksCtx) return;
-
-            const canvas = this.fireworksCanvas;
-            const ctx = this.fireworksCtx;
-
-            const x = utils.random(100, canvas.width - 100);
-            const targetY = utils.random(100, canvas.height / 2);
-            const startY = canvas.height;
-
-            // Rocket
-            const rocket = {
-                x: x,
-                y: startY,
-                targetY: targetY,
-                speed: 8,
-                exploded: false
-            };
-
-            // Particles after explosion
-            const particles = [];
-            const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#ff9ff3', '#54a0ff', '#5f27cd'];
-            const color = utils.randomItem(colors);
-
-            const animate = () => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                if (!rocket.exploded) {
-                    // Draw rocket trail
-                    ctx.beginPath();
-                    ctx.arc(rocket.x, rocket.y, 3, 0, Math.PI * 2);
-                    ctx.fillStyle = '#ffd700';
-                    ctx.fill();
-
-                    // Move rocket up
-                    rocket.y -= rocket.speed;
-
-                    // Check if reached target
-                    if (rocket.y <= rocket.targetY) {
-                        rocket.exploded = true;
-                        audio.playFirework();
-
-                        // Create explosion particles
-                        for (let i = 0; i < 50; i++) {
-                            const angle = (Math.PI * 2 / 50) * i;
-                            const speed = utils.random(2, 6);
-                            particles.push({
-                                x: rocket.x,
-                                y: rocket.y,
-                                vx: Math.cos(angle) * speed,
-                                vy: Math.sin(angle) * speed,
-                                alpha: 1,
-                                color: color,
-                                size: utils.random(2, 4)
-                            });
-                        }
-                    }
-                } else {
-                    // Animate explosion particles
-                    let alive = false;
-                    particles.forEach(p => {
-                        if (p.alpha > 0) {
-                            alive = true;
-                            p.x += p.vx;
-                            p.y += p.vy;
-                            p.vy += 0.1; // Gravity
-                            p.alpha -= 0.02;
-
-                            ctx.beginPath();
-                            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                            ctx.fillStyle = p.color;
-                            ctx.globalAlpha = p.alpha;
-                            ctx.fill();
-                        }
-                    });
-                    ctx.globalAlpha = 1;
-
-                    if (!alive) {
-                        return; // End animation
-                    }
-                }
-
-                requestAnimationFrame(animate);
-            };
-
-            animate();
-        },
-
-        // Confetti System
-        triggerConfetti() {
-            if (!this.confettiCtx || utils.prefersReducedMotion()) return;
-
-            const canvas = this.confettiCanvas;
-            const ctx = this.confettiCtx;
-            const confetti = [];
-            const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43'];
-
-            // Create confetti pieces
-            for (let i = 0; i < 150; i++) {
-                confetti.push({
-                    x: utils.random(0, canvas.width),
-                    y: utils.random(-canvas.height, 0),
-                    size: utils.random(5, 15),
-                    color: utils.randomItem(colors),
-                    speed: utils.random(3, 8),
-                    angle: utils.random(0, Math.PI * 2),
-                    spin: utils.random(-0.2, 0.2),
-                    opacity: 1
-                });
-            }
-
-            const animate = () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                let active = false;
-                confetti.forEach(c => {
-                    if (c.y < canvas.height + 50 && c.opacity > 0) {
-                        active = true;
-                        c.y += c.speed;
-                        c.x += Math.sin(c.angle) * 2;
-                        c.angle += c.spin;
-
-                        if (c.y > canvas.height * 0.8) {
-                            c.opacity -= 0.02;
-                        }
-
-                        ctx.save();
-                        ctx.translate(c.x, c.y);
-                        ctx.rotate(c.angle);
-                        ctx.fillStyle = c.color;
-                        ctx.globalAlpha = c.opacity;
-                        ctx.fillRect(-c.size / 2, -c.size / 2, c.size, c.size / 2);
-                        ctx.restore();
-                    }
-                });
-
-                ctx.globalAlpha = 1;
-
-                if (active) {
-                    requestAnimationFrame(animate);
-                }
-            };
-
-            animate();
-        },
-
-        triggerCelebration() {
-            this.triggerConfetti();
-            
-            // Multiple fireworks
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => this.createFirework(), i * 500);
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 💰 UPI PAYMENT */
-    /* ============================================ */
-    const upiPayment = {
-        init() {
-            // Support buttons
-            utils.$$('.support-btn').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    const amount = btn.dataset.amount;
-                    this.openPayment(amount);
-                });
-            });
-
-            // Copy UPI ID
-            utils.on(utils.$('copyUpiBtn'), 'click', () => this.copyUpiId());
-        },
-
-        openPayment(amount) {
-            const upiAmount = utils.$('upiAmount');
-            const upiDeepLink = utils.$('upiDeepLink');
-
-            if (upiAmount) upiAmount.textContent = `₹${amount}`;
-            
-            // Generate UPI deep link
-            const upiUrl = `upi://pay?pa=${CONFIG.upiId}&pn=${encodeURIComponent(CONFIG.upiName)}&am=${amount}&cu=INR&tn=${encodeURIComponent('Support New Year Magic 2026')}`;
-            
-            if (upiDeepLink) upiDeepLink.href = upiUrl;
-
-            modal.open('upiModal');
-        },
-
-        async copyUpiId() {
-            const success = await utils.copyToClipboard(CONFIG.upiId);
-            if (success) {
-                toast.success('UPI ID copied!');
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 📱 PWA HANDLER */
-    /* ============================================ */
-    const pwa = {
-        deferredPrompt: null,
-
-        init() {
-            // Listen for beforeinstallprompt
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                this.deferredPrompt = e;
-                state.deferredPrompt = e;
-                this.showInstallPrompt();
-            });
-
-            // Install button
-            utils.on(utils.$('pwaInstall'), 'click', () => this.install());
-            utils.on(utils.$('pwaLater'), 'click', () => this.hidePrompt());
-
-            // Register service worker
-            this.registerSW();
-        },
-
-        async registerSW() {
-            if ('serviceWorker' in navigator) {
-                try {
-                    await navigator.serviceWorker.register('/sw.js');
-                } catch (err) {
-                    console.log('SW registration failed');
-                }
-            }
-        },
-
-        showInstallPrompt() {
-            const prompt = utils.$('pwaPrompt');
-            if (prompt && !utils.storage.get('pwaPromptDismissed')) {
-                setTimeout(() => {
-                    prompt.style.display = 'block';
-                }, 5000);
-            }
-        },
-
-        hidePrompt() {
-            const prompt = utils.$('pwaPrompt');
-            if (prompt) {
-                prompt.style.display = 'none';
-                utils.storage.set('pwaPromptDismissed', true);
-            }
-        },
-
-        async install() {
-            if (this.deferredPrompt) {
-                this.deferredPrompt.prompt();
-                const { outcome } = await this.deferredPrompt.userChoice;
-                
-                if (outcome === 'accepted') {
-                    toast.success('App installed!');
-                }
-                
-                this.deferredPrompt = null;
-                this.hidePrompt();
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 🔝 SCROLL HANDLER */
-    /* ============================================ */
-    const scrollHandler = {
-        scrollTopBtn: null,
-        nav: null,
-
-        init() {
-            this.scrollTopBtn = utils.$('scrollTopBtn');
-            this.nav = utils.$('mainNav');
-
-            window.addEventListener('scroll', utils.throttle(() => {
-                this.handleScroll();
-            }, 100));
-
-            // Scroll to top button click
-            utils.on(this.scrollTopBtn, 'click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        },
-
-        handleScroll() {
-            const scrollY = window.scrollY;
-
-            // Show/hide scroll to top button
-            if (this.scrollTopBtn) {
-                this.scrollTopBtn.classList.toggle('visible', scrollY > 300);
-            }
-
-            // Nav background on scroll
-            if (this.nav) {
-                this.nav.classList.toggle('scrolled', scrollY > 50);
-            }
-        }
-    };
-
-    /* ============================================ */
-    /* 🎫 SHARE MODAL */
-    /* ============================================ */
-    const shareModal = {
-        init() {
-            // Share buttons in wish page
-            utils.on(utils.$('shareWhatsappBtn'), 'click', () => this.shareWish('whatsapp'));
-            utils.on(utils.$('sendLoveBackBtn'), 'click', () => navigation.goTo('create'));
-
-            // Share options in modal
-            utils.$$('.share-option').forEach(btn => {
-                utils.on(btn, 'click', () => {
-                    const platform = btn.dataset.share;
-                    this.share(platform);
-                });
-            });
-        },
-
-        shareWish(platform) {
-            const name = state.urlParams.name || 'Friend';
-            const lang = state.currentLanguage;
-            const text = lang === 'hi'
-                ? `✨ ${name} के लिए नव वर्ष 2026 की शुभकामनाएं! 🎆\n\nअपनी भी बनाएं:`
-                : `✨ New Year 2026 wishes for ${name}! 🎆\n\nCreate your own:`;
-            
-            const url = CONFIG.siteUrl;
-
-            switch (platform) {
-                case 'whatsapp':
-                    window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`, '_blank');
-                    break;
-            }
-        },
-
-        share(platform) {
-            const url = state.generatedLink || CONFIG.siteUrl;
-            const text = language.getString('shareText');
-
-            switch (platform) {
-                case 'whatsapp':
-                    window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`, '_blank');
-                    break;
-                case 'telegram':
-                    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
-                    break;
-                case 'twitter':
-                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-                    break;
-                case 'facebook':
-                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-                    break;
-                case 'copy':
-                    utils.copyToClipboard(url).then(() => {
-                        toast.success(language.getString('copySuccess'));
-                    });
-                    break;
-            }
-
-            modal.close('shareModal');
-        }
-    };
-
-    /* ============================================ */
-    /* 🚀 INITIALIZATION */
-    /* ============================================ */
-    const app = {
-        init() {
-            // Parse URL parameters first
-            state.urlParams = utils.getUrlParams();
-
-            // Initialize all modules
-            preloader.init();
-            toast.init();
-            modal.init();
-            language.init();
-            theme.init();
-            audio.init();
-            countdown.init();
-            navigation.init();
-            upiPayment.init();
-            pwa.init();
-            scrollHandler.init();
-            shareModal.init();
-
-            // Bind global events
-            this.bindEvents();
-
-            // Hide preloader
-            preloader.hide();
-
-            // Log welcome message
-            console.log('%c✨ New Year Magic 2026 ✨', 'color: #ffd700; font-size: 24px; font-weight: bold;');
-            console.log('%cMade with ❤️ by Abhishek Kumar', 'color: #fff; font-size: 14px;');
-            console.log('%chttps://i-m-er-abhi.vercel.app', 'color: #4ecdc4; font-size: 12px;');
-        },
-
-        bindEvents() {
-            // Language toggle
-            utils.on(utils.$('langToggle'), 'click', () => language.toggle());
-
-            // Sound toggle
-            utils.on(utils.$('soundToggle'), 'click', () => audio.toggle());
-
-            // Theme quick toggle
-            utils.on(utils.$('themeQuickToggle'), 'click', () => theme.cycle());
-
-            // Reveal button - special animation
-            utils.on(utils.$('revealBtn'), 'click', () => {
-                audio.playReveal();
-                animations.triggerConfetti();
-            });
-
-            // Keyboard navigation
-            utils.on(document, 'keydown', (e) => {
-                // Prevent default for space on buttons
-                if (e.key === ' ' && e.target.tagName === 'BUTTON') {
-                    e.preventDefault();
-                    e.target.click();
-                }
-            });
-
-            // Handle visibility change (pause animations when tab is hidden)
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    // Pause animations
-                    Object.values(state.animationFrameIds).forEach(id => {
-                        cancelAnimationFrame(id);
-                    });
-                } else {
-                    // Resume animations
-                    animations.animateParticles();
-                }
-            });
-        }
-    };
-
-    /* ============================================ */
-    /* 🎬 START APPLICATION */
-    /* ============================================ */
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => app.init());
-    } else {
-        app.init();
+// ====================================== 
+// 🎯 GLOBAL VARIABLES & CONFIGURATION
+// ====================================== 
+
+const CONFIG = {
+    currentLang: 'en',
+    currentTheme: 'galaxy',
+    musicEnabled: false,
+    soundEnabled: true,
+    currentPage: 'landingPage',
+    userName: '',
+    friendName: '',
+    selectedTheme: 'fireworks',
+    selectedTone: 'fun',
+    shareCount: 0,
+    achievements: []
+};
+
+// Fortune messages in both languages
+const FORTUNES = {
+    en: {
+        general: [
+            "2026 will be your breakthrough year! ✨",
+            "An unexpected opportunity will change everything.",
+            "Your biggest dreams are closer than you think.",
+            "This year, the universe conspires in your favor.",
+            "A significant milestone awaits you in 2026!",
+            "Your positive energy will attract amazing people.",
+            "2026 brings the success you've been working for.",
+            "Trust the journey, magic is coming your way!"
+        ],
+        love: [
+            "True love will find you when you least expect it. 💕",
+            "Your relationship will reach new heights in 2026.",
+            "A special someone is thinking about you right now.",
+            "2026 will strengthen the bonds that matter most.",
+            "Romance and passion will bloom this year!",
+            "Your heart will know true happiness in 2026."
+        ],
+        career: [
+            "A promotion or new opportunity is on the horizon. 🚀",
+            "Your hard work will finally be recognized in 2026.",
+            "A career-changing decision awaits you this year.",
+            "Success in your professional life is guaranteed!",
+            "2026 will open doors you never imagined.",
+            "Your talents will shine brighter than ever!"
+        ],
+        wealth: [
+            "Financial abundance is flowing your way! 💰",
+            "An unexpected windfall will surprise you in 2026.",
+            "Your investments will yield great returns.",
+            "Prosperity and wealth are yours to claim this year.",
+            "Money troubles will become a thing of the past.",
+            "2026 brings financial freedom and security!"
+        ],
+        health: [
+            "Your health and vitality will improve dramatically. 💪",
+            "2026 is the year you achieve your fitness goals!",
+            "Energy and wellness will be your companions.",
+            "A healthy transformation awaits you this year.",
+            "Your body and mind will find perfect balance.",
+            "Vibrant health is your birthright in 2026!"
+        ],
+        spiritual: [
+            "Spiritual awakening and enlightenment await you. 🙏",
+            "2026 will deepen your connection to the divine.",
+            "Inner peace and clarity will guide your path.",
+            "Your spiritual journey takes a beautiful turn.",
+            "Divine blessings will shower upon you this year.",
+            "You'll discover your true purpose in 2026!"
+        ]
+    },
+    hi: {
+        general: [
+            "2026 आपके जीवन का सबसे शानदार साल होगा! ✨",
+            "एक अप्रत्याशित अवसर सब कुछ बदल देगा।",
+            "आपके सबसे बड़े सपने पहुंच में हैं।",
+            "इस साल ब्रह्मांड आपके पक्ष में है।",
+            "2026 में एक महत्वपूर्ण उपलब्धि का इंतजार है!",
+            "आपकी सकारात्मक ऊर्जा अद्भुत लोगों को आकर्षित करेगी।",
+            "2026 आपकी मेहनत का फल लेकर आएगा।",
+            "यात्रा पर विश्वास करें, जादू आ रहा है!"
+        ],
+        love: [
+            "सच्चा प्यार तब मिलेगा जब आप उम्मीद नहीं करेंगे। 💕",
+            "आपका रिश्ता 2026 में नई ऊंचाइयों को छुएगा।",
+            "कोई खास अभी आपके बारे में सोच रहा है।",
+            "2026 में महत्वपूर्ण रिश्ते और मजबूत होंगे।",
+            "इस साल रोमांस और प्यार खिलेगा!",
+            "आपका दिल 2026 में सच्ची खुशी जानेगा।"
+        ],
+        career: [
+            "पदोन्नति या नया अवसर क्षितिज पर है। 🚀",
+            "आपकी मेहनत को 2026 में मान्यता मिलेगी।",
+            "एक करियर बदलने वाला फैसला इंतजार कर रहा है।",
+            "पेशेवर जीवन में सफलता की गारंटी!",
+            "2026 अकल्पनीय दरवाजे खोलेगा।",
+            "आपकी प्रतिभा पहले से ज्यादा चमकेगी!"
+        ],
+        wealth: [
+            "आर्थिक समृद्धि आपकी ओर आ रही है! 💰",
+            "2026 में अप्रत्याशित धन आपको चौंकाएगा।",
+            "आपके निवेश बड़ा रिटर्न देंगे।",
+            "समृद्धि और धन इस साल आपका है।",
+            "पैसों की समस्याएं अतीत की बात होंगी।",
+            "2026 आर्थिक स्वतंत्रता लाएगा!"
+        ],
+        health: [
+            "आपका स्वास्थ्य नाटकीय रूप से सुधरेगा। 💪",
+            "2026 फिटनेस लक्ष्य हासिल करने का साल है!",
+            "ऊर्जा और तंदुरुस्ती आपके साथी होंगे।",
+            "एक स्वस्थ परिवर्तन इंतजार कर रहा है।",
+            "शरीर और मन को संपूर्ण संतुलन मिलेगा।",
+            "2026 में जीवंत स्वास्थ्य आपका है!"
+        ],
+        spiritual: [
+            "आध्यात्मिक जागृति आपका इंतजार कर रही है। 🙏",
+            "2026 आपके दिव्य संबंध को गहरा करेगा।",
+            "आंतरिक शांति और स्पष्टता मार्गदर्शन करेगी।",
+            "आपकी आध्यात्मिक यात्रा खूबसूरत मोड़ लेगी।",
+            "इस साल दिव्य आशीर्वाद बरसेंगे।",
+            "2026 में आप अपना असली उद्देश्य खोजेंगे!"
+        ]
     }
+};
 
-    // Expose to global scope for debugging (optional)
-    window.NYM2026 = {
-        state,
-        utils,
-        language,
-        theme,
-        animations,
-        toast
+// Wish messages templates
+const WISH_TEMPLATES = {
+    fun: {
+        en: "May this year bring you endless joy, success, and magical moments! Let's make 2026 the best year yet! 🎉",
+        hi: "यह साल आपके लिए अनंत खुशी, सफलता और जादुई पल लाए! चलो 2026 को सबसे अच्छा साल बनाएं! 🎉"
+    },
+    emotional: {
+        en: "From the bottom of my heart, I wish you a year filled with love, peace, and beautiful memories. You deserve all the happiness in the world! 💝",
+        hi: "दिल से, मैं आपको प्यार, शांति और खूबसूरत यादों से भरे साल की कामना करता हूं। आप दुनिया की सारी खुशियों के हकदार हैं! 💝"
+    },
+    spiritual: {
+        en: "May divine blessings guide your path in 2026. May you find inner peace, wisdom, and spiritual growth. Om Shanti! 🙏",
+        hi: "2026 में दिव्य आशीर्वाद आपके मार्ग का मार्गदर्शन करें। आंतरिक शांति, ज्ञान और आध्यात्मिक विकास मिले। ॐ शांति! 🙏"
+    },
+    motivational: {
+        en: "2026 is YOUR year! Chase your dreams fearlessly, break barriers, and achieve the impossible. You've got this! 🚀",
+        hi: "2026 आपका साल है! निडरता से अपने सपनों का पीछा करें, बाधाओं को तोड़ें, और असंभव को हासिल करें! 🚀"
+    }
+};
+
+// Translation dictionary
+const TRANSLATIONS = {
+    en: {
+        revealBtn: "Reveal My Surprise",
+        createOwnBtn: "Create Your Own Wish",
+        shareWhatsApp: "Share on WhatsApp",
+        downloadImage: "Download Image",
+        sendLoveBack: "Send Love Back"
+    },
+    hi: {
+        revealBtn: "मेरा सरप्राइज़ खोलें",
+        createOwnBtn: "अपनी शुभकामना बनाएं",
+        shareWhatsApp: "व्हाट्सएप पर शेयर करें",
+        downloadImage: "इमेज डाउनलोड करें",
+        sendLoveBack: "प्यार वापस भेजें"
+    }
+};
+
+
+// ====================================== 
+// 🎵 AUDIO MANAGEMENT
+// ====================================== 
+
+const bgMusic = document.getElementById('bgMusic');
+const clickSound = document.getElementById('clickSound');
+const successSound = document.getElementById('successSound');
+
+function toggleMusic() {
+    const musicBtn = document.getElementById('musicToggle');
+    CONFIG.musicEnabled = !CONFIG.musicEnabled;
+    
+    if (CONFIG.musicEnabled) {
+        bgMusic.play();
+        musicBtn.classList.add('active');
+    } else {
+        bgMusic.pause();
+        musicBtn.classList.remove('active');
+    }
+    
+    playSound('click');
+}
+
+function toggleSound() {
+    const soundBtn = document.getElementById('soundToggle');
+    CONFIG.soundEnabled = !CONFIG.soundEnabled;
+    
+    if (CONFIG.soundEnabled) {
+        soundBtn.classList.add('active');
+    } else {
+        soundBtn.classList.remove('active');
+    }
+    
+    playSound('click');
+}
+
+function playSound(type) {
+    if (!CONFIG.soundEnabled) return;
+    
+    switch(type) {
+        case 'click':
+            clickSound.currentTime = 0;
+            clickSound.play().catch(e => console.log('Sound play failed'));
+            break;
+        case 'success':
+            successSound.currentTime = 0;
+            successSound.play().catch(e => console.log('Sound play failed'));
+            break;
+    }
+}
+
+
+// ====================================== 
+// 🎨 THEME MANAGEMENT
+// ====================================== 
+
+function switchTheme(theme) {
+    CONFIG.currentTheme = theme;
+    document.body.setAttribute('data-theme', theme);
+    
+    // Update active theme button
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+    
+    playSound('click');
+    triggerFireworks();
+}
+
+
+// ====================================== 
+// 🌐 LANGUAGE MANAGEMENT
+// ====================================== 
+
+function switchLanguage(lang) {
+    CONFIG.currentLang = lang;
+    
+    // Update active language button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Update all translatable elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+        if (lang === 'en') {
+            el.textContent = el.getAttribute('data-en');
+        } else {
+            el.textContent = el.getAttribute('data-hi');
+        }
+    });
+    
+    playSound('click');
+}
+
+
+// ====================================== 
+// 📄 PAGE NAVIGATION
+// ====================================== 
+
+function showPage(pageId) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Show selected page
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
+        CONFIG.currentPage = pageId;
+        
+        // Trigger page-specific animations
+        if (pageId === 'wishRevealPage') {
+            setTimeout(() => animateGiftBox(), 500);
+        }
+        
+        playSound('click');
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+
+// ====================================== 
+// 🎆 FIREWORKS ANIMATION
+// ====================================== 
+
+const canvas = document.getElementById('fireworksCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.velocity = {
+            x: (Math.random() - 0.5) * 8,
+            y: (Math.random() - 0.5) * 8
+        };
+        this.alpha = 1;
+        this.decay = Math.random() * 0.015 + 0.015;
+    }
+    
+    update() {
+        this.velocity.x *= 0.98;
+        this.velocity.y *= 0.98;
+        this.velocity.y += 0.2;
+        
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.alpha -= this.decay;
+    }
+    
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+let particles = [];
+let fireworksInterval;
+
+function createFirework(x, y) {
+    const colors = ['#ff6b9d', '#ffd700', '#00f5ff', '#b24bf3', '#38ef7d'];
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, color));
+    }
+    
+    playSound('success');
+}
+
+function animateFireworks() {
+    ctx.fillStyle = 'rgba(10, 14, 39, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    particles = particles.filter(particle => particle.alpha > 0);
+    
+    particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+    });
+    
+    requestAnimationFrame(animateFireworks);
+}
+
+function triggerFireworks() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height * 0.5;
+    createFirework(x, y);
+}
+
+// Start fireworks animation
+animateFireworks();
+
+// Random fireworks
+setInterval(() => {
+    if (Math.random() > 0.7) {
+        triggerFireworks();
+    }
+}, 2000);
+
+
+// ====================================== 
+// ✨ CONFETTI ANIMATION
+// ====================================== 
+
+function createConfetti() {
+    const confettiContainer = document.getElementById('confettiContainer');
+    const colors = ['#ff6b9d', '#ffd700', '#00f5ff', '#b24bf3', '#38ef7d', '#ff8c00'];
+    
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            
+            confettiContainer.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 4000);
+        }, i * 30);
+    }
+}
+
+
+// ====================================== 
+// 🎁 GIFT BOX ANIMATION
+// ====================================== 
+
+function animateGiftBox() {
+    const giftBox = document.getElementById('giftBox');
+    const wishCard = document.getElementById('wishCard');
+    
+    if (!giftBox || !wishCard) return;
+    
+    giftBox.addEventListener('click', function() {
+        this.classList.add('opened');
+        playSound('success');
+        
+        setTimeout(() => {
+            giftBox.style.display = 'none';
+            wishCard.classList.remove('hidden');
+            createConfetti();
+            triggerFireworks();
+            
+            // Show achievement
+            unlockAchievement('First Wish Revealed! 🎉');
+        }, 1000);
+    });
+}
+
+
+// ====================================== 
+// 💝 WISH REVEAL PAGE
+// ====================================== 
+
+function loadWishFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sender = urlParams.get('from') || 'Your Friend';
+    const receiver = urlParams.get('to') || 'Friend';
+    const theme = urlParams.get('theme') || 'fun';
+    const message = urlParams.get('msg') || '';
+    
+    // Update wish card content
+    if (document.getElementById('senderName')) {
+        document.getElementById('senderName').textContent = sender;
+    }
+    if (document.getElementById('receiverName')) {
+        document.getElementById('receiverName').textContent = receiver;
+    }
+    
+    // Update message if custom message exists
+    if (message && document.querySelector('.wish-description')) {
+        document.querySelector('.wish-description').textContent = decodeURIComponent(message);
+    }
+    
+    // If URL has parameters, show wish reveal page
+    if (urlParams.get('from') || urlParams.get('to')) {
+        setTimeout(() => {
+            showPage('wishRevealPage');
+        }, 1000);
+    }
+}
+
+
+// ====================================== 
+// 🌈 EMOJI RAIN TRIGGER
+// ====================================== 
+
+function triggerEmojiRain() {
+    const emojis = ['🎊', '🎉', '✨', '💫', '⭐', '🌟', '💝', '❤️', '🎁'];
+    const body = document.body;
+    
+    for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.position = 'fixed';
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.top = '-50px';
+            emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            emoji.style.zIndex = '9999';
+            emoji.style.pointerEvents = 'none';
+            emoji.style.animation = `confettiFall ${Math.random() * 2 + 3}s linear forwards`;
+            
+            body.appendChild(emoji);
+            
+            setTimeout(() => emoji.remove(), 5000);
+        }, i * 50);
+    }
+    
+    playSound('success');
+    createConfetti();
+}
+
+
+// ====================================== 
+// 📤 SHARE FUNCTIONS
+// ====================================== 
+
+function shareToWhatsApp() {
+    const sender = document.getElementById('senderName')?.textContent || 'Someone';
+    const receiver = document.getElementById('receiverName')?.textContent || 'You';
+    
+    const message = CONFIG.currentLang === 'en' 
+        ? `🎊 Hey! ${sender} sent you a special New Year 2026 wish! 🎉\n\nClick here to see your surprise:\n${window.location.href}\n\n✨ Create your own magical wish and share the joy!`
+        : `🎊 अरे! ${sender} ने आपके लिए नया साल 2026 की खास शुभकामना भेजी है! 🎉\n\nअपना सरप्राइज़ देखने के लिए यहाँ क्लिक करें:\n${window.location.href}\n\n✨ अपनी जादुई शुभकामना बनाएं और खुशियाँ बांटें!`;
+    
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
+    
+    // Update share count
+    updateShareCount();
+    playSound('success');
+}
+
+function shareToFacebook() {
+    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+    window.open(shareURL, '_blank', 'width=600,height=400');
+    updateShareCount();
+    playSound('click');
+}
+
+function shareToTwitter() {
+    const text = "Someone sent me a beautiful New Year 2026 wish! 🎊✨ Create yours too!";
+    const shareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
+    window.open(shareURL, '_blank', 'width=600,height=400');
+    updateShareCount();
+    playSound('click');
+}
+
+function shareToInstagram() {
+    alert(CONFIG.currentLang === 'en' 
+        ? 'Download the wish image and share it on Instagram! 📸'
+        : 'विश इमेज डाउनलोड करें और Instagram पर शेयर करें! 📸');
+    downloadWish();
+}
+
+function copyLink() {
+    const url = window.location.href;
+    
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+            showNotification(
+                CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉'
+            );
+            playSound('success');
+        });
+    } else {
+        // Fallback
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showNotification(
+            CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉'
+        );
+        playSound('success');
+    }
+}
+
+function updateShareCount() {
+    CONFIG.shareCount++;
+    localStorage.setItem('shareCount', CONFIG.shareCount);
+    
+    // Update challenge progress
+    updateChallengeProgress();
+    
+    // Achievement for first share
+    if (CONFIG.shareCount === 1) {
+        unlockAchievement('First Share! 🎉');
+    }
+    
+    // Achievement for 5 shares
+    if (CONFIG.shareCount === 5) {
+        unlockAchievement('Viral Star! 🌟');
+        unlockSecretGift();
+    }
+}
+
+
+// ====================================== 
+// 🖼️ DOWNLOAD WISH AS IMAGE
+// ====================================== 
+
+function downloadWish() {
+    // This would use html2canvas library in production
+    alert(CONFIG.currentLang === 'en' 
+        ? 'Download feature coming soon! For now, take a screenshot 📸'
+        : 'डाउनलोड फीचर जल्द आ रहा है! अभी स्क्रीनशॉट लें 📸');
+    
+    playSound('click');
+    
+    /* 
+    // Production code with html2canvas:
+    html2canvas(document.querySelector('#wishCard')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'NewYear2026_Wish.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+    */
+}
+
+function sendLoveBack() {
+    showPage('createPage');
+    playSound('click');
+}
+// ====================================== 
+// 📝 CREATE YOUR OWN WISH - FORM HANDLING
+// ====================================== 
+
+function initializeCreatePage() {
+    const yourNameInput = document.getElementById('yourName');
+    const friendNameInput = document.getElementById('friendName');
+    const customMessageInput = document.getElementById('customMessage');
+    
+    // Live preview updates
+    if (yourNameInput) {
+        yourNameInput.addEventListener('input', updateLivePreview);
+    }
+    if (friendNameInput) {
+        friendNameInput.addEventListener('input', updateLivePreview);
+    }
+    if (customMessageInput) {
+        customMessageInput.addEventListener('input', updateLivePreview);
+    }
+    
+    // Theme option buttons
+    document.querySelectorAll('.theme-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            CONFIG.selectedTheme = this.getAttribute('data-theme');
+            updateLivePreview();
+            playSound('click');
+        });
+    });
+    
+    // Tone option buttons
+    document.querySelectorAll('.tone-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tone-option').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            CONFIG.selectedTone = this.getAttribute('data-tone');
+            updateLivePreview();
+            playSound('click');
+        });
+    });
+}
+
+function updateLivePreview() {
+    const yourName = document.getElementById('yourName')?.value || (CONFIG.currentLang === 'en' ? 'You' : 'आप');
+    const friendName = document.getElementById('friendName')?.value || (CONFIG.currentLang === 'en' ? 'Friend' : 'दोस्त');
+    const customMessage = document.getElementById('customMessage')?.value;
+    
+    // Update preview receiver name
+    const previewReceiver = document.getElementById('previewReceiver');
+    if (previewReceiver) {
+        previewReceiver.textContent = friendName;
+    }
+    
+    // Update preview sender name
+    const previewSender = document.getElementById('previewSender');
+    if (previewSender) {
+        previewSender.textContent = yourName;
+    }
+    
+    // Update preview message
+    const previewMessage = document.getElementById('previewMessage');
+    if (previewMessage) {
+        if (customMessage && customMessage.trim() !== '') {
+            previewMessage.textContent = customMessage;
+        } else {
+            const template = WISH_TEMPLATES[CONFIG.selectedTone];
+            previewMessage.textContent = template ? template[CONFIG.currentLang] : '';
+        }
+    }
+    
+    // Update preview theme style
+    updatePreviewTheme();
+}
+
+function updatePreviewTheme() {
+    const livePreview = document.getElementById('livePreview');
+    if (!livePreview) return;
+    
+    // Remove all theme classes
+    livePreview.classList.remove('theme-fireworks', 'theme-galaxy', 'theme-golden', 'theme-romantic', 'theme-nature');
+    
+    // Add selected theme class
+    livePreview.classList.add(`theme-${CONFIG.selectedTheme}`);
+}
+
+function generateWishLink() {
+    const yourName = document.getElementById('yourName')?.value;
+    const friendName = document.getElementById('friendName')?.value;
+    const customMessage = document.getElementById('customMessage')?.value;
+    
+    // Validation
+    if (!yourName || yourName.trim() === '') {
+        showNotification(
+            CONFIG.currentLang === 'en' ? 'Please enter your name!' : 'कृपया अपना नाम दर्ज करें!'
+        );
+        return;
+    }
+    
+    if (!friendName || friendName.trim() === '') {
+        showNotification(
+            CONFIG.currentLang === 'en' ? "Please enter your friend's name!" : 'कृपया अपने दोस्त का नाम दर्ज करें!'
+        );
+        return;
+    }
+    
+    // Build URL
+    const baseURL = window.location.origin + window.location.pathname;
+    const params = new URLSearchParams({
+        from: yourName,
+        to: friendName,
+        theme: CONFIG.selectedTheme,
+        tone: CONFIG.selectedTone
+    });
+    
+    if (customMessage && customMessage.trim() !== '') {
+        params.append('msg', customMessage);
+    }
+    
+    const generatedURL = `${baseURL}?${params.toString()}`;
+    
+    // Show generated link section
+    const generatedLinkSection = document.getElementById('generatedLinkSection');
+    const generatedLinkInput = document.getElementById('generatedLink');
+    
+    if (generatedLinkSection && generatedLinkInput) {
+        generatedLinkInput.value = generatedURL;
+        generatedLinkSection.classList.remove('hidden');
+        
+        // Scroll to link
+        generatedLinkSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // Store for later use
+    CONFIG.generatedLink = generatedURL;
+    
+    playSound('success');
+    createConfetti();
+    unlockAchievement(CONFIG.currentLang === 'en' ? 'Wish Created! 🎊' : 'शुभकामना बनाई! 🎊');
+}
+
+function copyGeneratedLink() {
+    const linkInput = document.getElementById('generatedLink');
+    
+    if (linkInput) {
+        linkInput.select();
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(linkInput.value).then(() => {
+                showNotification(CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉');
+                playSound('success');
+            });
+        } else {
+            document.execCommand('copy');
+            showNotification(CONFIG.currentLang === 'en' ? 'Link copied! 🎉' : 'लिंक कॉपी हो गया! 🎉');
+            playSound('success');
+        }
+    }
+}
+
+function shareGeneratedLink() {
+    const link = CONFIG.generatedLink || document.getElementById('generatedLink')?.value;
+    const friendName = document.getElementById('friendName')?.value || 'your friend';
+    
+    if (!link) {
+        showNotification(CONFIG.currentLang === 'en' ? 'Please generate a link first!' : 'पहले लिंक बनाएं!');
+        return;
+    }
+    
+    const message = CONFIG.currentLang === 'en'
+        ? `🎊 Happy New Year 2026! 🎉\n\nI've sent you a special New Year wish! ✨\n\nClick here to see your surprise:\n${link}\n\nLet's make 2026 amazing together! 💫`
+        : `🎊 नया साल 2026 मुबारक हो! 🎉\n\nमैंने आपके लिए एक खास नए साल की शुभकामना भेजी है! ✨\n\nअपना सरप्राइज़ देखने के लिए यहाँ क्लिक करें:\n${link}\n\nचलो 2026 को शानदार बनाएं! 💫`;
+    
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
+    
+    updateShareCount();
+    playSound('success');
+}
+
+function downloadQR() {
+    const link = CONFIG.generatedLink || document.getElementById('generatedLink')?.value;
+    
+    if (!link) {
+        showNotification(CONFIG.currentLang === 'en' ? 'Please generate a link first!' : 'पहले लिंक बनाएं!');
+        return;
+    }
+    
+    // In production, use QR code library like qrcode.js
+    alert(CONFIG.currentLang === 'en' 
+        ? 'QR Code feature coming soon! For now, share the link directly. 📱'
+        : 'QR Code फीचर जल्द आ रहा है! अभी लिंक सीधे शेयर करें। 📱');
+    
+    playSound('click');
+}
+
+
+// ====================================== 
+// 📸 PHOTO BOOTH FUNCTIONALITY
+// ====================================== 
+
+let stream = null;
+let capturedImageData = null;
+
+function startCamera() {
+    const video = document.getElementById('cameraVideo');
+    const startBtn = document.getElementById('startCameraBtn');
+    const captureBtn = document.getElementById('captureBtn');
+    
+    if (!video) return;
+    
+    // Request camera access
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+        .then(function(mediaStream) {
+            stream = mediaStream;
+            video.srcObject = mediaStream;
+            video.style.display = 'block';
+            
+            // Update buttons
+            if (startBtn) startBtn.classList.add('hidden');
+            if (captureBtn) captureBtn.classList.remove('hidden');
+            
+            playSound('success');
+        })
+        .catch(function(error) {
+            console.error('Camera error:', error);
+            showNotification(
+                CONFIG.currentLang === 'en' 
+                    ? 'Camera access denied. Please allow camera permissions.' 
+                    : 'कैमरा एक्सेस अस्वीकृत। कृपया कैमरा अनुमति दें।'
+            );
+        });
+}
+
+function capturePhoto() {
+    const video = document.getElementById('cameraVideo');
+    const canvas = document.getElementById('photoCanvas');
+    const capturedPhoto = document.getElementById('capturedPhoto');
+    const captureBtn = document.getElementById('captureBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
+    
+    if (!video || !canvas) return;
+    
+    // Set canvas size to video size
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    // Draw video frame to canvas
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    // Get image data
+    capturedImageData = canvas.toDataURL('image/png');
+    
+    // Show captured photo
+    if (capturedPhoto) {
+        capturedPhoto.src = capturedImageData;
+        capturedPhoto.style.display = 'block';
+    }
+    
+    // Hide video
+    video.style.display = 'none';
+    
+    // Stop camera stream
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+    
+    // Update buttons
+    if (captureBtn) captureBtn.classList.add('hidden');
+    if (retakeBtn) retakeBtn.classList.remove('hidden');
+    if (downloadPhotoBtn) downloadPhotoBtn.classList.remove('hidden');
+    
+    playSound('success');
+    createConfetti();
+}
+
+function retakePhoto() {
+    const video = document.getElementById('cameraVideo');
+    const capturedPhoto = document.getElementById('capturedPhoto');
+    const captureBtn = document.getElementById('captureBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
+    
+    // Hide captured photo
+    if (capturedPhoto) {
+        capturedPhoto.style.display = 'none';
+    }
+    
+    // Update buttons
+    if (captureBtn) captureBtn.classList.remove('hidden');
+    if (retakeBtn) retakeBtn.classList.add('hidden');
+    if (downloadPhotoBtn) downloadPhotoBtn.classList.add('hidden');
+    
+    // Restart camera
+    startCamera();
+}
+
+function downloadPhoto() {
+    if (!capturedImageData) {
+        showNotification(CONFIG.currentLang === 'en' ? 'No photo to download!' : 'डाउनलोड करने के लिए कोई फोटो नहीं!');
+        return;
+    }
+    
+    const link = document.createElement('a');
+    link.download = 'NewYear2026_Photo.png';
+    link.href = capturedImageData;
+    link.click();
+    
+    playSound('success');
+    unlockAchievement(CONFIG.currentLang === 'en' ? 'Photo Downloaded! 📸' : 'फोटो डाउनलोड हुई! 📸');
+}
+
+// Frame selection
+function initializeFrameSelection() {
+    document.querySelectorAll('.frame-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.frame-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            
+            const frameType = this.getAttribute('data-frame');
+            updateSelectedFrame(frameType);
+            
+            playSound('click');
+        });
+    });
+}
+
+function updateSelectedFrame(frameType) {
+    // In production, this would update the actual frame overlay
+    console.log('Selected frame:', frameType);
+}
+
+
+// ====================================== 
+// 🎁 FORTUNE COOKIE FUNCTIONALITY
+// ====================================== 
+
+let currentCategory = 'general';
+
+function initializeFortuneCookie() {
+    // Category selection
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentCategory = this.getAttribute('data-category');
+            playSound('click');
+        });
+    });
+}
+
+function crackFortuneCookie() {
+    const fortuneCookie = document.getElementById('fortuneCookie');
+    const fortuneText = document.getElementById('fortuneText');
+    const fortuneSlip = document.getElementById('fortuneSlip');
+    const fortuneShare = document.getElementById('fortuneShare');
+    const crackBtn = document.getElementById('crackCookieBtn');
+    
+    if (!fortuneCookie || !fortuneText) return;
+    
+    // Get random fortune from selected category
+    const fortunes = FORTUNES[CONFIG.currentLang][currentCategory];
+    const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+    
+    // Update fortune text
+    fortuneText.textContent = randomFortune;
+    
+    // Animate cookie cracking
+    fortuneCookie.classList.add('cracked');
+    
+    // Show fortune slip
+    if (fortuneSlip) {
+        fortuneSlip.classList.remove('hidden');
+    }
+    
+    // Show share button
+    if (fortuneShare) {
+        setTimeout(() => {
+            fortuneShare.classList.remove('hidden');
+        }, 1000);
+    }
+    
+    // Hide crack button
+    if (crackBtn) {
+        crackBtn.style.display = 'none';
+    }
+    
+    // Store fortune for sharing
+    CONFIG.currentFortune = randomFortune;
+    
+    playSound('success');
+    createConfetti();
+    unlockAchievement(CONFIG.currentLang === 'en' ? 'Fortune Revealed! 🔮' : 'भविष्यफल खुला! 🔮');
+}
+
+function shareFortune() {
+    const fortune = CONFIG.currentFortune;
+    
+    if (!fortune) {
+        showNotification(CONFIG.currentLang === 'en' ? 'Crack the cookie first!' : 'पहले कुकी तोड़ें!');
+        return;
+    }
+    
+    const message = CONFIG.currentLang === 'en'
+        ? `🔮 My 2026 Fortune:\n\n"${fortune}"\n\n✨ Discover your fortune too!\n${window.location.origin}`
+        : `🔮 मेरा 2026 भविष्यफल:\n\n"${fortune}"\n\n✨ अपना भविष्यफल भी जानें!\n${window.location.origin}`;
+    
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
+    
+    updateShareCount();
+    playSound('success');
+}
+
+
+// ====================================== 
+// 🎯 VIRAL CHALLENGE SYSTEM
+// ====================================== 
+
+function updateChallengeProgress() {
+    const shareCount = CONFIG.shareCount;
+    const progressBar = document.getElementById('challengeProgressBar');
+    const challengeCount = document.getElementById('challengeCount');
+    
+    if (progressBar) {
+        const percentage = Math.min((shareCount / 5) * 100, 100);
+        progressBar.style.width = percentage + '%';
+    }
+    
+    if (challengeCount) {
+        challengeCount.textContent = `${Math.min(shareCount, 5)}/5`;
+    }
+    
+    // Update steps
+    if (shareCount >= 1) {
+        const step2 = document.getElementById('step2');
+        if (step2) step2.classList.add('completed');
+    }
+    
+    if (shareCount >= 5) {
+        const step3 = document.getElementById('step3');
+        if (step3) step3.classList.add('completed');
+        unlockSecretGift();
+    }
+}
+
+function joinChallenge() {
+    showPage('createPage');
+    playSound('click');
+    showNotification(
+        CONFIG.currentLang === 'en' 
+            ? 'Create and share your wish to complete the challenge! 🚀'
+            : 'चैलेंज पूरा करने के लिए अपनी शुभकामना बनाएं और शेयर करें! 🚀'
+    );
+}
+
+function unlockSecretGift() {
+    const secretGift = document.getElementById('secretGift');
+    
+    if (secretGift) {
+        secretGift.classList.remove('hidden');
+        playSound('success');
+        createConfetti();
+        triggerFireworks();
+    }
+}
+
+
+// ====================================== 
+// 🏆 ACHIEVEMENT SYSTEM
+// ====================================== 
+
+function unlockAchievement(message) {
+    // Check if already unlocked
+    if (CONFIG.achievements.includes(message)) return;
+    
+    CONFIG.achievements.push(message);
+    localStorage.setItem('achievements', JSON.stringify(CONFIG.achievements));
+    
+    // Show achievement popup
+    showAchievementPopup(message);
+}
+
+function showAchievementPopup(message) {
+    const achievementPopup = document.getElementById('achievementPopup');
+    
+    if (achievementPopup) {
+        achievementPopup.querySelector('span').textContent = message;
+        achievementPopup.classList.remove('hidden');
+        
+        playSound('success');
+        
+        setTimeout(() => {
+            achievementPopup.classList.add('hidden');
+        }, 4000);
+    }
+}
+
+function closeAchievement() {
+    const achievementSystem = document.getElementById('achievementSystem');
+    if (achievementSystem) {
+        achievementSystem.classList.add('hidden');
+    }
+}
+
+
+// ====================================== 
+// 💝 DONATION/PAYMENT FUNCTIONS
+// ====================================== 
+
+let selectedAmount = 0;
+
+function initializeDonationPage() {
+    // Amount selection
+    document.querySelectorAll('.amount-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            selectedAmount = parseInt(this.getAttribute('data-amount'));
+            playSound('click');
+        });
+    });
+    
+    // Custom amount
+    const customAmountInput = document.getElementById('customAmount');
+    if (customAmountInput) {
+        customAmountInput.addEventListener('input', function() {
+            selectedAmount = parseInt(this.value) || 0;
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+        });
+    }
+}
+
+function payWithUPI() {
+    if (selectedAmount === 0) {
+        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
+        return;
+    }
+    
+    // In production, integrate actual UPI payment
+    const upiID = 'yourname@paytm'; // Replace with actual UPI ID
+    const upiURL = `upi://pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR&tn=Support NewYear2026`;
+    
+    showNotification(
+        CONFIG.currentLang === 'en'
+            ? `Opening UPI app for ₹${selectedAmount}... Thank you! 💝`
+            : `₹${selectedAmount} के लिए UPI ऐप खोल रहे हैं... धन्यवाद! 💝`
+    );
+    
+    window.location.href = upiURL;
+    playSound('success');
+}
+
+function payWithPhonePe() {
+    if (selectedAmount === 0) {
+        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
+        return;
+    }
+    
+    // PhonePe payment URL
+    const upiID = 'yourname@ybl'; // Replace with actual PhonePe UPI ID
+    const upiURL = `phonepe://pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR`;
+    
+    showNotification(
+        CONFIG.currentLang === 'en'
+            ? `Opening PhonePe for ₹${selectedAmount}... 🙏`
+            : `₹${selectedAmount} के लिए PhonePe खोल रहे हैं... 🙏`
+    );
+    
+    window.location.href = upiURL;
+    playSound('success');
+}
+
+function payWithGPay() {
+    if (selectedAmount === 0) {
+        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
+        return;
+    }
+    
+    // Google Pay payment URL
+    const upiID = 'yourname@okaxis'; // Replace with actual GPay UPI ID
+    const upiURL = `gpay://upi/pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR`;
+    
+    showNotification(
+        CONFIG.currentLang === 'en'
+            ? `Opening Google Pay for ₹${selectedAmount}... 💚`
+            : `₹${selectedAmount} के लिए Google Pay खोल रहे हैं... 💚`
+    );
+    
+    window.location.href = upiURL;
+    playSound('success');
+}
+
+function payWithPaytm() {
+    if (selectedAmount === 0) {
+        showNotification(CONFIG.currentLang === 'en' ? 'Please select an amount!' : 'कृपया राशि चुनें!');
+        return;
+    }
+    
+    // Paytm payment URL
+    const upiID = 'yourname@paytm'; // Replace with actual Paytm UPI ID
+    const upiURL = `paytmmp://pay?pa=${upiID}&pn=NewYearWishes&am=${selectedAmount}&cu=INR`;
+    
+    showNotification(
+        CONFIG.currentLang === 'en'
+            ? `Opening Paytm for ₹${selectedAmount}... 💙`
+            : `₹${selectedAmount} के लिए Paytm खोल रहे हैं... 💙`
+    );
+    
+    window.location.href = upiURL;
+    playSound('success');
+}
+
+
+// ====================================== 
+// ⏰ COUNTDOWN TIMER TO 2026
+// ====================================== 
+
+function startCountdown() {
+    const targetDate = new Date('January 1, 2026 00:00:00').getTime();
+    
+    setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        
+        // Calculate time units
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // Update countdown display
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+        
+        // If countdown finished
+        if (distance < 0) {
+            if (daysEl) daysEl.textContent = '00';
+            if (hoursEl) hoursEl.textContent = '00';
+            if (minutesEl) minutesEl.textContent = '00';
+            if (secondsEl) secondsEl.textContent = '00';
+            
+            // Trigger celebration
+            createConfetti();
+            triggerFireworks();
+        }
+    }, 1000);
+}
+
+
+// ====================================== 
+// 📊 NOTIFICATION SYSTEM
+// ====================================== 
+
+function showNotification(message) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'notification-toast';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        animation: slideInRight 0.5s ease;
+        font-weight: 600;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.5s ease';
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 3000);
+}
+
+
+// ====================================== 
+// 📱 LIVE WISH COUNTER (SOCIAL PROOF)
+// ====================================== 
+
+function updateLiveCounter() {
+    const counterEl = document.getElementById('wishCounter');
+    
+    if (counterEl) {
+        setInterval(() => {
+            let currentCount = parseInt(counterEl.textContent.replace(/,/g, ''));
+            currentCount += Math.floor(Math.random() * 3) + 1;
+            counterEl.textContent = currentCount.toLocaleString();
+        }, 5000);
+    }
+}
+
+
+// ====================================== 
+// 📊 ANALYTICS & TRACKING
+// ====================================== 
+
+function trackEvent(eventName, eventData = {}) {
+    // In production, integrate with Google Analytics or other analytics
+    console.log('Event tracked:', eventName, eventData);
+    
+    // Example: Google Analytics
+    // if (typeof gtag !== 'undefined') {
+    //     gtag('event', eventName, eventData);
+    // }
+    
+    // Store in localStorage for basic tracking
+    const events = JSON.parse(localStorage.getItem('events') || '[]');
+    events.push({
+        name: eventName,
+        data: eventData,
+        timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('events', JSON.stringify(events));
+}
+// ====================================== 
+// 🎬 EVENT LISTENERS & INITIALIZATION
+// ====================================== 
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎊 Happy New Year 2026 Website Loaded!');
+    
+    // Initialize all features
+    initializeApp();
+    
+    // Load saved preferences
+    loadUserPreferences();
+    
+    // Check URL parameters
+    loadWishFromURL();
+    
+    // Start countdown
+    startCountdown();
+    
+    // Update live counter
+    updateLiveCounter();
+    
+    // Initialize page-specific features
+    initializeCreatePage();
+    initializeFortuneCookie();
+    initializeDonationPage();
+    initializeFrameSelection();
+    
+    // Track page load
+    trackEvent('page_load', { page: 'landing' });
+});
+
+
+// ====================================== 
+// 🚀 APP INITIALIZATION
+// ====================================== 
+
+function initializeApp() {
+    // Music Toggle
+    const musicToggle = document.getElementById('musicToggle');
+    if (musicToggle) {
+        musicToggle.addEventListener('click', toggleMusic);
+    }
+    
+    // Sound Toggle
+    const soundToggle = document.getElementById('soundToggle');
+    if (soundToggle) {
+        soundToggle.addEventListener('click', toggleSound);
+    }
+    
+    // Theme Switcher
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const theme = this.getAttribute('data-theme');
+            switchTheme(theme);
+            trackEvent('theme_change', { theme });
+        });
+    });
+    
+    // Language Switcher
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            switchLanguage(lang);
+            trackEvent('language_change', { language: lang });
+        });
+    });
+    
+    // Landing Page Buttons
+    const revealBtn = document.getElementById('revealBtn');
+    if (revealBtn) {
+        revealBtn.addEventListener('click', function() {
+            showPage('wishRevealPage');
+            trackEvent('reveal_clicked');
+        });
+    }
+    
+    const createOwnBtn = document.getElementById('createOwnBtn');
+    if (createOwnBtn) {
+        createOwnBtn.addEventListener('click', function() {
+            showPage('createPage');
+            trackEvent('create_clicked');
+        });
+    }
+    
+    // Generate Wish Link Button
+    const generateBtn = document.getElementById('generateBtn');
+    if (generateBtn) {
+        generateBtn.addEventListener('click', function() {
+            generateWishLink();
+            trackEvent('link_generated');
+        });
+    }
+    
+    // Photo Booth Buttons
+    const startCameraBtn = document.getElementById('startCameraBtn');
+    if (startCameraBtn) {
+        startCameraBtn.addEventListener('click', function() {
+            startCamera();
+            trackEvent('camera_started');
+        });
+    }
+    
+    const captureBtn = document.getElementById('captureBtn');
+    if (captureBtn) {
+        captureBtn.addEventListener('click', function() {
+            capturePhoto();
+            trackEvent('photo_captured');
+        });
+    }
+    
+    const retakeBtn = document.getElementById('retakeBtn');
+    if (retakeBtn) {
+        retakeBtn.addEventListener('click', retakePhoto);
+    }
+    
+    const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
+    if (downloadPhotoBtn) {
+        downloadPhotoBtn.addEventListener('click', downloadPhoto);
+    }
+    
+    // Fortune Cookie Button
+    const crackCookieBtn = document.getElementById('crackCookieBtn');
+    if (crackCookieBtn) {
+        crackCookieBtn.addEventListener('click', function() {
+            crackFortuneCookie();
+            trackEvent('fortune_revealed', { category: currentCategory });
+        });
+    }
+    
+    // Challenge Button
+    const joinChallengeBtn = document.getElementById('joinChallengeBtn');
+    if (joinChallengeBtn) {
+        joinChallengeBtn.addEventListener('click', function() {
+            joinChallenge();
+            trackEvent('challenge_joined');
+        });
+    }
+    
+    // Update challenge progress from saved count
+    const savedShareCount = localStorage.getItem('shareCount');
+    if (savedShareCount) {
+        CONFIG.shareCount = parseInt(savedShareCount);
+        updateChallengeProgress();
+    }
+    
+    // Footer navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('href').substring(1);
+            showPage(pageId);
+        });
+    });
+    
+    // Random fireworks on canvas click
+    canvas.addEventListener('click', function(e) {
+        createFirework(e.clientX, e.clientY);
+    });
+    
+    // Prevent right-click on images (optional protection)
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+}
+
+
+// ====================================== 
+// 💾 LOCAL STORAGE MANAGEMENT
+// ====================================== 
+
+function loadUserPreferences() {
+    // Load theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        CONFIG.currentTheme = savedTheme;
+        switchTheme(savedTheme);
+    }
+    
+    // Load language
+    const savedLang = localStorage.getItem('language');
+    if (savedLang) {
+        CONFIG.currentLang = savedLang;
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === savedLang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        switchLanguage(savedLang);
+    }
+    
+    // Load achievements
+    const savedAchievements = localStorage.getItem('achievements');
+    if (savedAchievements) {
+        CONFIG.achievements = JSON.parse(savedAchievements);
+    }
+    
+    // Load music preference
+    const musicEnabled = localStorage.getItem('musicEnabled');
+    if (musicEnabled === 'true') {
+        CONFIG.musicEnabled = true;
+        document.getElementById('musicToggle')?.classList.add('active');
+    }
+    
+    // Load sound preference
+    const soundEnabled = localStorage.getItem('soundEnabled');
+    if (soundEnabled !== null) {
+        CONFIG.soundEnabled = soundEnabled === 'true';
+        if (CONFIG.soundEnabled) {
+            document.getElementById('soundToggle')?.classList.add('active');
+        }
+    }
+}
+
+function saveUserPreferences() {
+    localStorage.setItem('theme', CONFIG.currentTheme);
+    localStorage.setItem('language', CONFIG.currentLang);
+    localStorage.setItem('musicEnabled', CONFIG.musicEnabled);
+    localStorage.setItem('soundEnabled', CONFIG.soundEnabled);
+}
+
+// Save preferences when changed
+window.addEventListener('beforeunload', saveUserPreferences);
+
+
+// ====================================== 
+// 📱 MOBILE OPTIMIZATIONS
+// ====================================== 
+
+function detectMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+function optimizeForMobile() {
+    if (detectMobile()) {
+        // Reduce particle count on mobile
+        document.body.classList.add('mobile-device');
+        
+        // Disable some animations on low-end devices
+        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+            document.body.classList.add('low-performance');
+        }
+        
+        // Add touch feedback
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            btn.addEventListener('touchend', function() {
+                this.style.transform = '';
+            });
+        });
+        
+        // Optimize video for mobile
+        const video = document.getElementById('cameraVideo');
+        if (video) {
+            video.setAttribute('playsinline', 'true');
+        }
+    }
+}
+
+// Initialize mobile optimizations
+optimizeForMobile();
+
+
+// ====================================== 
+// 🔧 UTILITY FUNCTIONS
+// ====================================== 
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
     };
+}
 
-})();
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomColor() {
+    const colors = ['#ff6b9d', '#ffd700', '#00f5ff', '#b24bf3', '#38ef7d', '#ff8c00'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function sanitizeInput(input) {
+    const div = document.createElement('div');
+    div.textContent = input;
+    return div.innerHTML;
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function validateURL(url) {
+    try {
+        new URL(url);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+
+// ====================================== 
+// 🐛 ERROR HANDLING
+// ====================================== 
+
+window.addEventListener('error', function(e) {
+    console.error('Error occurred:', e.error);
+    
+    // Log error for analytics
+    trackEvent('error', {
+        message: e.error?.message,
+        stack: e.error?.stack,
+        filename: e.filename,
+        lineno: e.lineno
+    });
+    
+    // Don't show error to user unless critical
+    return true; // Prevents default error handling
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Unhandled promise rejection:', e.reason);
+    
+    trackEvent('unhandled_rejection', {
+        reason: e.reason?.toString()
+    });
+});
+
+// Fallback for unsupported features
+function checkBrowserSupport() {
+    const features = {
+        canvas: !!document.createElement('canvas').getContext,
+        localStorage: (function() {
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                return true;
+            } catch(e) {
+                return false;
+            }
+        })(),
+        webGL: (function() {
+            try {
+                const canvas = document.createElement('canvas');
+                return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+            } catch(e) {
+                return false;
+            }
+        })(),
+        getUserMedia: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
+    };
+    
+    // Warn about unsupported features
+    if (!features.canvas) {
+        console.warn('Canvas not supported - fireworks disabled');
+    }
+    
+    if (!features.localStorage) {
+        console.warn('LocalStorage not supported - preferences won\'t be saved');
+    }
+    
+    if (!features.getUserMedia) {
+        console.warn('Camera not supported - photo booth disabled');
+        const photoBoothBtn = document.querySelector('[href="#photoBoothPage"]');
+        if (photoBoothBtn) {
+            photoBoothBtn.style.opacity = '0.5';
+            photoBoothBtn.title = 'Camera not supported on this device';
+        }
+    }
+    
+    return features;
+}
+
+// Check browser support on load
+const browserSupport = checkBrowserSupport();
+
+
+// ====================================== 
+// 🚀 PERFORMANCE OPTIMIZATIONS
+// ====================================== 
+
+// Lazy load images
+function lazyLoadImages() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Optimize animations based on device performance
+function optimizeAnimations() {
+    // Reduce motion if user prefers
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.body.classList.add('reduce-motion');
+    }
+    
+    // Check FPS and reduce animations if low
+    let lastTime = performance.now();
+    let frames = 0;
+    let fps = 60;
+    
+    function checkFPS() {
+        const currentTime = performance.now();
+        frames++;
+        
+        if (currentTime >= lastTime + 1000) {
+            fps = Math.round((frames * 1000) / (currentTime - lastTime));
+            frames = 0;
+            lastTime = currentTime;
+            
+            // If FPS is low, reduce effects
+            if (fps < 30) {
+                document.body.classList.add('low-fps');
+                console.warn('Low FPS detected, reducing animations');
+            }
+        }
+        
+        requestAnimationFrame(checkFPS);
+    }
+    
+    requestAnimationFrame(checkFPS);
+}
+
+// Initialize optimizations
+if ('IntersectionObserver' in window) {
+    lazyLoadImages();
+}
+
+optimizeAnimations();
+
+// Preload critical resources
+function preloadCriticalResources() {
+    const resources = [
+        // Add URLs of critical resources to preload
+    ];
+    
+    resources.forEach(url => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = url;
+        link.as = url.endsWith('.css') ? 'style' : url.endsWith('.js') ? 'script' : 'fetch';
+        document.head.appendChild(link);
+    });
+}
+
+
+// ====================================== 
+// 🎯 URL PARAMETER HANDLING
+// ====================================== 
+
+function getURLParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+function updateURLParameter(key, value) {
+    const url = new URL(window.location);
+    url.searchParams.set(key, value);
+    window.history.pushState({}, '', url);
+}
+
+function removeURLParameter(key) {
+    const url = new URL(window.location);
+    url.searchParams.delete(key);
+    window.history.pushState({}, '', url);
+}
+
+
+// ====================================== 
+// 📊 VISITOR STATISTICS
+// ====================================== 
+
+function updateVisitorStats() {
+    // Get or create visitor ID
+    let visitorId = localStorage.getItem('visitorId');
+    if (!visitorId) {
+        visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('visitorId', visitorId);
+    }
+    
+    // Increment visit count
+    let visitCount = parseInt(localStorage.getItem('visitCount') || '0');
+    visitCount++;
+    localStorage.setItem('visitCount', visitCount);
+    
+    // Track first visit date
+    if (!localStorage.getItem('firstVisit')) {
+        localStorage.setItem('firstVisit', new Date().toISOString());
+    }
+    
+    // Track last visit
+    localStorage.setItem('lastVisit', new Date().toISOString());
+    
+    // Track session
+    sessionStorage.setItem('sessionStart', sessionStorage.getItem('sessionStart') || new Date().toISOString());
+    
+    trackEvent('visitor_stats', {
+        visitorId,
+        visitCount,
+        isReturning: visitCount > 1
+    });
+}
+
+updateVisitorStats();
+
+
+// ====================================== 
+// 🎨 DYNAMIC THEME PREVIEW
+// ====================================== 
+
+// Add CSS for theme previews dynamically
+const themeStyles = document.createElement('style');
+themeStyles.textContent = `
+    .theme-fireworks { background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(102, 126, 234, 0.2)); }
+    .theme-galaxy { background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3)); }
+    .theme-golden { background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 140, 0, 0.3)); }
+    .theme-romantic { background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(255, 20, 147, 0.3)); }
+    .theme-nature { background: linear-gradient(135deg, rgba(34, 139, 34, 0.3), rgba(144, 238, 144, 0.3)); }
+    
+    @media (max-width: 768px) {
+        .reduce-motion * { animation-duration: 0.01ms !important; }
+        .low-performance .stars, .low-performance #fireworksCanvas { display: none; }
+        .low-fps .sparkle-effect { display: none; }
+    }
+`;
+document.head.appendChild(themeStyles);
+
+
+// ====================================== 
+// 🎊 SPECIAL EFFECTS ON PAGE VISIBILITY
+// ====================================== 
+
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        // Pause animations when tab is hidden
+        bgMusic.pause();
+    } else {
+        // Resume if music was enabled
+        if (CONFIG.musicEnabled) {
+            bgMusic.play().catch(e => console.log('Autoplay prevented'));
+        }
+        
+        // Welcome back effect
+        triggerFireworks();
+    }
+});
+
+
+// ====================================== 
+// 🎯 KEYBOARD SHORTCUTS (Easter Eggs)
+// ====================================== 
+
+document.addEventListener('keydown', function(e) {
+    // Ctrl/Cmd + K: Toggle confetti
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        createConfetti();
+        playSound('success');
+    }
+    
+    // Ctrl/Cmd + F: Trigger fireworks
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        e.preventDefault();
+        triggerFireworks();
+    }
+    
+    // Ctrl/Cmd + M: Toggle music
+    if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
+        e.preventDefault();
+        toggleMusic();
+    }
+    
+    // Escape: Close modals
+    if (e.key === 'Escape') {
+        closeAchievement();
+    }
+});
+
+
+// ====================================== 
+// 🎁 SPECIAL DATE FEATURES
+// ====================================== 
+
+function checkSpecialDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1; // 0-indexed
+    const day = today.getDate();
+    
+    // New Year's Day
+    if (month === 1 && day === 1) {
+        showNotification('🎊 Happy New Year! 🎊');
+        createConfetti();
+        triggerFireworks();
+        unlockAchievement('Visited on New Year! 🎉');
+    }
+    
+    // New Year's Eve
+    if (month === 12 && day === 31) {
+        showNotification('🎆 New Year\'s Eve! Get ready for 2026! 🎆');
+        // Start continuous fireworks
+        setInterval(() => {
+            if (Math.random() > 0.5) {
+                triggerFireworks();
+            }
+        }, 3000);
+    }
+    
+    // Christmas
+    if (month === 12 && day === 25) {
+        showNotification('🎄 Merry Christmas! 🎅');
+        unlockAchievement('Christmas Visitor! 🎄');
+    }
+}
+
+checkSpecialDate();
+
+
+// ====================================== 
+// 🌐 SHARE API (Modern Web Share)
+// ====================================== 
+
+async function nativeShare() {
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: '🎊 Happy New Year 2026!',
+                text: 'Check out this amazing New Year wish I created!',
+                url: window.location.href
+            });
+            
+            updateShareCount();
+            playSound('success');
+            trackEvent('native_share');
+        } catch (err) {
+            console.log('Share cancelled or failed:', err);
+        }
+    } else {
+        // Fallback to WhatsApp
+        shareToWhatsApp();
+    }
+}
+
+
+// ====================================== 
+// 🎬 SCROLL ANIMATIONS
+// ====================================== 
+
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all cards
+    document.querySelectorAll('.glass-card').forEach(card => {
+        observer.observe(card);
+    });
+}
+
+// Initialize scroll animations if supported
+if ('IntersectionObserver' in window) {
+    initScrollAnimations();
+}
+
+
+// ====================================== 
+// 💫 PWA SUPPORT (Progressive Web App)
+// ====================================== 
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker registered'))
+            .catch(err => console.log('Service Worker registration failed'));
+    });
+}
+
+// Install prompt
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // Show install button if you want
+    console.log('App can be installed');
+});
+
+function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+                trackEvent('pwa_installed');
+            }
+            deferredPrompt = null;
+        });
+    }
+}
+
+
+// ====================================== 
+// 🎯 FINAL INITIALIZATION
+// ====================================== 
+
+console.log(`
+╔═══════════════════════════════════════╗
+║   🎊 HAPPY NEW YEAR 2026 🎊          ║
+║   Website Successfully Loaded!        ║
+║   ✨ Spread Joy & Love ✨            ║
+╚═══════════════════════════════════════╝
+`);
+
+// Log performance metrics
+window.addEventListener('load', () => {
+    if (performance.timing) {
+        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        console.log(`⚡ Page loaded in ${loadTime}ms`);
+        trackEvent('performance', { loadTime });
+    }
+});
+
+// Expose some functions globally for inline onclick handlers
+window.shareToWhatsApp = shareToWhatsApp;
+window.shareToFacebook = shareToFacebook;
+window.shareToTwitter = shareToTwitter;
+window.shareToInstagram = shareToInstagram;
+window.copyLink = copyLink;
+window.downloadWish = downloadWish;
+window.sendLoveBack = sendLoveBack;
+window.triggerEmojiRain = triggerEmojiRain;
+window.shareFortune = shareFortune;
+window.copyGeneratedLink = copyGeneratedLink;
+window.shareGeneratedLink = shareGeneratedLink;
+window.downloadQR = downloadQR;
+window.closeAchievement = closeAchievement;
+window.payWithUPI = payWithUPI;
+window.payWithPhonePe = payWithPhonePe;
+window.payWithGPay = payWithGPay;
+window.payWithPaytm = payWithPaytm;
+
+// Ready state
+console.log('🎉 All systems ready! Happy New Year 2026! 🎉');
